@@ -36,4 +36,5 @@ export default {
   border-left: 1px solid #eee
   border-right: 1px solid #eee
   flex-grow: 1
+  max-width: 689px
 </style>
