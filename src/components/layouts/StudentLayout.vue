@@ -4,7 +4,7 @@
       <Navbar />
       <div class="main-content">
         <Header />
-        <slot></slot>
+        <router-view></router-view>
       </div>
       <MiscPanel />
     </div>

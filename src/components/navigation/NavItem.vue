@@ -1,5 +1,5 @@
 <template>
-  <div class="nav-item">
+  <div class="nav-item" @click="onclick">
     <v-icon class="icon">{{ navIcon }}</v-icon>
 
     <div class="label-wrapper">
@@ -13,6 +13,7 @@ export default {
   props: {
     labelText: String,
     navIcon: String,
+    name: String,
   },
 };
 </script>

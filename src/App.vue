@@ -1,17 +1,12 @@
 <template>
   <v-app>
-    <UserLayout>
-      <router-view></router-view>
-    </UserLayout>
+    <router-view></router-view>
   </v-app>
 </template>
 
 <script>
-import UserLayout from "@/components/layouts/UserLayout.vue";
 export default {
   name: "App",
-
-  components: { UserLayout },
 
   data: () => ({
     //
