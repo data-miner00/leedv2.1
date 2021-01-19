@@ -7,7 +7,13 @@
         </LogoItem>
       </NavItemWrapper>
       <NavItemWrapper v-for="(tab, index) in tabs" :key="index">
-        <NavItem :labelText="tab.title" :navIcon="tab.icon" />
+        <router-link :to="tab.to">
+          <NavItem
+            :labelText="tab.title"
+            :navIcon="tab.icon"
+            :name="tab.title"
+          />
+        </router-link>
       </NavItemWrapper>
     </div>
     <UserPanel userName="John Mum Khong" userId="1803151" />
@@ -28,13 +34,25 @@ export default {
   },
   data: () => ({
     tabs: [
-      { title: "Home", icon: "mdi-home-outline" },
-      { title: "Notification", icon: "mdi-bell-outline" },
-      { title: "Assignments", icon: "mdi-archive-alert-outline" },
-      { title: "Announcements", icon: "mdi-chart-box-outline" },
-      { title: "Courses", icon: "mdi-school-outline" },
-      { title: "Resources", icon: "mdi-format-quote-open-outline" },
-      { title: "People", icon: "mdi-account-star-outline" },
+      { title: "Home", icon: "mdi-home-outline", to: "home" },
+      { title: "Notification", icon: "mdi-bell-outline", to: "notification" },
+      {
+        title: "Assignments",
+        icon: "mdi-archive-alert-outline",
+        to: "assignments",
+      },
+      {
+        title: "Announcements",
+        icon: "mdi-chart-box-outline",
+        to: "announcements",
+      },
+      { title: "Courses", icon: "mdi-school-outline", to: "courses" },
+      {
+        title: "Resources",
+        icon: "mdi-format-quote-open-outline",
+        to: "resources",
+      },
+      { title: "People", icon: "mdi-account-star-outline", to: "people" },
     ],
   }),
 };
@@ -48,4 +66,8 @@ header
   flex-direction: column
   height: 100%
   justify-content: space-between
+
+a
+  text-decoration: none
+  color: black
 </style>
