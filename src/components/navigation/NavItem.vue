@@ -1,6 +1,13 @@
 <template>
-  <div class="nav-item" @click="onclick">
-    <v-icon class="icon">{{ navIcon }}</v-icon>
+  <div
+    class="nav-item"
+    :style="`color: ${isPageSelected ? 'rgb(121, 75, 196)' : 'black'}`"
+  >
+    <v-icon
+      class="icon"
+      :color="isPageSelected ? 'rgb(121, 75, 196)' : 'black'"
+      >{{ navIcon }}</v-icon
+    >
 
     <div class="label-wrapper">
       <span class="label">{{ labelText }}</span>
@@ -14,6 +21,11 @@ export default {
     labelText: String,
     navIcon: String,
     name: String,
+  },
+  computed: {
+    isPageSelected() {
+      return this.$store.getters.getCurrentPage == this.labelText;
+    },
   },
 };
 </script>
@@ -29,6 +41,7 @@ export default {
 
   &:hover
     background-color: #ccc
+    color: rgb(121, 75, 196)
 
   .icon
     font-size: 1.875rem

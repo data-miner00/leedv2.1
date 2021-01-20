@@ -58,7 +58,6 @@ export default {
   methods: {
     setHeader(newPage) {
       this.$store.commit("setCurrentPage", newPage);
-      console.log("hi");
     },
   },
 };
