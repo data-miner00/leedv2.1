@@ -5,82 +5,80 @@
         <span>Quick Links</span>
       </div>
     </MiscItemWrapper>
-    <MiscItemWrapper 
-      v-for="item in items" 
-      :key="item.icon"
-      onmouseenter>
-      <QuickLinkItem 
+    <MiscItemWrapper v-for="item in items" :key="item.icon" onmouseenter>
+      <QuickLinkItem
         :icon="item.icon"
         :brand="item.brand"
         :type="item.type"
-        :url="item.url"/>
+        :url="item.url"
+      />
     </MiscItemWrapper>
     <MiscItemWrapper last>
-      Show More
+      <span class="show-more">Show More</span>
     </MiscItemWrapper>
-  </div> 
+  </div>
 </template>
 
 <script>
-import MiscItemWrapper from './MiscItemWrapper';
-import QuickLinkItem from './QuickLinkItem'
+import MiscItemWrapper from "./MiscItemWrapper";
+import QuickLinkItem from "./QuickLinkItem";
 export default {
   components: {
     MiscItemWrapper,
-    QuickLinkItem
+    QuickLinkItem,
   },
   data: () => ({
     items: [
       {
-        icon: 'google',
-        brand: 'Google',
-        type: 'Search Engine',
-        url: ''
+        icon: "google",
+        brand: "Google",
+        type: "Search Engine",
+        url: "",
       },
       {
-        icon: 'youtube',
-        brand: 'Youtube',
-        type: 'Video Tutorials',
-        url: ''
+        icon: "youtube",
+        brand: "Youtube",
+        type: "Video Tutorials",
+        url: "",
       },
       {
-        icon: 'github',
-        brand: 'GitHub',
-        type: 'Code Repository',
-        url: ''
+        icon: "github",
+        brand: "GitHub",
+        type: "Code Repository",
+        url: "",
       },
       {
-        icon: 'stack-overflow',
-        brand: 'Stack Overflow',
-        type: 'Discussion Forum',
-        url: ''
+        icon: "stack-overflow",
+        brand: "Stack Overflow",
+        type: "Discussion Forum",
+        url: "",
       },
       {
-        icon: 'medium',
-        brand: 'Medium',
-        type: 'Articles',
-        url: ''
+        icon: "medium",
+        brand: "Medium",
+        type: "Articles",
+        url: "",
       },
       {
-        icon: 'gitlab',
-        brand: 'GitLab',
-        type: 'Code Repository',
-        url: ''
+        icon: "gitlab",
+        brand: "GitLab",
+        type: "Code Repository",
+        url: "",
       },
       {
-        icon: 'kaggle',
-        brand: 'Kaggle',
-        type: 'Data Science',
-        url: ''
+        icon: "kaggle",
+        brand: "Kaggle",
+        type: "Data Science",
+        url: "",
       },
       {
-        icon: 'stack-exchange',
-        brand: 'Stack Exchange',
-        type: 'Discussion Forum',
-        url: ''
+        icon: "stack-exchange",
+        brand: "Stack Exchange",
+        type: "Discussion Forum",
+        url: "",
       },
-    ]
-  })
+    ],
+  }),
 };
 </script>
 
@@ -94,4 +92,7 @@ export default {
   &-title
     font-size: 19px
     font-weight: 800
+
+.show-more
+  color: #794BC4
 </style>
