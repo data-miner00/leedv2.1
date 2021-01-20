@@ -1,13 +1,19 @@
 <template>
   <div class="header">
     <div class="header-inner">
-      <span>Home</span>
+      <span>{{ currentPage }}</span>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  computed: {
+    currentPage() {
+      return this.$store.getters.getCurrentPage;
+    },
+  },
+};
 </script>
 
 <style lang="sass" scoped>

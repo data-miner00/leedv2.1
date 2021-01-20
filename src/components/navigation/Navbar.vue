@@ -7,7 +7,7 @@
         </LogoItem>
       </NavItemWrapper>
       <NavItemWrapper v-for="(tab, index) in tabs" :key="index">
-        <router-link :to="tab.to">
+        <router-link :to="tab.to" @click.native="setHeader(tab.title)">
           <NavItem
             :labelText="tab.title"
             :navIcon="tab.icon"
@@ -55,6 +55,12 @@ export default {
       { title: "People", icon: "mdi-account-star-outline", to: "people" },
     ],
   }),
+  methods: {
+    setHeader(newPage) {
+      this.$store.commit("setCurrentPage", newPage);
+      console.log("hi");
+    },
+  },
 };
 </script>
 
