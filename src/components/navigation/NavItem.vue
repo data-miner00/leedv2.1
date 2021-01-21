@@ -40,7 +40,7 @@ export default {
   cursor: pointer
 
   &:hover
-    background-color: #ccc
+    background-color: #eee
     color: rgb(121, 75, 196)
 
   .icon
