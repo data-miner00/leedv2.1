@@ -1,5 +1,6 @@
 <template>
-  <ContentWrapper>
+  <div class="home">
+    <div class="section-divider"></div>
     <SectionWrapper title="Timeline">
       <div class="wrapper">
         <Temp
@@ -18,26 +19,26 @@
         />
       </div>
     </SectionWrapper>
+    <div class="section-divider"></div>
     <SectionWrapper title="Upcoming">
       <div class="wrapper">
         <div class="wrapper-item">There are no upcoming activities.</div>
       </div>
     </SectionWrapper>
+    <div class="section-divider"></div>
     <SectionWrapper title="Tasks">
       <div class="wrapper">
         <div class="wrapper-item">There are no upcoming activities.</div>
       </div>
     </SectionWrapper>
-  </ContentWrapper>
+  </div>
 </template>
 
 <script>
-import ContentWrapper from "@/components/content/ContentWrapper";
 import SectionWrapper from "@/components/content/SectionWrapper";
 import Temp from "@/components/Temp";
 export default {
   components: {
-    ContentWrapper,
     SectionWrapper,
     Temp,
   },

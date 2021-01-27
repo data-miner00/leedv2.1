@@ -22,6 +22,7 @@
       courseName="Advanced Quantum Mechanics"
       assignNo="3"
     />
+    <div class="section-divider"></div>
   </div>
 </template>
 
@@ -36,9 +37,6 @@ export default {
 
 <style lang="sass" scoped>
 .assignments
-  .page-description
-    padding: 15px
-    border-bottom: 1px solid #eee
   .section-divider
     background: #f7f9fa
     height: 10px
