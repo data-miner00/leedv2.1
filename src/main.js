@@ -4,6 +4,9 @@ import router from "./plugins/router";
 import store from "./plugins/store";
 import vuetify from "./plugins/vuetify";
 
+import config from "./config";
+import axios from "axios";
+
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -25,6 +28,9 @@ library.add(fab);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
 Vue.config.productionTip = false;
+
+// Setting default url
+axios.defaults.baseURL = config.url;
 
 new Vue({
   router,
