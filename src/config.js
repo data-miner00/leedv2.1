@@ -2,8 +2,8 @@ import * as dotenv from "dotenv";
 
 dotenv.config();
 
-const { HOST_URL } = process.env;
+const { VUE_APP_SERVER_ENDPOINT } = process.env;
 
 export default {
-  url: HOST_URL,
+  url: VUE_APP_SERVER_ENDPOINT,
 };
