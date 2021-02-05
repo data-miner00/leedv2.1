@@ -1,18 +1,27 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Header />
+    <!-- mdi-open-in-new -->
+    <div class="content"></div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import Header from "@/components/header/MainHeader.vue";
 
 export default {
-  name: 'Home',
+  name: "Home",
   components: {
-    HelloWorld
-  }
-}
+    Header,
+  },
+};
 </script>
+
+<style lang="sass" scoped>
+.home
+  height: 100%
+  width: 100%
+  .content
+    height: 100%
+    width: 100%
+</style>
