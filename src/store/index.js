@@ -1,3 +1,5 @@
+import UserModule from "./modules/user";
+
 export default {
   state: {
     currentPage: "Home",
@@ -11,7 +13,9 @@ export default {
   actions: {
     // asynchronous
   },
-  modules: {},
+  modules: {
+    user: UserModule,
+  },
   getters: {
     getCurrentPage: (state) => state.currentPage,
   },
