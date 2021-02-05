@@ -25,4 +25,7 @@ export default {
   padding: 15px
   border-bottom: 1px solid #eee
   max-width: 689px
+
+textarea
+  outline: none
 </style>
