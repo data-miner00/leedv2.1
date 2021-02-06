@@ -1,3 +1,4 @@
+import store from "../store";
 import Home from "../views/Home.vue";
 
 export default [
@@ -22,6 +23,14 @@ export default [
       import(
         /* webpackChunkName: "stlayout" */ "../components/layouts/StudentLayout.vue"
       ),
+    beforeEnter: (to, from, next) => {
+      if (store.modules.user.state.authenticated == false) {
+        //next(false);
+        next("/login");
+      } else {
+        next();
+      }
+    },
     children: [
       {
         path: "home",
