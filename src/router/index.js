@@ -93,5 +93,12 @@ export default [
     name: "Login",
     component: () =>
       import(/* webpackChunkName: "login" */ "../views/Login.vue"),
+    beforeEnter: (to, from, next) => {
+      if (store.modules.user.state.authenticated) {
+        next("/s/home");
+      } else {
+        next();
+      }
+    },
   },
 ];

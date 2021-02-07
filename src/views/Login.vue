@@ -38,8 +38,15 @@ export default {
           userId: this.userId,
           password: this.password,
         })
-        .then(() => {
-          this.$router.push("/s/home");
+        .then((response) => {
+          this.$store
+            .dispatch("RETRIEVE_DETAIL", response)
+            .then(() => {
+              console.log(this.$store.state.user.userType);
+              console.log(this.$store.state.user.userId);
+              this.$router.push("/s/home");
+            })
+            .catch(console.error);
         })
         .catch(() => {
           this.isError = true;

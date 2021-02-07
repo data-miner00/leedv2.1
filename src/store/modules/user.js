@@ -1,4 +1,5 @@
 import axios from "axios";
+import { LOCAL_STORAGE_PREFIX as prefix } from "../../config";
 
 export default {
   state: {
@@ -20,6 +21,9 @@ export default {
   mutations: {
     setAuthenticated(state, status) {
       state.authenticated = status;
+    },
+    setUserId(state, userId) {
+      state.userId = userId;
     },
     setUserType(state, userType) {
       state.userType = userType;
@@ -52,6 +56,10 @@ export default {
           .then(({ data, status }) => {
             if (status === 200) {
               commit("setAuthenticated", true);
+              localStorage.setItem(
+                `${prefix}user-details`,
+                JSON.stringify(data)
+              );
               resolve(data);
             }
           })
