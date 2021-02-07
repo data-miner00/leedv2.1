@@ -34,7 +34,7 @@ export default [
     children: [
       {
         path: "home",
-        name: "Home",
+        name: "StudentHome",
         component: () =>
           import(/* webpackChunkName: "home" */ "../views/student/Home.vue"),
       },
@@ -81,12 +81,20 @@ export default [
     ],
   },
   {
-    path: "/workspace",
+    path: "/s/assignment/:groupId/workspace",
     name: "Workspace",
     component: () =>
       import(
         /* webpackChunkName: "workspace" */ "../views/student/Workspace.vue"
       ),
+    beforeEnter: (to, from, next) => {
+      if (store.modules.user.state.authenticated == false) {
+        //next(false);
+        next("/login");
+      } else {
+        next();
+      }
+    },
   },
   {
     path: "/login",
@@ -99,6 +107,16 @@ export default [
       } else {
         next();
       }
+    },
+  },
+  {
+    path: "*",
+    name: "404",
+    component: () =>
+      import(/* webpackChunkName: "page-404" */ "../views/NotFound.vue"),
+    meta: {
+      title: "Alien Detected *BEEP BOP BEEP BOP*",
+      singleTitle: true,
     },
   },
 ];
