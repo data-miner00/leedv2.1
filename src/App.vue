@@ -28,4 +28,7 @@ export default {
 
 textarea
   outline: none
+
+a
+  text-decoration: none
 </style>
