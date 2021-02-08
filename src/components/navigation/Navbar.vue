@@ -16,7 +16,7 @@
         </router-link>
       </NavItemWrapper>
     </div>
-    <UserPanel userName="John Mum Khong" userId="1803151" />
+    <UserPanel />
   </header>
 </template>
 

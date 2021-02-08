@@ -27,10 +27,13 @@
 
 <script>
 export default {
-  props: {
-    avatarUrl: String,
-    userName: String,
-    userId: String,
+  computed: {
+    userName() {
+      return this.$store.state.user.name;
+    },
+    userId() {
+      return this.$store.state.user.userId;
+    },
   },
 };
 </script>
