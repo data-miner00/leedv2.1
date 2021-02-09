@@ -53,6 +53,7 @@ export default {
         to: "resources",
       },
       { title: "People", icon: "mdi-account-star-outline", to: "people" },
+      { title: "More", icon: "mdi-dots-horizontal-circle-outline", to: "/" },
     ],
   }),
   methods: {
