@@ -3,6 +3,7 @@ import App from "./App.vue";
 import router from "./plugins/router";
 import store from "./plugins/store";
 import vuetify from "./plugins/vuetify";
+import socketio from "./plugins/socketio";
 
 import config from "./config";
 import axios from "axios";
@@ -28,6 +29,8 @@ library.add(fab);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
 Vue.config.productionTip = false;
+
+Vue.use(socketio);
 
 // Setting default url
 axios.defaults.baseURL = config.url;
