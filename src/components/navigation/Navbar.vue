@@ -41,11 +41,11 @@ export default {
         icon: "mdi-archive-alert-outline",
         to: "assignments",
       },
-      {
-        title: "Announcements",
-        icon: "mdi-chart-box-outline",
-        to: "announcements",
-      },
+      // {
+      //   title: "Announcements",
+      //   icon: "mdi-chart-box-outline",
+      //   to: "announcements",
+      // },
       { title: "Courses", icon: "mdi-school-outline", to: "courses" },
       {
         title: "Resources",
