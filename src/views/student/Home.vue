@@ -1,6 +1,13 @@
 <template>
   <div class="home">
     <div class="section-divider"></div>
+    <SectionWrapper title="Announcement">
+      <div class="wrapper">
+        <div class="wrapper-item">
+          There will be no announcement until there are announcements.
+        </div>
+      </div>
+    </SectionWrapper>
     <SectionWrapper title="Timeline">
       <div class="wrapper">
         <Temp
