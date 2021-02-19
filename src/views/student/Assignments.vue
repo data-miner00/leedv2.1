@@ -8,30 +8,49 @@
     </div>
     <div class="section-divider"></div>
     <AssignmentItem
-      courseCode="UECS1234"
-      courseName="Advanced Quantum Mechanics"
-      assignNo="1"
+      v-for="assignment in assignments"
+      :key="assignment.code"
+      :groupId="assignment.groupId"
+      :courseCode="assignment.courseCode"
+      :courseName="assignment.courseName"
+      :assignNo="assignment.assignNo"
     />
-    <AssignmentItem
-      courseCode="UECS1234"
-      courseName="Advanced Quantum Mechanics"
-      assignNo="2"
-    />
-    <AssignmentItem
-      courseCode="UECS1234"
-      courseName="Advanced Quantum Mechanics"
-      assignNo="3"
-    />
-    <div class="section-divider"></div>
   </div>
 </template>
 
 <script>
+import axios from "axios";
 import AssignmentItem from "@/components/AssignmentItem";
 export default {
   components: {
     AssignmentItem,
   },
+  data: () => ({
+    assignments: [
+      {
+        courseCode: "UECS1234",
+        courseName: "Advanced Quantum Mechanics",
+        assignNo: 1,
+        groupId: "axss",
+      },
+      {
+        courseCode: "UECS1234",
+        courseName: "Advanced Quantum Mechanics",
+        assignNo: 2,
+        groupId: "apunen",
+      },
+      {
+        courseCode: "UECS1234",
+        courseName: "Advanced Quantum Mechanics",
+        assignNo: 3,
+        groupId: "scss",
+      },
+    ],
+  }),
+  // async mounted() {
+  //   let data = await axios.get();
+
+  // },
 };
 </script>
 
