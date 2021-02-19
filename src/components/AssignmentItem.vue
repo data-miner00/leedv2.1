@@ -7,8 +7,18 @@
         <div class="assign-no">{{ assignNo }}</div>
       </div>
     </div>
-    <div class="link-icon">
-      <v-icon>mdi-star-four-points</v-icon>
+    <div class="link-wrapper">
+      <router-link :to="{ name: 'Workspace', params: { groupId } }">
+        <div class="link-icon">
+          <v-icon>mdi-star-four-points</v-icon>
+        </div>
+      </router-link>
+      <div class="link-icon">
+        <v-icon>mdi-nuxt</v-icon>
+      </div>
+      <div class="link-icon">
+        <v-icon>mdi-information-outline</v-icon>
+      </div>
     </div>
   </div>
 </template>
@@ -18,9 +28,12 @@ export default {
   props: {
     courseCode: String,
     courseName: String,
-    assignNo: String,
+    assignNo: Number,
     assignDescription: String,
+    groupId: String,
   },
+  methods: {},
+  computed: {},
 };
 </script>
 
@@ -47,4 +60,9 @@ export default {
         background: #eee
         border-radius: 25px
         margin-left: 5px
+
+  .link-wrapper
+    display: flex
+    justify-content: space-between
+    width: 80px
 </style>
