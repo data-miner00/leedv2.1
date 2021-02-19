@@ -105,6 +105,30 @@ export default {
       },
     ],
   }),
+  sockets: {
+    connect() {
+      console.log("Socket connected");
+    },
+    message(wrappedMessage) {
+      console.log(wrappedMessage);
+      this.chats.push(wrappedMessage);
+    },
+    code(latestCode) {
+      this.code = latestCode;
+    },
+  },
+  mounted() {
+    this.$socket.emit("join-workspace", {
+      groupId: this.groupId,
+      name: this.name,
+    });
+  },
+  beforeDestroy() {
+    this.$socket.emit("leave-workspace", {
+      groupId: this.groupId,
+      name: this.name,
+    });
+  },
   methods: {
     highlighter(code) {
       return highlight(code, languages.js); // languages.<insert language> to return html with markup
@@ -114,12 +138,27 @@ export default {
     },
     sendMessage() {
       const wrappedMessage = {
-        id: Math.floor(Math.random()),
-        name: "Somebody",
+        id: Math.floor(Math.random() * 10000),
+        name: this.name,
         message: this.chatboxValue,
       };
-      this.chats.push(wrappedMessage);
       this.chatboxValue = "";
+      this.$socket.emit("message", wrappedMessage);
+
+      console.log("proceeded");
+    },
+  },
+  computed: {
+    groupId() {
+      return this.$route.params.groupId;
+    },
+    name() {
+      return this.$store.state.user.name;
+    },
+  },
+  watch: {
+    code() {
+      this.$socket.emit("code", this.code);
     },
   },
 };
