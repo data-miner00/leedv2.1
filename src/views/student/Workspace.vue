@@ -20,20 +20,32 @@
     </div> -->
     <div class="app">
       <div class="sidebar">
+        <div class="logo">
+          <img src="../../assets/back.svg" alt="" />
+        </div>
         <div class="sidebar-inner">
-          <div class="action">
-            <v-icon>mdi-24px mdi-calendar-blank-multiple</v-icon>
-          </div>
-          <div class="action">
-            <v-icon>mdi-24px mdi-android-messages</v-icon>
-          </div>
-          <div class="action">
-            <v-icon>mdi-24px mdi-upload</v-icon>
-          </div>
+          <router-link :to="{ name: 'Plans', params: { groupId } }">
+            <div class="action">
+              <v-icon>mdi-24px mdi-calendar-blank-multiple</v-icon>
+            </div>
+          </router-link>
+          <router-link :to="{ name: 'Booking', params: { groupId } }">
+            <div class="action">
+              <v-icon>mdi-24px mdi-android-messages</v-icon>
+            </div>
+          </router-link>
+          <router-link :to="{ name: 'Uploads', params: { groupId } }">
+            <div class="action">
+              <v-icon>mdi-24px mdi-upload</v-icon>
+            </div>
+          </router-link>
+        </div>
+        <div class="settings">
+          <v-icon>mdi-cog</v-icon>
         </div>
       </div>
       <div class="file-structure">
-        <div class="assign-title">UECS1234 Assignment I</div>
+        <div class="assign-title">{{ title }}</div>
       </div>
       <div class="text-editor">
         <prism-editor
@@ -45,8 +57,8 @@
       </div>
       <div class="chat-box">
         <div class="chat-tab">
-          <div class="tab">Important</div>
-          <div class="tab">General</div>
+          <div class="tab"><div>Important</div></div>
+          <div class="tab"><div>General</div></div>
         </div>
         <div class="chat-display">
           <ChatItem
@@ -70,6 +82,7 @@
 
 <!-- Prism Editor -->
 <script>
+import axios from "axios";
 // import Prism Editor
 import { PrismEditor } from "vue-prism-editor";
 import "vue-prism-editor/dist/prismeditor.min.css"; // import the styles somewhere
@@ -78,7 +91,7 @@ import "vue-prism-editor/dist/prismeditor.min.css"; // import the styles somewhe
 import { highlight, languages } from "prismjs/components/prism-core";
 import "prismjs/components/prism-clike";
 import "prismjs/components/prism-javascript";
-import "prismjs/themes/prism-tomorrow.css"; // import syntax highlighting styles
+import "prismjs/themes/prism-duotone-light.css"; // import syntax highlighting styles
 
 import ChatItem from "@/components/Chat";
 
@@ -88,7 +101,16 @@ export default {
     ChatItem,
   },
   data: () => ({
-    code: 'console.log("Hello World")',
+    code: `import React, { useState, useEffect } from 'react';
+export default class App extends React.Components<Props> {
+  render() {
+    return (
+      <>
+        <div></div>
+      </>
+    );
+  }
+}`,
     chatboxValue: "",
     chats: [
       {
@@ -104,6 +126,8 @@ export default {
           "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facilis obcaecati eaque quisquam ad dicta rerum, odit iusto est fugit id ea nobis quod reprehenderit doloremque dolore et natus nam vero!",
       },
     ],
+    groupInfo: { subjectCode: "placeholder" },
+    assignmentInfo: {},
   }),
   sockets: {
     connect() {
@@ -117,11 +141,32 @@ export default {
       this.code = latestCode;
     },
   },
-  mounted() {
+  async mounted() {
     this.$socket.emit("join-workspace", {
       groupId: this.groupId,
       name: this.name,
     });
+
+    // Fetch Group info and Assignment info
+    // try {
+    //   let res = await axios.get(`group/${this.groupId}`);
+    //   this.groupInfo = res.data;
+    // } catch (error) {
+    //   console.error(error);
+    // }
+
+    // try {
+    //   let res = await axios.get(`assignment/${this.groupInfo.assignId}`);
+    //   this.assignmentInfo = res.data;
+    // } catch (error) {
+    //   console.error(error);
+    // }
+    try {
+      let res = await axios.get(`group/${this.groupId}`);
+      console.log(res.data);
+    } catch (error) {
+      console.error(error);
+    }
   },
   beforeDestroy() {
     this.$socket.emit("leave-workspace", {
@@ -154,6 +199,11 @@ export default {
     },
     name() {
       return this.$store.state.user.name;
+    },
+    title() {
+      return `${this.groupInfo.subjectCode.toUpperCase()} Assgn ${
+        this.assignmentInfo.assignNo
+      }`;
     },
   },
   watch: {
@@ -201,9 +251,28 @@ export default {
   display: flex
 
   .sidebar
-    flex-basis: 50px
+    flex-basis: 70px
     justify-content: center
-    background: #eee
+    background: #fff
+    border-right: 1px solid #eee
+
+    .logo
+      width: 40px
+      height: 40px
+      margin: 5px auto 40px
+      position: relative
+      opacity: 0.75
+      cursor: pointer
+
+      &:hover
+        opacity: 0.95
+
+      img
+        width: 20px
+        position: absolute
+        top: 50%
+        left: 50%
+        transform: translate(-50%, -50%)
 
     &-inner
       display: flex
@@ -216,19 +285,39 @@ export default {
         margin: 0 auto
         display: grid
         place-items: center
+        border-radius: 250px
+        transition: background .3s
+
+        &:hover
+          background: #eee
 
         i
           display: block
+          color: black
+
+    .settings
+      width: 50px
+      height: 50px
+      margin: auto
+      display: grid
+      place-items: center
+
+      i
+        display: block
+        color: black
 
   .file-structure
     background: white
-    flex-basis: 200px
+    flex-basis: 230px
 
     .assign-title
       width: 100%
       text-align: center
-      padding: 8px 0
+      padding: 14px 0
       border-bottom: 1px solid #eee
+      font-size: 14px
+      text-transform: uppercase
+      font-weight: 800
 
   .text-editor
     flex-grow: 1
@@ -246,11 +335,18 @@ export default {
 
       .tab
         cursor: pointer
+        display: grid
+        place-items: center
+        div
+          height: fit-content
+          width: fit-content
         &:hover
           background: #eee
 
     .chat-display
       padding: 10px
+      // height: 500px
+      // overflow: auto
 
     .message-box
       height: 50px
@@ -269,7 +365,7 @@ export default {
 
 <style lang="sass" scoped>
 .my-editor
-  background: #2d2d2d
+  background: #faf8f5//#2d2d2d
   color: #ccc
   font-family: Fira code, Fira Mono, Consolas, Menlo, Courier, monospace
   font-size: 14px

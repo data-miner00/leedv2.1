@@ -110,6 +110,21 @@ export default [
     },
   },
   {
+    path: "/s/assignment/:groupId/plans",
+    name: "Plans",
+    component: () => import(/* */ "../views/student/Management.vue"),
+  },
+  {
+    path: "/s/assignment/:groupId/booking",
+    name: "Booking",
+    component: () => import(/* */ "../views/student/Booking.vue"),
+  },
+  {
+    path: "/s/assignment/:groupId/uploads",
+    name: "Uploads",
+    component: () => import(/* */ "../views/student/Upload.vue"),
+  },
+  {
     path: "*",
     name: "404",
     component: () =>
