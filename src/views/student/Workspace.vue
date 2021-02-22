@@ -66,6 +66,7 @@
             :key="chat.id"
             :userName="chat.name"
             :message="chat.message"
+            :avatarUri="chat.avatarUri"
           />
         </div>
         <div class="message-box">
@@ -118,12 +119,14 @@ export default class App extends React.Components<Props> {
         name: "Dango",
         message:
           "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facilis obcaecati eaque quisquam ad dicta rerum, odit iusto est fugit id ea nobis quod reprehenderit doloremque dolore et natus nam vero!",
+        avatarUri: "https://picsum.photos/200",
       },
       {
         id: 2,
         name: "Yui",
         message:
           "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facilis obcaecati eaque quisquam ad dicta rerum, odit iusto est fugit id ea nobis quod reprehenderit doloremque dolore et natus nam vero!",
+        avatarUri: "https://picsum.photos/200",
       },
     ],
     groupInfo: { subjectCode: "placeholder" },
@@ -146,7 +149,7 @@ export default class App extends React.Components<Props> {
       groupId: this.groupId,
       name: this.name,
     });
-
+    axios;
     // Fetch Group info and Assignment info
     // try {
     //   let res = await axios.get(`group/${this.groupId}`);
@@ -161,12 +164,12 @@ export default class App extends React.Components<Props> {
     // } catch (error) {
     //   console.error(error);
     // }
-    try {
-      let res = await axios.get(`group/${this.groupId}`);
-      console.log(res.data);
-    } catch (error) {
-      console.error(error);
-    }
+    // try {
+    //   let res = await axios.get(`group/${this.groupId}`);
+    //   console.log(res.data);
+    // } catch (error) {
+    //   console.error(error);
+    // }
   },
   beforeDestroy() {
     this.$socket.emit("leave-workspace", {
@@ -186,6 +189,7 @@ export default class App extends React.Components<Props> {
         id: Math.floor(Math.random() * 10000),
         name: this.name,
         message: this.chatboxValue,
+        avatarUri: this.avatarUri,
       };
       this.chatboxValue = "";
       this.$socket.emit("message", wrappedMessage);
@@ -204,6 +208,9 @@ export default class App extends React.Components<Props> {
       return `${this.groupInfo.subjectCode.toUpperCase()} Assgn ${
         this.assignmentInfo.assignNo
       }`;
+    },
+    avatarUri() {
+      return this.$store.state.user.avatarUri;
     },
   },
   watch: {

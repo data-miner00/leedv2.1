@@ -1,7 +1,7 @@
 <template>
   <div class="chat-item">
     <div class="left">
-      <div class="avatar"></div>
+      <img :src="avatarUri" alt="" class="avatar" />
     </div>
     <div class="right">
       <div class="definition">
@@ -30,6 +30,7 @@ export default {
         const current = new Date();
         const currentHour = current.getHours();
         const currentMinute = current.getMinutes();
+        // TODO: Add Pad
         return `Today at ${currentHour}:${currentMinute}`;
       }
     },
@@ -47,7 +48,6 @@ export default {
 
     .avatar
       border-radius: 999px
-      background: black
       width: 40px
       height: 40px
 
