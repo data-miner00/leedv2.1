@@ -20,7 +20,7 @@
     </div> -->
     <div class="app">
       <div class="sidebar">
-        <div class="logo">
+        <div class="logo" @click="$router.go(-1)">
           <img src="../../assets/back.svg" alt="" />
         </div>
         <div class="sidebar-inner">
