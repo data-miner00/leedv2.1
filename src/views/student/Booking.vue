@@ -1,9 +1,18 @@
 <template>
-  <div class="booking"></div>
+  <div class="booking">
+    <ReturnBtn />
+  </div>
 </template>
 
 <script>
-export default {};
+import ReturnBtn from "@/components/ReturnBtn";
+export default {
+  components: {
+    ReturnBtn,
+  },
+};
 </script>
 
-<style lang="sass" scoped></style>
+<style lang="sass" scoped>
+.booking
+</style>

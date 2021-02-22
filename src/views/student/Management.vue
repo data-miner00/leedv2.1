@@ -59,9 +59,8 @@
     <div class="legends">
       //
     </div>
-    <div class="go-back" @click="$router.go(-1)">
-      <img src="../../assets/back.svg" alt="" />
-    </div>
+
+    <ReturnBtn />
 
     <v-dialog v-model="isDialogOpen" width="500">
       <v-card>
@@ -145,9 +144,11 @@
 
 <script>
 import GanttItem from "@/components/GanttItem";
+import ReturnBtn from "@/components/ReturnBtn";
 export default {
   components: {
     GanttItem,
+    ReturnBtn,
   },
   data: () => ({
     gantts: [
@@ -229,8 +230,6 @@ export default {
   padding: 100px 0
   font-size: 14px
 
-
-
   &-content
     width: fit-content
     margin: auto
@@ -293,19 +292,6 @@ export default {
         font-size: 14px
         font-weight: 800
         padding: 6px 8px
-
-  .go-back
-    position: fixed
-    top: 15px
-    left: 25px
-    opacity: .75
-    cursor: pointer
-
-    &:hover
-      opacity: 0.95
-
-    img
-      width: 20px
 
   .addTaskDialog
     background: white
