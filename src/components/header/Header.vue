@@ -23,6 +23,10 @@ export default {
   border-bottom: 1px solid #eee
   display: flex
   align-items: center
+  position: sticky
+  background: #fff
+  top: 0
+  z-index: 1
 
   &-inner
     span

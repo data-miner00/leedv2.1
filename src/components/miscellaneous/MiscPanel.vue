@@ -9,13 +9,13 @@
 <script>
 import TimeCard from "./TimeCard";
 import QuickLinks from "./QuickLinks";
-import Footer from "../footer/Footer"
-export default { 
-  components: { 
-    TimeCard, 
+import Footer from "../footer/Footer";
+export default {
+  components: {
+    TimeCard,
     QuickLinks,
-    Footer
-  } 
+    Footer,
+  },
 };
 </script>
 
@@ -23,4 +23,7 @@ export default {
 .misc-panel
   width: 378px
   padding-left: 30px
+  position: fixed
+  top: 0
+  right: 275px
 </style>

@@ -72,6 +72,8 @@ header
   flex-direction: column
   height: 100%
   justify-content: space-between
+  position: fixed
+  top: 0
 
 a
   text-decoration: none
