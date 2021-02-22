@@ -39,6 +39,7 @@ export default {
   border-left: 1px solid #eee
   border-right: 1px solid #eee
   flex-grow: 1
+  min-height: 100vh
 
 .invisi-nav
   width: 275px
