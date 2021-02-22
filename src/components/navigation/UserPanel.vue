@@ -2,7 +2,7 @@
   <div class="user-panel">
     <div class="user-panel-inner">
       <v-avatar size="39">
-        <img src="https://cdn.vuetifyjs.com/images/john.jpg" :alt="userName" />
+        <img :src="avatarUri" :alt="userName" />
       </v-avatar>
       <div class="user-info">
         <div class="user-info-inner">
@@ -33,6 +33,9 @@ export default {
     },
     userId() {
       return this.$store.state.user.userId;
+    },
+    avatarUri() {
+      return this.$store.state.user.avatarUri;
     },
   },
 };

@@ -10,6 +10,7 @@ export default {
     email: "",
     phoneNo: "",
     subjectsId: [],
+    avatarUri: "",
 
     // student
     groupsId: [],
@@ -39,6 +40,9 @@ export default {
     },
     setSubjectsId(state, subjectsId) {
       state.subjectsId = subjectsId;
+    },
+    setAvatarUri(state, avatarUri) {
+      state.avatarUri = avatarUri;
     },
     setGroupsId(state, groupsId) {
       state.groupsId = groupsId;
@@ -76,6 +80,7 @@ export default {
         email,
         phoneNo,
         subjectsId,
+        avatarUri,
 
         // optionals
         groupsId,
@@ -87,6 +92,7 @@ export default {
       commit("setUserId", userId);
       commit("setPhoneNo", phoneNo);
       commit("setSubjectsId", subjectsId);
+      commit("setAvatarUri", avatarUri);
 
       if (userType === "student" || userType === "students") {
         commit("setGroupsId", groupsId);
