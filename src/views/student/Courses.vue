@@ -5,42 +5,48 @@
       the individual course to view the details of it.
     </div>
     <div class="section-divider"></div>
-    <div class="course">
-      <div class="course-title">
-        UECS1234 Signal Engineering
-      </div>
-      <div class="infos">
-        <div class="infos-item">
-          <div class="icon"><v-icon>mdi-plus</v-icon></div>
-          <div class="right">
-            <div class="label">Course Description</div>
-            <div class="description">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            </div>
-          </div>
-        </div>
-
-        <div class="infos-item">
-          <div class="icon"><v-icon>mdi-plus</v-icon></div>
-          <div class="right">
-            <div class="label">Lecturer</div>
-            <div class="description">Ding Yin Jih</div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <Course
+      v-for="course in courses"
+      :key="course.code"
+      :code="course.code"
+      :name="course.name"
+      :description="course.description"
+      :lecturerName="course.lecturerName"
+      :studentsCount="course.studentsCount"
+    />
   </div>
 </template>
 
 <script>
+import Course from "@/components/Course";
+
 export default {
-  props: {
-    courseName: String,
-    courseDescription: String,
-    lecturerName: String,
-    lecturerEmail: String,
-    lecturerPhone: String,
-  },
+  components: { Course },
+  data: () => ({
+    courses: [
+      {
+        code: "UECS1234",
+        name: "Signal Engineering",
+        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+        lecturerName: "Samantha Ludwig",
+        studentsCount: 120,
+      },
+      {
+        code: "UEEN8332",
+        name: "Wire and Rope Analysis",
+        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+        lecturerName: "Lucifer Anept",
+        studentsCount: 190,
+      },
+      {
+        code: "UEEP7847",
+        name: "Paper Philosophy",
+        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+        lecturerName: "Pope Martin",
+        studentsCount: 100,
+      },
+    ],
+  }),
 };
 </script>
 
