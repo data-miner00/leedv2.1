@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import axios from "axios";
+// import axios from "axios";
 import AssignmentItem from "@/components/AssignmentItem";
 export default {
   components: {
@@ -31,7 +31,7 @@ export default {
         courseCode: "UECS1234",
         courseName: "Advanced Quantum Mechanics",
         assignNo: 1,
-        groupId: "axss",
+        groupId: "abc",
       },
       {
         courseCode: "UECS1234",
@@ -54,10 +54,4 @@ export default {
 };
 </script>
 
-<style lang="sass" scoped>
-.assignments
-  .section-divider
-    background: #f7f9fa
-    height: 10px
-    border-bottom: 1px solid #eee
-</style>
+<style lang="sass" scoped></style>
