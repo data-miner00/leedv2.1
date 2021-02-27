@@ -74,6 +74,7 @@
             type="text"
             @keydown.enter="sendMessage"
             v-model="chatboxValue"
+            placeholder="Type something to chat..."
           />
         </div>
       </div>
@@ -367,7 +368,7 @@ export default class App extends React.Components<Props> {
         width: 100%
         height: 100%
         padding: 8px 10px
-        background: yellow
+        border-top: 1px solid #eee
 </style>
 
 <style lang="sass" scoped>
