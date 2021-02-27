@@ -125,6 +125,11 @@ export default [
     component: () => import(/* */ "../views/student/Upload.vue"),
   },
   {
+    path: "/s/assignment/:groupId/details",
+    name: "Details",
+    component: () => import(/* */ "../views/student/Group.vue"),
+  },
+  {
     path: "*",
     name: "404",
     component: () =>
