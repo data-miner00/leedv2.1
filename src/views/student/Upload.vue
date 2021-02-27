@@ -1,16 +1,31 @@
-<template>
-  <div class="booking">
-    <ReturnBtn />
-  </div>
+<template lang="pug">
+  AssignmentLayout(:courseCode="code" :courseName="name" :assignNo="assignNo")
+    .containern
+      UploadForm/
 </template>
 
 <script>
-import ReturnBtn from "@/components/ReturnBtn";
+import AssignmentLayout from "@/components/layouts/AssignInfo";
+import UploadForm from "@/components/UploadForm";
+
 export default {
   components: {
-    ReturnBtn,
+    AssignmentLayout,
+    UploadForm,
   },
+  props: {
+    //
+  },
+  data: () => ({
+    code: "UECS1233",
+    name: "Ancient Programming",
+    assignNo: 5,
+  }),
 };
 </script>
 
-<style lang="sass" scoped></style>
+<style lang="sass" scoped>
+.containern
+  width: 50%
+  margin: 0 auto
+</style>
