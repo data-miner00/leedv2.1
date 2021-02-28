@@ -16,9 +16,11 @@
       <div class="link-icon">
         <v-icon>mdi-nuxt</v-icon>
       </div>
-      <div class="link-icon">
-        <v-icon>mdi-information-outline</v-icon>
-      </div>
+      <router-link :to="{ name: 'Details', params: { groupId } }">
+        <div class="link-icon">
+          <v-icon>mdi-information-outline</v-icon>
+        </div>
+      </router-link>
     </div>
   </div>
 </template>
