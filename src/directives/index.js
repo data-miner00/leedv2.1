@@ -1,4 +1,4 @@
-export const rainbow = {
+export const Rainbow = {
   bind(el, binding, vnode) {
     el.style.color =
       "#" +
@@ -8,7 +8,7 @@ export const rainbow = {
   },
 };
 
-export const clickOutside = {
+export const ClickOutside = {
   bind: function(el, binding, vnode) {
     el.clickOutsideEvent = function(event) {
       // here I check that click was outside the el and his children
@@ -25,8 +25,8 @@ export const clickOutside = {
 };
 
 export default {
-  rainbow,
-  clickOutside,
+  Rainbow,
+  ClickOutside,
 };
 
 // Vue.directive("theme", {
