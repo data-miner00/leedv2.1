@@ -2,16 +2,62 @@
   <div>
     <div class="misc-time-info">
       <div class="date-info">
-        <v-icon>mdi-calendar</v-icon> January 2, <span>Thursday</span>
+        <v-icon>mdi-calendar-multiple</v-icon>
+        {{ date }},
+        <span>{{ day }}</span>
       </div>
-      <div class="week-info">Week 3</div>
+      <div class="week-info">Week {{ week }}</div>
     </div>
-
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  computed: {
+    date() {
+      const months = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ];
+
+      const fullDateToday = new Date();
+      const dateToday = fullDateToday.getDate();
+      const monthToday = fullDateToday.getMonth();
+
+      return `${months[monthToday]} ${dateToday}`;
+    },
+    day() {
+      const days = [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+      ];
+
+      const fullDateToday = new Date();
+      const dayToday = fullDateToday.getDay();
+
+      return `${days[dayToday]}`;
+    },
+    week() {
+      // store
+      return 4;
+    },
+  },
+};
 </script>
 
 <style lang="sass" scoped>
@@ -37,5 +83,4 @@ export default {};
     border-radius: 50px
     font-weight: 900
     font-size: 14px
-    
 </style>
