@@ -1,5 +1,5 @@
 export const Rainbow = {
-  bind(el, binding, vnode) {
+  bind(el) {
     el.style.color =
       "#" +
       Math.random()

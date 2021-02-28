@@ -5,6 +5,8 @@ import store from "./plugins/store";
 import vuetify from "./plugins/vuetify";
 import socketio from "./plugins/socketio";
 
+import { Rainbow, ClickOutside } from "@/directives";
+
 import config from "./config";
 import axios from "axios";
 
@@ -31,6 +33,9 @@ Vue.component("font-awesome-icon", FontAwesomeIcon);
 Vue.config.productionTip = false;
 
 Vue.use(socketio);
+
+Vue.directive("rainbow", Rainbow);
+Vue.directive("click-outside", ClickOutside);
 
 // Setting default url
 axios.defaults.baseURL = config.url;

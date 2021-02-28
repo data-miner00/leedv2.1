@@ -22,7 +22,11 @@
         <v-icon>mdi-chevron-down</v-icon>
       </div>
     </div>
-    <div class="setting-popup" v-if="isPanelClicked">
+    <div
+      class="setting-popup"
+      v-if="isPanelClicked"
+      v-click-outside="verifyPanelState"
+    >
       <div class="info-duplicate">
         <v-avatar size="48">
           <img :src="avatarUri" :alt="userName" />
@@ -62,6 +66,10 @@ export default {
   methods: {
     logout() {
       //
+    },
+    verifyPanelState() {
+      if (this.isPanelClicked) this.isPanelClicked = false;
+      else this.isPanelClicked = true;
     },
   },
   computed: {
