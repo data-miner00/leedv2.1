@@ -3,7 +3,7 @@
     .content-div
       .left-portion
         .leader
-          .user-label Leader
+          .user-label Leader #[span.leader-icon #[v-icon mdi-crown]]
           UserCard(
             :username="username"
             :userid="userid"
@@ -156,6 +156,8 @@ export default {
         &:hover
           background: gray
 
+.leader-icon i
+  font-size: 14px
 
 .user-label, .info-label
   font-size: 15px
