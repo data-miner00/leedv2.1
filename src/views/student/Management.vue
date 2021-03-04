@@ -1,13 +1,10 @@
 <template>
-  <div class="management">
-    <div class="information">
-      <div class="icon">Leed</div>
-      <div class="subject">
-        <div>UECS1233</div>
-        Ancient Programming <v-chip>1</v-chip>
-      </div>
-      <div>Project Plan</div>
-    </div>
+  <AssignmentLayout
+    :courseCode="subjectCode"
+    :courseName="subjectTitle"
+    :assignNo="assignNo"
+    purpose="Project Plan"
+  >
     <div class="management-content">
       <div class="new-task" @click="openDialog">
         <!---->
@@ -71,10 +68,11 @@
         <v-card-text>
           <v-container>
             <v-row>
-              <v-col cols="12" sm="6" md="4">
-                <v-text-field label="Legal first name*" required></v-text-field>
+              <v-col cols="12">
+                <v-text-field label="Activity" required></v-text-field>
               </v-col>
-              <v-col cols="12" sm="6" md="4">
+
+              <!-- <v-col cols="12" sm="6" md="4">
                 <v-text-field
                   label="Legal middle name"
                   hint="example of helper text only on focus"
@@ -87,18 +85,24 @@
                   persistent-hint
                   required
                 ></v-text-field>
-              </v-col>
-              <v-col cols="12">
-                <v-text-field label="Email*" required></v-text-field>
-              </v-col>
-              <v-col cols="12">
+              </v-col> -->
+              <v-col cols="12" sm="6" md="6">
                 <v-text-field
-                  label="Password*"
-                  type="password"
+                  label="From week"
                   required
+                  type="number"
+                  :rules="weekInputRules"
                 ></v-text-field>
               </v-col>
-              <v-col cols="12" sm="6">
+              <v-col cols="12" sm="6" md="6">
+                <v-text-field
+                  label="To week"
+                  type="number"
+                  required
+                  :rules="weekInputRules"
+                ></v-text-field>
+              </v-col>
+              <!-- <v-col cols="12" sm="6">
                 <v-select
                   :items="['0-17', '18-29', '30-54', '54+']"
                   label="Age*"
@@ -121,6 +125,11 @@
                   label="Interests"
                   multiple
                 ></v-autocomplete>
+              </v-col> -->
+
+              <v-col cols="12">
+                <div class="title">Self-set deadline</div>
+                <v-date-picker v-model="picker"></v-date-picker>
               </v-col>
             </v-row>
           </v-container>
@@ -139,18 +148,21 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-  </div>
+  </AssignmentLayout>
 </template>
 
 <script>
 import GanttItem from "@/components/GanttItem";
 import ReturnBtn from "@/components/ReturnBtn";
+import AssignmentLayout from "@/components/layouts/AssignInfo";
 export default {
   components: {
     GanttItem,
     ReturnBtn,
+    AssignmentLayout,
   },
   data: () => ({
+    picker: new Date().toISOString().substr(0, 10),
     gantts: [
       {
         description: "Build domething cool",
@@ -202,6 +214,11 @@ export default {
       },
     ],
     isDialogOpen: false,
+    weekInputRules: [
+      (v) => !!v || "This field is required",
+      (v) => (v && v > 0) || "The week must not be smaller than 1",
+      (v) => (v && v <= 17) || "The week must not be bigger than 17",
+    ],
   }),
   mounted() {
     //
@@ -219,80 +236,85 @@ export default {
     groupId() {
       return this.$route.params.groupId;
     },
+    subjectCode() {
+      return this.$store.state.assignment.subjectCode;
+    },
+    subjectTitle() {
+      return this.$store.state.assignment.subjectTitle;
+    },
+    assignNo() {
+      return this.$store.state.assignment.assignNo;
+    },
   },
 };
 </script>
 
 <style lang="sass" scoped>
 @import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;800&display=swap')
-.management
-  min-height: 100vh
-  padding: 100px 0
-  font-size: 14px
 
-  &-content
+.management-content
+  width: fit-content
+  margin: auto
+
+  .new-task
+    display: flex
+    padding: 5px 15px
     width: fit-content
-    margin: auto
+    background: #eee
+    color: black
+    align-items: center
+    border-radius: 250px
+    margin-left: auto
+    box-shadow: 2px 2px 5px rgb(0 0 0 / 20%)
+    cursor: pointer
 
-    .new-task
-      display: flex
-      padding: 5px 15px
-      width: fit-content
-      background: #eee
+    i
       color: black
-      align-items: center
-      border-radius: 250px
-      margin-left: auto
-      box-shadow: 2px 2px 5px rgb(0 0 0 / 20%)
-      cursor: pointer
 
-      i
-        color: black
+    &-label
+      margin-left: 10px
 
-      &-label
-        margin-left: 10px
+  thead
+    background: #eee
 
-    thead
-      background: #eee
+  table
+    border: 1px solid #eee
+    border-radius: 5px
+    box-shadow: 2px 2px 30px rgb(0 0 0 / 20%)
+    margin-top: 20px
 
-    table
-      border: 1px solid #eee
-      border-radius: 5px
-      box-shadow: 2px 2px 30px rgb(0 0 0 / 20%)
-      margin-top: 20px
+  th, td
+    padding: 8px
 
-    th, td
-      padding: 8px
+  .activities
+    width: 264px
+    height: 60px
+    //
+  .planned
+    width: 94px
+    height: 60px
 
-    .activities
-      width: 264px
-      height: 60px
-      //
-    .planned
-      width: 94px
-      height: 60px
+.information
+  width: fit-content
+  margin: auto
+  text-align: center
 
-  .information
-    width: fit-content
-    margin: auto
-    text-align: center
+  .icon
+    text-transform: uppercase
+    font-size: 30px
+    font-family: 'Shippori Mincho', serif
+    font-weight: 800
+    letter-spacing: 5px
 
-    .icon
-      text-transform: uppercase
-      font-size: 30px
-      font-family: 'Shippori Mincho', serif
+  .subject
+    font-size: 25px
+    margin: 25px 0
+
+    div
+      font-size: 14px
       font-weight: 800
-      letter-spacing: 5px
+      padding: 6px 8px
 
-    .subject
-      font-size: 25px
-      margin: 25px 0
-
-      div
-        font-size: 14px
-        font-weight: 800
-        padding: 6px 8px
-
-  .addTaskDialog
-    background: white
+.addTaskDialog
+  background: white
 </style>

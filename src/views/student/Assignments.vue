@@ -8,49 +8,53 @@
     </div>
     <div class="section-divider"></div>
     <AssignmentItem
-      v-for="assignment in assignments"
-      :key="assignment.code"
+      v-for="(assignment, index) in assignments"
+      :key="index"
       :groupId="assignment.groupId"
-      :courseCode="assignment.courseCode"
-      :courseName="assignment.courseName"
+      :courseCode="assignment.subjectCode"
+      :courseName="assignment.subjectTitle"
       :assignNo="assignment.assignNo"
     />
   </div>
 </template>
 
 <script>
-// import axios from "axios";
+import axios from "axios";
 import AssignmentItem from "@/components/AssignmentItem";
 export default {
   components: {
     AssignmentItem,
   },
-  data: () => ({
-    assignments: [
-      {
-        courseCode: "UECS1234",
-        courseName: "Advanced Quantum Mechanics",
-        assignNo: 1,
-        groupId: "abc",
-      },
-      {
-        courseCode: "UECS1234",
-        courseName: "Advanced Quantum Mechanics",
-        assignNo: 2,
-        groupId: "apunen",
-      },
-      {
-        courseCode: "UECS1234",
-        courseName: "Advanced Quantum Mechanics",
-        assignNo: 3,
-        groupId: "scss",
-      },
-    ],
-  }),
-  // async mounted() {
-  //   let data = await axios.get();
+  data: () => ({}),
+  async mounted() {
+    //
+    if (this.assignments.length == 0) {
+      try {
+        const res = await axios.post("assignment/overview", {
+          subjectsId: this.subjectsId,
+          groupsId: this.groupsId,
+        });
 
-  // },
+        // If namespaced: true, need to commit("assignment/setAssignments", res.data);
+        if (res.status == 200) this.$store.commit("setAssignments", res.data);
+        console.log(this.assignments);
+        console.log(res.status);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  },
+  computed: {
+    subjectsId() {
+      return this.$store.state.user.subjectsId;
+    },
+    groupsId() {
+      return this.$store.state.user.groupsId;
+    },
+    assignments() {
+      return this.$store.state.assignment.assignments;
+    },
+  },
 };
 </script>
 

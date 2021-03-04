@@ -1,7 +1,7 @@
 <template>
   <AssignmentLayout
-    :courseCode="code"
-    :courseName="subject"
+    :courseCode="subjectCode"
+    :courseName="subjectTitle"
     :assignNo="assignNo"
     purpose="Book a time"
   >
@@ -43,10 +43,6 @@ export default {
     Popup,
   },
   data: () => ({
-    code: "UECS1233",
-    subject: "Ancient Programming",
-    assignNo: 2,
-
     username: "Tiakong",
     userid: "@1848452",
     timeElapsed: "5 days ago",
@@ -77,6 +73,18 @@ export default {
   computed: {
     isConfirmed() {
       return this.confirmedTime !== "";
+    },
+    groupId() {
+      return this.$routes.params.id;
+    },
+    subjectCode() {
+      return this.$store.state.assignment.subjectCode;
+    },
+    subjectTitle() {
+      return this.$store.state.assignment.subjectTitle;
+    },
+    assignNo() {
+      return this.$store.state.assignment.assignNo;
     },
   },
 };
