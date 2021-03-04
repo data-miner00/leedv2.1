@@ -8,19 +8,34 @@
       </div>
     </div>
     <div class="link-wrapper">
-      <router-link :to="{ name: 'Workspace', params: { groupId } }">
+      <router-link
+        v-if="hasGroup"
+        :to="{ name: 'Workspace', params: { groupId } }"
+        @click.native="setThisDetails"
+      >
         <div class="link-icon">
           <v-icon>mdi-star-four-points</v-icon>
         </div>
       </router-link>
+      <div class="link-icon" v-else>
+        <v-icon>mdi-alien-outline</v-icon>
+      </div>
       <div class="link-icon">
         <v-icon>mdi-nuxt</v-icon>
       </div>
-      <router-link :to="{ name: 'Details', params: { groupId } }">
+
+      <router-link
+        :to="{ name: 'Details', params: { groupId } }"
+        v-if="hasGroup"
+        @click.native="setThisDetails"
+      >
         <div class="link-icon">
           <v-icon>mdi-information-outline</v-icon>
         </div>
       </router-link>
+      <div class="link-icon" v-else>
+        <v-icon>mdi-information</v-icon>
+      </div>
     </div>
   </div>
 </template>
@@ -34,8 +49,26 @@ export default {
     assignDescription: String,
     groupId: String,
   },
-  methods: {},
-  computed: {},
+  mounted() {
+    console.log(this.hasGroup);
+  },
+  methods: {
+    setThisDetails() {
+      this.$store.dispatch("SELECT_WORKSPACE", {
+        subjectCode: this.courseCode,
+        subjectTitle: this.courseName,
+        assignNo: this.assignNo,
+        groupId: this.groupId,
+      });
+    },
+  },
+  computed: {
+    hasGroup() {
+      return (
+        this.groupId != null || this.groupId != "" || this.groupId != undefined
+      );
+    },
+  },
 };
 </script>
 
