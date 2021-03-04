@@ -1,4 +1,5 @@
 import UserModule from "./modules/user";
+import AssignmentModule from "./modules/assignment";
 
 export default {
   state: {
@@ -15,6 +16,7 @@ export default {
   },
   modules: {
     user: UserModule,
+    assignment: AssignmentModule,
   },
   getters: {
     getCurrentPage: (state) => state.currentPage,
