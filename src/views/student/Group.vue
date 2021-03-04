@@ -158,6 +158,7 @@ export default {
 
 .leader-icon i
   font-size: 14px
+  color: #faa61a
 
 .user-label, .info-label
   font-size: 15px
