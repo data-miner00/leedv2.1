@@ -80,7 +80,11 @@
           <v-container>
             <v-row>
               <v-col cols="12">
-                <v-text-field label="Activity" required></v-text-field>
+                <v-text-field
+                  label="Activity"
+                  required
+                  v-model="activity"
+                ></v-text-field>
               </v-col>
 
               <!-- <v-col cols="12" sm="6" md="4">
@@ -103,6 +107,7 @@
                   required
                   type="number"
                   :rules="weekInputRules"
+                  v-model="from"
                 ></v-text-field>
               </v-col>
               <v-col cols="12" sm="6" md="4">
@@ -111,6 +116,7 @@
                   type="number"
                   required
                   :rules="weekInputRules"
+                  v-model="to"
                 ></v-text-field>
               </v-col>
               <v-col cols="12" sm="6" md="4">
@@ -119,6 +125,7 @@
                   item-text="name"
                   item-value="id"
                   label="Asignee"
+                  v-model="assigneeId"
                 ></v-select>
               </v-col>
               <!-- <v-col cols="12" sm="6">
@@ -251,6 +258,10 @@ export default {
       (v) => (v && v <= 17) || "The week must not be bigger than 17",
     ],
     members: [],
+    from: null,
+    to: null,
+    assigneeId: "",
+    activity: "",
   }),
   async mounted() {
     //
@@ -274,13 +285,34 @@ export default {
     openDialog() {
       this.isDialogOpen = true;
     },
-    saveActivity() {
-      this.isDialogOpen = false;
+    async saveActivity() {
       // code to commit action
+      try {
+        await axios.post(`group/${this.groupId}/gantt/create`, {
+          id: this.groupId,
+          activity: this.activity,
+          from: this.from,
+          to: this.to,
+          assigneeId: this.assigneeId,
+          deadline: this.picker,
+        });
+        this.isDialogOpen = false;
+        this.reset();
+      } catch (error) {
+        console.error(error);
+      }
     },
     getColor(memberId) {
       const member = this.members.find((member) => member.id == memberId);
-      return member.color;
+      if (member) return member.color;
+      else return "#000";
+    },
+    reset() {
+      this.activity = "";
+      this.from = null;
+      this.to = null;
+      this.assigneeId = "";
+      this.picker = new Date().toISOString().substr(0, 10);
     },
   },
   computed: {
@@ -373,7 +405,7 @@ export default {
   padding: 100px
 
   .legends
-    width: fit-content
+    width: 500px
     margin: 0 auto
     height: 200px
 </style>
