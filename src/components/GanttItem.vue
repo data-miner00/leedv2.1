@@ -7,7 +7,11 @@
       class="week-column"
       v-for="i in range(17)"
       :key="i"
-      :class="{ occupied: checkOccupy(i + 1) }"
+      :style="
+        checkOccupy(i + 1)
+          ? { background: `${color}` }
+          : { background: 'white' }
+      "
     ></td>
   </tr>
 </template>
@@ -20,6 +24,7 @@ export default {
     dateOfCompletion: String,
     from: Number,
     until: Number,
+    color: String,
   },
   mounted() {
     //

@@ -47,14 +47,25 @@
             :dateOfCompletion="item.dateOfCompletion"
             :from="item.from"
             :until="item.until"
+            :color="getColor(item.assigneeId)"
           />
         </tbody>
         <!-- </template
       ></v-simple-table> -->
       </table>
     </div>
-    <div class="legends">
-      //
+    <div class="legends-container">
+      <div class="legends">
+        <UserCard
+          v-for="member in members"
+          :key="member.id"
+          size="39"
+          :src="member.avatarUri"
+          :username="member.name"
+          :userid="member.id"
+          mdiicon="mdi-nuxt"
+        />
+      </div>
     </div>
 
     <ReturnBtn />
@@ -86,7 +97,7 @@
                   required
                 ></v-text-field>
               </v-col> -->
-              <v-col cols="12" sm="6" md="6">
+              <v-col cols="12" sm="6" md="4">
                 <v-text-field
                   label="From week"
                   required
@@ -94,13 +105,21 @@
                   :rules="weekInputRules"
                 ></v-text-field>
               </v-col>
-              <v-col cols="12" sm="6" md="6">
+              <v-col cols="12" sm="6" md="4">
                 <v-text-field
                   label="To week"
                   type="number"
                   required
                   :rules="weekInputRules"
                 ></v-text-field>
+              </v-col>
+              <v-col cols="12" sm="6" md="4">
+                <v-select
+                  :items="members"
+                  item-text="name"
+                  item-value="id"
+                  label="Asignee"
+                ></v-select>
               </v-col>
               <!-- <v-col cols="12" sm="6">
                 <v-select
@@ -155,11 +174,15 @@
 import GanttItem from "@/components/GanttItem";
 import ReturnBtn from "@/components/ReturnBtn";
 import AssignmentLayout from "@/components/layouts/AssignInfo";
+import UserCard from "@/components/UserCard";
+import axios from "axios";
+
 export default {
   components: {
     GanttItem,
     ReturnBtn,
     AssignmentLayout,
+    UserCard,
   },
   data: () => ({
     picker: new Date().toISOString().substr(0, 10),
@@ -169,48 +192,56 @@ export default {
         dateOfCompletion: "12-3-2012",
         from: 1,
         until: 2,
+        assigneeId: "1803151",
       },
       {
         description: "Build domething cool",
         dateOfCompletion: "12-3-2012",
         from: 1,
         until: 2,
+        assigneeId: "1803161",
       },
       {
         description: "Build domething cool",
         dateOfCompletion: "12-3-2012",
         from: 2,
         until: 5,
+        assigneeId: "1803171",
       },
       {
         description: "Build domething cool",
         dateOfCompletion: "12-3-2012",
         from: 4,
         until: 8,
+        assigneeId: "1803171",
       },
       {
         description: "Build domething cool",
         dateOfCompletion: "12-3-2012",
         from: 6,
         until: 9,
+        assigneeId: "1803161",
       },
       {
         description: "Build domething cool",
         dateOfCompletion: "12-3-2012",
         from: 6,
         until: 7,
+        assigneeId: "1803151",
       },
       {
         description: "Build domething cool",
         dateOfCompletion: "12-3-2012",
         from: 9,
         until: 9,
+        assigneeId: "1803161",
       },
       {
         description: "Build domething cool",
         dateOfCompletion: "12-3-2012",
         from: 9,
         until: 12,
+        assigneeId: "1803171",
       },
     ],
     isDialogOpen: false,
@@ -219,9 +250,25 @@ export default {
       (v) => (v && v > 0) || "The week must not be smaller than 1",
       (v) => (v && v <= 17) || "The week must not be bigger than 17",
     ],
+    members: [],
   }),
-  mounted() {
+  async mounted() {
     //
+    try {
+      const res = await axios.get(`group/${this.groupId}/members`);
+      this.members = res.data;
+      this.members.forEach((member) => {
+        member.color =
+          "#" +
+          Math.random()
+            .toString()
+            .slice(2, 8);
+      });
+      console.log(this.members);
+      console.log(this.getColor("1803151"));
+    } catch (error) {
+      console.error(error);
+    }
   },
   methods: {
     openDialog() {
@@ -230,6 +277,10 @@ export default {
     saveActivity() {
       this.isDialogOpen = false;
       // code to commit action
+    },
+    getColor(memberId) {
+      const member = this.members.find((member) => member.id == memberId);
+      return member.color;
     },
   },
   computed: {
@@ -317,4 +368,12 @@ export default {
 
 .addTaskDialog
   background: white
+
+.legends-container
+  padding: 100px
+
+  .legends
+    width: fit-content
+    margin: 0 auto
+    height: 200px
 </style>
