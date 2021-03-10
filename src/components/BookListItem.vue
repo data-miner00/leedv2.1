@@ -6,28 +6,28 @@
           v-icon mdi-check-bold
       .description It checked yeay
     .another-wrapper
-      .avatar-wrapper
-        .avatar
+      v-avatar(:size="49")
+        img(:src="avatarUri" :alt="username")
       .member-selections
         .thread-info
           div
             span
               span.name {{ username }}
               | &nbsp;&nbsp;
-              span.userid {{ userid }}
+              span.userid @{{ userid }}
               | &nbsp;&nbsp;
               span ·
               | &nbsp;&nbsp;
               span.time-elapsed {{ timeElapsed }}
           .action-icon
             v-icon mdi-mine
-        .member-selection-wrap(v-if="selections !== undefined")
-          .member-selection(v-for="selection in selections" :key="Math.random()")
-            .day {{ selection.day }}
+        .member-selection-wrap(v-if="hasSelected")
+          .member-selection(v-for="day in days" :key="Math.random()")
+            .day {{ day.day }}
             .ntg available at
-            .time {{ selection.times.join(", ") }}
+            .time {{ day.time.startTime }} &mdash; {{ day.time.endTime }}
         .member-selection-empty(v-else)
-          | Nothing here
+          | This member has not selected any time yet!!
 </template>
 
 <script>
@@ -36,14 +36,62 @@ export default {
     username: String,
     userid: String,
     timeElapsed: String,
-    selections: Array,
+    avatarUri: String,
+    sunday: Object,
+    monday: Object,
+    tuesday: Object,
+    wednesday: Object,
+    thursday: Object,
+    friday: Object,
+    saturday: Object,
   },
-  mounted() {
-    console.log(typeof this.selections);
-  },
+  mounted() {},
   computed: {
     verified() {
       return this.selections !== undefined;
+    },
+    days() {
+      return [
+        {
+          day: "Sunday",
+          time: this.sunday,
+        },
+        {
+          day: "Tuesday",
+          time: this.tuesday,
+        },
+        {
+          day: "Monday",
+          time: this.monday,
+        },
+        {
+          day: "Wednesday",
+          time: this.wednesday,
+        },
+        {
+          day: "Thursday",
+          time: this.thursday,
+        },
+        {
+          day: "Friday",
+          time: this.friday,
+        },
+        {
+          day: "Saturday",
+          time: this.saturday,
+        },
+      ];
+    },
+    hasSelected() {
+      return (
+        this.sunday ||
+        this.tuesday ||
+        this.monday ||
+        this.wednesday ||
+        this.thursday ||
+        this.friday ||
+        this.saturday
+      );
     },
   },
 };

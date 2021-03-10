@@ -17,18 +17,24 @@
         </div>
         <div class="results-wrap">
           <BookListItem
-            v-for="a in s"
-            :key="a.id"
-            :username="username"
-            :userid="userid"
-            :timeElapsed="timeElapsed"
-            :selections="selections"
+            v-for="data in bookingData"
+            :key="data.memberId"
+            :username="studentAvatarMap[data.memberId].name"
+            :avatarUri="studentAvatarMap[data.memberId].avatarUri"
+            :userid="data.memberId"
+            :timeElapsed="timestampToDate(data.updatedAt)"
+            :sunday="data.sunday || {}"
+            :monday="data.monday || {}"
+            :tuesday="data.tuesday || {}"
+            :wednesday="data.wednesday || {}"
+            :thursday="data.thursday || {}"
+            :friday="data.friday || {}"
+            :saturday="data.saturday || {}"
           />
-          <BookListItem username="Doge" userid="1838333" timeElapsed="4 mins" />
         </div>
       </div>
     </div>
-    <Popup />
+    <Popup :groupId="groupId" />
   </AssignmentLayout>
 </template>
 
@@ -36,6 +42,7 @@
 import AssignmentLayout from "@/components/layouts/AssignInfo";
 import BookListItem from "@/components/BookListItem";
 import Popup from "@/components/Popup";
+import axios from "axios";
 export default {
   components: {
     AssignmentLayout,
@@ -43,39 +50,50 @@ export default {
     Popup,
   },
   data: () => ({
-    username: "Tiakong",
-    userid: "@1848452",
-    timeElapsed: "5 days ago",
-
-    from: "00:00",
-    to: "00:00",
-    s: [1, 2, 3],
-    selections: [
-      {
-        id: 1,
-        day: "Monday",
-        times: ["12-3pm", "8-9pm"],
-      },
-      {
-        id: 2,
-        day: "Thursday",
-        times: ["8-10am", "7-9pm"],
-      },
-      {
-        id: 3,
-        day: "Saturday",
-        times: ["Anytime"],
-      },
-    ],
-
+    bookingData: [],
+    studentAvatarMap: {},
     confirmedTime: "3PM - 5PM",
   }),
+  async mounted() {
+    let membersId;
+
+    try {
+      const res = await axios.get(`group/${this.groupId}`);
+      membersId = [res.data.leaderId, res.data.membersId].flat();
+      console.log(membersId);
+    } catch (error) {
+      console.error(error);
+    }
+
+    //
+    try {
+      const res = await axios.get(`group/${this.groupId}/booking`);
+      this.bookingData = res.data;
+      console.log(this.bookingData);
+    } catch (error) {
+      console.error(error);
+    }
+
+    try {
+      const res = await axios.post("student/avatar", membersId);
+      this.studentAvatarMap = res.data;
+      console.log(this.studentAvatarMap);
+    } catch (error) {
+      console.error(error);
+    }
+  },
+  methods: {
+    timestampToDate({ seconds, nanoseconds }) {
+      const date = new Date(seconds * 1e3 + nanoseconds / 1e6);
+      return `March ${date.getDate()}, ${date.getFullYear()}`;
+    },
+  },
   computed: {
     isConfirmed() {
       return this.confirmedTime !== "";
     },
     groupId() {
-      return this.$routes.params.id;
+      return this.$route.params.groupId;
     },
     subjectCode() {
       return this.$store.state.assignment.subjectCode;
