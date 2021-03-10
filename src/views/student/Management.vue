@@ -43,10 +43,10 @@
             v-for="(item, index) in gantts"
             :key="index"
             :index="index"
-            :description="item.description"
-            :dateOfCompletion="item.dateOfCompletion"
+            :description="item.description || item.activity"
+            :dateOfCompletion="item.dateOfCompletion || item.deadline"
             :from="item.from"
-            :until="item.until"
+            :until="item.until || item.to"
             :color="getColor(item.assigneeId)"
           />
         </tbody>
@@ -280,6 +280,13 @@ export default {
     } catch (error) {
       console.error(error);
     }
+
+    // try {
+    //   const res = await axios.get(`group/${this.groupId}/gantt`);
+    //   this.gantts = res.data;
+    // } catch (error) {
+    //   console.error(error);
+    // }
   },
   methods: {
     openDialog() {
@@ -288,14 +295,16 @@ export default {
     async saveActivity() {
       // code to commit action
       try {
-        await axios.post(`group/${this.groupId}/gantt/create`, {
+        const newGantt = {
           id: this.groupId,
           activity: this.activity,
-          from: this.from,
-          to: this.to,
+          from: Number(this.from),
+          to: Number(this.to),
           assigneeId: this.assigneeId,
           deadline: this.picker,
-        });
+        };
+        await axios.post(`group/${this.groupId}/gantt/create`, newGantt);
+        this.gantts.push(newGantt);
         this.isDialogOpen = false;
         this.reset();
       } catch (error) {
