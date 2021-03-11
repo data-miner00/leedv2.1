@@ -51,6 +51,7 @@ export default {
   },
   mounted() {
     console.log(this.hasGroup);
+    console.log(this.groupId);
   },
   methods: {
     setThisDetails() {
@@ -65,7 +66,7 @@ export default {
   computed: {
     hasGroup() {
       return (
-        this.groupId != null || this.groupId != "" || this.groupId != undefined
+        this.groupId != null && this.groupId != "" && this.groupId != undefined
       );
     },
   },
