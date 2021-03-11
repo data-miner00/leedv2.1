@@ -9,7 +9,8 @@
       <div class="content-wrap">
         <div class="result-box">
           <div v-if="isConfirmed">
-            The discussion is confirmed at 3PM - 5PM Saturday!
+            The discussion is confirmed at {{ confirmedTime.startTime }} -
+            {{ confirmedTime.endTime }} {{ confirmedTime.day }}!
           </div>
           <div v-else>
             All members are required to provide suggestions for result!
@@ -52,7 +53,7 @@ export default {
   data: () => ({
     bookingData: [],
     studentAvatarMap: {},
-    confirmedTime: "3PM - 5PM",
+    confirmedTime: {},
   }),
   async mounted() {
     let membersId;
@@ -60,6 +61,7 @@ export default {
     try {
       const res = await axios.get(`group/${this.groupId}`);
       membersId = [res.data.leaderId, res.data.membersId].flat();
+      this.confirmedTime = res.data.confirmedTime;
       console.log(membersId);
     } catch (error) {
       console.error(error);
@@ -90,7 +92,7 @@ export default {
   },
   computed: {
     isConfirmed() {
-      return this.confirmedTime !== "";
+      return this.confirmedTime !== null;
     },
     groupId() {
       return this.$route.params.groupId;
