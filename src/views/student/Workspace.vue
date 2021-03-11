@@ -34,7 +34,10 @@
               <v-icon>mdi-24px mdi-android-messages</v-icon>
             </div>
           </router-link>
-          <router-link :to="{ name: 'Uploads', params: { groupId } }">
+          <router-link
+            :to="{ name: 'Uploads', params: { groupId } }"
+            v-if="isGroupLeader"
+          >
             <div class="action">
               <v-icon>mdi-24px mdi-upload</v-icon>
             </div>
@@ -152,25 +155,12 @@ export default class App extends React.Components<Props> {
     });
     axios;
     // Fetch Group info and Assignment info
-    // try {
-    //   let res = await axios.get(`group/${this.groupId}`);
-    //   this.groupInfo = res.data;
-    // } catch (error) {
-    //   console.error(error);
-    // }
-
-    // try {
-    //   let res = await axios.get(`assignment/${this.groupInfo.assignId}`);
-    //   this.assignmentInfo = res.data;
-    // } catch (error) {
-    //   console.error(error);
-    // }
-    // try {
-    //   let res = await axios.get(`group/${this.groupId}`);
-    //   console.log(res.data);
-    // } catch (error) {
-    //   console.error(error);
-    // }
+    try {
+      let res = await axios.get(`group/${this.groupId}`);
+      this.groupInfo = res.data;
+    } catch (error) {
+      console.error(error);
+    }
   },
   beforeDestroy() {
     this.$socket.emit("leave-workspace", {
@@ -206,12 +196,23 @@ export default class App extends React.Components<Props> {
       return this.$store.state.user.name;
     },
     title() {
-      return `${this.groupInfo.subjectCode.toUpperCase()} Assgn ${
-        this.assignmentInfo.assignNo
-      }`;
+      return `${this.subjectCode} Assgn ${this.assignNo} ${this.userId ===
+        this.groupInfo.leaderId}`;
     },
     avatarUri() {
       return this.$store.state.user.avatarUri;
+    },
+    userId() {
+      return this.$store.state.user.userId;
+    },
+    isGroupLeader() {
+      return this.userId === this.groupInfo.leaderId;
+    },
+    subjectCode() {
+      return this.$store.state.assignment.subjectCode;
+    },
+    assignNo() {
+      return this.$store.state.assignment.assignNo;
     },
   },
   watch: {
