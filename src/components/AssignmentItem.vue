@@ -17,7 +17,7 @@
           <v-icon>mdi-star-four-points</v-icon>
         </div>
       </router-link>
-      <div class="link-icon" v-else>
+      <div class="link-icon create-or-join" v-else @click="dialog = true">
         <v-icon>mdi-alien-outline</v-icon>
       </div>
       <div class="link-icon">
@@ -37,11 +37,18 @@
         <v-icon>mdi-information</v-icon>
       </div>
     </div>
+    <v-dialog v-model="dialog" width="500">
+      <Popup2 />
+    </v-dialog>
   </div>
 </template>
 
 <script>
+import Popup2 from "@/components/Popup2";
 export default {
+  components: {
+    Popup2,
+  },
   props: {
     courseCode: String,
     courseName: String,
@@ -49,6 +56,9 @@ export default {
     assignDescription: String,
     groupId: String,
   },
+  data: () => ({
+    dialog: false,
+  }),
   mounted() {
     console.log(this.hasGroup);
     console.log(this.groupId);
@@ -101,4 +111,7 @@ export default {
     display: flex
     justify-content: space-between
     width: 80px
+
+    .create-or-join
+      cursor: pointer
 </style>
