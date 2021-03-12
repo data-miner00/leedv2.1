@@ -1,6 +1,6 @@
 <template lang="pug">
   .join-group
-    v-card
+    v-card.px-4
       v-card-title Create or Join a Group
       v-card-text
         .alignment
@@ -10,17 +10,19 @@
               type="text"
               v-model="groupIdInput"
             )
+            
             .join-btn.btn
               div
                 v-icon mdi-at
                 
                 span Join
-          
+            
           .create
             .create-btn.btn
               div
                 v-icon mdi-asterisk
                 span Create
+        .not-exist Sorry, the stipulated group does not exist!
 </template>
 
 <script>
@@ -50,16 +52,16 @@ export default {
 //
 .alignment
   display: flex
-  justify-content: space-around
+  justify-content: space-between
   width: 100%
 .join
-  width: 45%
+  width: 47%
   height: 130px
   display: flex
   flex-direction: column
   justify-content: space-between
 .create
-  width: 45%
+  width: 47%
   height: 130px
   display: flex
   flex-direction: column
