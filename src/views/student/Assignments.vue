@@ -14,6 +14,7 @@
       :courseCode="assignment.subjectCode"
       :courseName="assignment.subjectTitle"
       :assignNo="assignment.assignNo"
+      :assignmentId="assignment.assignmentId"
     />
   </div>
 </template>

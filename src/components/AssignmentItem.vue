@@ -38,7 +38,7 @@
       </div>
     </div>
     <v-dialog v-model="dialog" width="500">
-      <Popup2 />
+      <Popup2 :assignmentId="assignmentId" />
     </v-dialog>
   </div>
 </template>
@@ -55,6 +55,7 @@ export default {
     assignNo: Number,
     assignDescription: String,
     groupId: String,
+    assignmentId: String,
   },
   data: () => ({
     dialog: false,
@@ -70,6 +71,7 @@ export default {
         subjectTitle: this.courseName,
         assignNo: this.assignNo,
         groupId: this.groupId,
+        // maybe set assignmentId to store too?
       });
     },
   },
