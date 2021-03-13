@@ -11,25 +11,30 @@
               v-model="groupIdInput"
             )
             
-            .join-btn.btn
+            .join-btn.btn(@click="join")
               div
                 v-icon mdi-at
                 
                 span Join
             
           .create
-            .create-btn.btn
+            .create-btn.btn(@click="create")
               div
                 v-icon mdi-asterisk
                 span Create
-        .not-exist Sorry, the stipulated group does not exist!
+        .err-msg(v-if="errored") {{ errorMessage }}
 </template>
 
 <script>
 import axios from "axios";
 export default {
+  props: {
+    assignmentId: String,
+  },
   data: () => ({
     groupIdInput: "",
+    errorMessage: "Unknown Error Occurred!",
+    errored: false,
   }),
   computed: {
     userId() {
@@ -37,12 +42,59 @@ export default {
     },
   },
   methods: {
-    join() {
+    async join() {
       //
-      axios;
+      try {
+        const res = await axios.post("group/join", {
+          studentId: this.userId,
+          groupId: this.groupIdInput,
+        });
+
+        if (res.status == 200) {
+          this.reset();
+        } else if (res.status == 403) {
+          this.errored = true;
+          this.errorMessage = "Sorry, this group is unavailable.";
+        } else if (res.status == 404) {
+          this.errored = true;
+          this.errorMessage = "Sorry, the id does not belong to any group.";
+        }
+      } catch (error) {
+        console.error(error);
+      }
     },
-    create() {
+    async create() {
       //
+      // try {
+      //   const res = await axios.post("group/create", {
+      //     studentId: this.userId,
+      //     assignmentId: this.assignmentId,
+      //   });
+      //   if (res.status == 200) {
+      //   } else if (res.status == 400) {
+      //   }
+      // } catch (error) {
+      //   console.error(error);
+      // }
+    },
+    async matchmake() {
+      // try {
+      //   const res = await axios.post("group/matchmake", {
+      //     studentId: this.userId,
+      //     assignmentId: this.assignmentId,
+      //   });
+      //   if (res.status == 200) {
+      //   } else if (res.status == 400) {
+      //   }
+      // } catch (error) {
+      //   console.error(error);
+      // }
+    },
+    reset() {
+      this.groupIdInput = "";
+      this.errored = false;
+      this.errorMessage = "Unknown Error Occurred!";
+      this.$emit("grouped");
     },
   },
 };
@@ -84,4 +136,6 @@ export default {
   padding: 8px 10px
   border: 1px solid #eee
   border-radius: 5px
+.err-msg
+  margin-top: 5px
 </style>
