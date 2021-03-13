@@ -51,7 +51,7 @@
         </div>
       </div>
       <div class="actions">
-        This is action one
+        Report unusual behaviour or bug
       </div>
       <div class="actions" @click="logout">Logout @{{ userId }}</div>
     </div>
