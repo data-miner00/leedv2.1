@@ -28,7 +28,8 @@ export default [
         //next(false);
         next("/login");
       } else {
-        next();
+        if (store.modules.user.state.userType == "student") next();
+        else next("/forbidden");
       }
     },
     children: [
@@ -103,16 +104,76 @@ export default [
       import(/* webpackChunkName: "login" */ "../views/Login.vue"),
     beforeEnter: (to, from, next) => {
       if (store.modules.user.state.authenticated) {
-        next("/s/home");
+        if (store.modules.user.state.userType == "student") next("/s/home");
+        else next("/l/home");
       } else {
         next();
       }
     },
   },
   {
+    path: "/l",
+    name: "lecturer",
+    component: () =>
+      import(
+        /* webpackChunkName: "lecturerLayout" */ "../components/layouts/LecturerLayout.vue"
+      ),
+    beforeEnter: (to, from, next) => {
+      if (store.modules.user.state.authenticated) {
+        if (store.modules.user.state.userType == "lecturer") next();
+        else next("/forbidden");
+      } else {
+        next("/login");
+      }
+    },
+    children: [
+      {
+        path: "home",
+        name: "lecturerHome",
+        component: () =>
+          import(
+            /* webpackChunkName: "lecturerHome" */ "../views/lecturer/Home.vue"
+          ),
+      },
+      {
+        path: "notification",
+        name: "lecturerNotification",
+        component: () =>
+          import(
+            /* webpackChunkName: "lecturerHome" */ "../views/shared/Notification.vue"
+          ),
+      },
+      {
+        path: "assignments",
+        name: "lecturerAssignments",
+        component: () =>
+          import(
+            /* webpackChunkName: "lecturerAssignments" */ "../views/lecturer/Assignments.vue"
+          ),
+      },
+      {
+        path: "courses",
+        name: "lecturerCourses",
+        component: () =>
+          import(
+            /* webpackChunkName: "lecturerCourses" */ "../views/shared/Courses.vue"
+          ),
+      },
+      {
+        path: "analytics",
+        name: "lecturerAnalytics",
+        component: () =>
+          import(
+            /* webpackChunkName: "lecturerAnalytics" */ "../views/lecturer/Analytics.vue"
+          ),
+      },
+    ],
+  },
+  {
     path: "/s/assignment/:groupId/plans",
     name: "Plans",
     component: () => import(/* */ "../views/student/Management.vue"),
+    // need to add checks for these individual routes
   },
   {
     path: "/s/assignment/:groupId/booking",
@@ -128,6 +189,11 @@ export default [
     path: "/s/assignment/:groupId/details",
     name: "Details",
     component: () => import(/* */ "../views/student/Group.vue"),
+  },
+  {
+    path: "/forbidden",
+    name: "forbidden",
+    component: () => import(/* */ "../views/Forbidden.vue"),
   },
   {
     path: "*",
