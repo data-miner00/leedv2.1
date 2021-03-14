@@ -95,8 +95,9 @@ import "vue-prism-editor/dist/prismeditor.min.css"; // import the styles somewhe
 // import highlighting library (you can use any library you want just return html string)
 import { highlight, languages } from "prismjs/components/prism-core";
 import "prismjs/components/prism-clike";
-import "prismjs/components/prism-javascript";
-import "prismjs/themes/prism-duotone-light.css"; // import syntax highlighting styles
+// import "prismjs/components/prism-javascript";
+// import "prismjs/components/prism-csharp";
+import "prismjs/themes/prism-dark.css"; // import syntax highlighting styles
 
 import ChatItem from "@/components/Chat";
 
@@ -106,15 +107,19 @@ export default {
     ChatItem,
   },
   data: () => ({
-    code: `import React, { useState, useEffect } from 'react';
-export default class App extends React.Components<Props> {
-  render() {
-    return (
-      <>
-        <div></div>
-      </>
-    );
-  }
+    code: `using System;
+using System.Text;
+using System.Collections.Linq;
+using System.Threading.Tasks;
+
+namespace HelloWorld
+{
+    class Hello {         
+        static void Main(string[] args)
+        {
+            System.Console.WriteLine("Hello World!");
+        }
+    }
 }`,
     chatboxValue: "",
     chats: [
@@ -161,6 +166,33 @@ export default class App extends React.Components<Props> {
     } catch (error) {
       console.error(error);
     }
+
+    switch (this.$store.state.assignment.language.toLowerCase()) {
+      case "c#":
+        await import("prismjs/components/prism-csharp");
+        break;
+      case "c":
+        await import("prismjs/components/prism-c");
+        break;
+      case "c++":
+        await import("prismjs/components/prism-cpp");
+        break;
+      case "java":
+        await import("prismjs/components/prism-java");
+        break;
+      case "javascript":
+        await import("prismjs/components/prism-javascript");
+        break;
+      case "python":
+        await import("prismjs/components/prism-python");
+        break;
+      case "go":
+        await import("prismjs/components/prism-go");
+        break;
+      default:
+        await import("prismjs/components/prism-haskell");
+        break;
+    }
   },
   beforeDestroy() {
     this.$socket.emit("leave-workspace", {
@@ -170,7 +202,7 @@ export default class App extends React.Components<Props> {
   },
   methods: {
     highlighter(code) {
-      return highlight(code, languages.js); // languages.<insert language> to return html with markup
+      return highlight(code, this.protobuf); // languages.<insert language> to return html with markup
     },
     redirectToEditor() {
       // document.getElementsByClassName("my-editor")[0]
@@ -213,6 +245,35 @@ export default class App extends React.Components<Props> {
     },
     assignNo() {
       return this.$store.state.assignment.assignNo;
+    },
+    protobuf() {
+      let language;
+      switch (this.$store.state.assignment.language.toLowerCase()) {
+        case "c#":
+          language = languages.csharp;
+          break;
+        case "c":
+          language = languages.c;
+          break;
+        case "c++":
+          language = languages.cpp;
+          break;
+        case "java":
+          language = languages.java;
+          break;
+        case "python":
+          language = languages.python;
+          break;
+        case "javascript":
+          language = languages.js;
+          break;
+        case "go":
+          language = languages.go;
+          break;
+        default:
+          language = languages.haskell;
+      }
+      return language;
     },
   },
   watch: {
@@ -374,7 +435,7 @@ export default class App extends React.Components<Props> {
 
 <style lang="sass" scoped>
 .my-editor
-  background: #faf8f5//#2d2d2d
+  background: #2d2d2d//#2d2d2d
   color: #ccc
   font-family: Fira code, Fira Mono, Consolas, Menlo, Courier, monospace
   font-size: 14px
