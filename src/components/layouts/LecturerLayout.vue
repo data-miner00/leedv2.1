@@ -18,19 +18,12 @@ export default {
         icon: "mdi-archive-alert-outline",
         to: "assignments",
       },
-      // {
-      //   title: "Announcements",
-      //   icon: "mdi-chart-box-outline",
-      //   to: "announcements",
-      // },
-      { title: "Courses", icon: "mdi-school-outline", to: "courses" },
       {
-        title: "Resources",
-        icon: "mdi-format-quote-open-outline",
-        to: "resources",
+        title: "Analytics",
+        icon: "mdi-chart-box-outline",
+        to: "analytics",
       },
-      { title: "People", icon: "mdi-account-star-outline", to: "people" },
-      { title: "More", icon: "mdi-dots-horizontal-circle-outline", to: "/" },
+      { title: "Courses", icon: "mdi-school-outline", to: "courses" },
     ],
   }),
 };
