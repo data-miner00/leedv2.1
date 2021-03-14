@@ -1,27 +1,39 @@
-<template>
-  <v-main class="wrapper">
-    <div class="user-layout">
-      <Navbar />
-      <!-- To serves as a placeholder for the floating nav -->
-      <div class="invisi-nav"></div>
-      <div class="main-content">
-        <Header />
-        <router-view></router-view>
-      </div>
-      <!-- To serves as a placeholder for the floating misc -->
-      <div class="invisi-misc"></div>
-      <MiscPanel />
-    </div>
-  </v-main>
+<template lang="pug">
+  v-main.wrapper
+    UserLayout(:tabs="tabs")
+      MiscPanel/
 </template>
 
 <script>
-import Navbar from "../navigation/Navbar";
-import Header from "../header/Header";
+import UserLayout from "./UserLayout";
 import MiscPanel from "../miscellaneous/MiscPanel";
 
 export default {
-  components: { Navbar, Header, MiscPanel },
+  components: { UserLayout, MiscPanel },
+  data: () => ({
+    tabs: [
+      { title: "Home", icon: "mdi-home-outline", to: "home" },
+      { title: "Notification", icon: "mdi-bell-outline", to: "notification" },
+      {
+        title: "Assignments",
+        icon: "mdi-archive-alert-outline",
+        to: "assignments",
+      },
+      // {
+      //   title: "Announcements",
+      //   icon: "mdi-chart-box-outline",
+      //   to: "announcements",
+      // },
+      { title: "Courses", icon: "mdi-school-outline", to: "courses" },
+      {
+        title: "Resources",
+        icon: "mdi-format-quote-open-outline",
+        to: "resources",
+      },
+      { title: "People", icon: "mdi-account-star-outline", to: "people" },
+      { title: "More", icon: "mdi-dots-horizontal-circle-outline", to: "/" },
+    ],
+  }),
 };
 </script>
 
@@ -29,21 +41,4 @@ export default {
 .wrapper
   margin: 0 auto
   position: relative
-
-.user-layout
-  display: flex
-  flex-direction: row
-  width: 70vw
-
-.main-content
-  border-left: 1px solid #eee
-  border-right: 1px solid #eee
-  flex-grow: 1
-  min-height: 100vh
-
-.invisi-nav
-  width: 275px
-
-.invisi-misc
-  width: 378px
 </style>
