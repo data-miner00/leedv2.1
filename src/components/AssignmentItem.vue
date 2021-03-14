@@ -56,6 +56,7 @@ export default {
     assignDescription: String,
     groupId: String,
     assignmentId: String,
+    language: String,
   },
   data: () => ({
     dialog: false,
@@ -71,6 +72,7 @@ export default {
         subjectTitle: this.courseName,
         assignNo: this.assignNo,
         groupId: this.groupId,
+        language: this.language,
         // maybe set assignmentId to store too?
       });
     },

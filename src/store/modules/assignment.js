@@ -6,6 +6,7 @@ export default {
     subjectTitle: "",
     assignNo: 0,
     groupId: "",
+    language: "",
   },
   getters: {},
   mutations: {
@@ -24,14 +25,24 @@ export default {
     setGroupId(state, groupId) {
       state.groupId = groupId;
     },
+    setLanguage(state, language) {
+      state.language = language;
+    },
   },
   actions: {
     SELECT_WORKSPACE: ({ commit }, payload) => {
-      const { subjectCode, subjectTitle, assignNo, groupId } = payload;
+      const {
+        subjectCode,
+        subjectTitle,
+        assignNo,
+        groupId,
+        language,
+      } = payload;
       commit("setSubjectCode", subjectCode);
       commit("setSubjectTitle", subjectTitle);
       commit("setAssignNo", assignNo);
       commit("setGroupId", groupId);
+      commit("setLanguage", language);
     },
   },
 };
