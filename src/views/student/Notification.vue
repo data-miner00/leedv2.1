@@ -1,15 +1,42 @@
-<template>
-  <div class="notification">
-    <div class="section-divider"></div>
-    <NotiItem />
-  </div>
+<template lang="pug">
+  .notification
+    .section-divider
+    NotiItem(
+      v-for="noti in notifications"
+      :key="Math.random()"
+      :createdDate="noti.createdDate"
+      :createdTime="noti.createdTime"
+      :actorId="noti.actor"
+      :actorAvatarUri="noti.actorAvatarUri"
+      :actorName="noti.actorName"
+      :message="noti.message"
+      :assignNo="noti.assignNo"
+      :subjectCode="noti.subjectCode"
+      :type="noti.type"
+    )
 </template>
 
 <script>
 import NotiItem from "@/components/notification/NotiItem";
-
+import axios from "axios";
 export default {
   components: { NotiItem },
+  data: () => ({
+    notifications: [],
+  }),
+  async mounted() {
+    try {
+      let res = await axios.get(`notifications/${this.userId}`);
+      this.notifications = res.data;
+    } catch (error) {
+      console.error(error);
+    }
+  },
+  computed: {
+    userId() {
+      return this.$store.state.user.userId;
+    },
+  },
 };
 </script>
 

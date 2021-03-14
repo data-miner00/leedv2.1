@@ -3,10 +3,7 @@
     <div class="noti-item">
       <div class="ls">
         <div class="profile-pic-wrapper">
-          <img
-            class="profile-pic"
-            src="https://pbs.twimg.com/profile_images/1294987365262360576/cufzUZwB_400x400.jpg"
-          />
+          <img class="profile-pic" :src="actorAvatarUri" />
         </div>
       </div>
       <div class="rs">
@@ -24,7 +21,7 @@
         <div class="thread-content">
           {{ threadContent }}
         </div> -->
-        <div class="headein">
+        <!-- <div class="headein">
           <span class="type">[ User Join ]</span> [ 3 March, 2021 ] &mdash;
           20:03
         </div>
@@ -34,6 +31,15 @@
           soluta assumenda, explicabo quidem veniam esse tempora quaerat modi
           eum! Dolorum repellendus odio aspernatur nobis nemo?
           <span class="tag">@1803141</span>
+        </div> -->
+        <div class="headein">
+          <span class="type">[ {{ typeU }} ]</span> [ {{ createdDate }} ]
+          &mdash;
+          {{ createdTime }}
+        </div>
+        <div class="description">
+          {{ message }}
+          <span class="tag">@{{ actorId }}</span>
         </div>
       </div>
     </div>
@@ -42,7 +48,46 @@
 
 <script>
 export default {
-  props: {},
+  props: {
+    createdDate: String,
+    createdTime: String,
+    actorId: String,
+    actorAvatarUri: String,
+    actorName: String,
+    message: String,
+    type: String,
+    subjectCode: String,
+    assignNo: Number,
+  },
+  data: () => ({
+    d: [
+      "{{ username }} has joined the journey for {{ coursecode }} Assignment {{ assignNo }}",
+      "{{ username }} has released Assignment {{ assignNo }} for {{ coursecode }}",
+      "{{ username }} has updated Assignment {{ assignNo }} for {{ coursecode }}",
+      "You have successfully joined assignment group for {{ coursecode }} Assignment {{ assignNo }}",
+      "Tomorrow is the discussion session for {{ coursecode }} Assignment {{ assignNo }}",
+      "{{ coursecode }} Assignment {{ assignNo }} will be due on {{ day }} more days. Please make sure that you have finished.",
+      "You have joined {{ coursecode }} {{ coursename }}!",
+      "{{ leaderId }} has submitted the Assignment {{ assignNo }} for {{ coursecode }}",
+    ],
+  }),
+  computed: {
+    typeU() {
+      let typeDisplay;
+      console.log(this.type);
+      switch (this.type) {
+        case "userJoin":
+          typeDisplay = "User Join";
+          break;
+        case "assignmentRelease":
+          typeDisplay = "Assignment Release";
+          break;
+        default:
+          typeDisplay = "Unknown";
+      }
+      return typeDisplay;
+    },
+  },
 };
 </script>
 
