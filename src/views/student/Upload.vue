@@ -1,5 +1,5 @@
 <template lang="pug">
-  AssignmentLayout(:courseCode="code" :courseName="name" :assignNo="assignNo")
+  AssignmentLayout(:courseCode="subjectCode" :courseName="subjectTitle" :assignNo="assignNo")
     .containern
       UploadForm/
 </template>
@@ -16,11 +16,17 @@ export default {
   props: {
     //
   },
-  data: () => ({
-    code: "UECS1233",
-    name: "Ancient Programming",
-    assignNo: 5,
-  }),
+  computed: {
+    subjectCode() {
+      return this.$store.state.assignment.subjectCode;
+    },
+    subjectTitle() {
+      return this.$store.state.assignment.subjectTitle;
+    },
+    assignNo() {
+      return this.$store.state.assignment.assignNo;
+    },
+  },
 };
 </script>
 
