@@ -44,7 +44,11 @@ export default {
             .then(() => {
               console.log(this.$store.state.user.userType);
               console.log(this.$store.state.user.userId);
-              this.$router.push("/s/home");
+              if (this.$store.state.user.userType === "student") {
+                this.$router.push("/s/home");
+              } else {
+                this.$router.push("/l/home");
+              }
             })
             .catch(console.error);
         })
