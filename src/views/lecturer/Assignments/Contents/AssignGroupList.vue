@@ -1,13 +1,122 @@
 <template lang="pug">
-  .groupList
+  .groupList 
+    .section-divider
+    .speakup #[span UECS1234] Ancient Programming
+    GroupItem(
+      v-for="(group, index) in groups"
+      :key="index"
+      :index="index"
+      :leaderName="group.leaderName"
+      :maxMember="maxMember"
+      :memberCount="group.memberCount"
+      :groupId="group.groupId"
+    )
 </template>
 
 <script>
+// import axios from "axios"
+import GroupItem from "@/components/lecturer/GroupItem";
 export default {
-  //
+  components: {
+    GroupItem,
+  },
+  data: () => ({
+    subjectCode: "UECSXXXX",
+    subjectTitle: "Sample Placeholder",
+    assignNo: 1,
+    maxMember: 4,
+    groups: [
+      {
+        leaderName: "Chong Mum Khong",
+        memberCount: 2,
+        groupId: "group01",
+      },
+      {
+        leaderName: "Chong Mum Khong",
+        memberCount: 3,
+        groupId: "group01",
+      },
+      {
+        leaderName: "Chong Mum Khong",
+        memberCount: 4,
+        groupId: "group01",
+      },
+      {
+        leaderName: "Chong Mum Khong",
+        memberCount: 4,
+        groupId: "group01",
+      },
+      {
+        leaderName: "Chong Mum Khong",
+        memberCount: 4,
+        groupId: "group01",
+      },
+      {
+        leaderName: "Chong Mum Khong",
+        memberCount: 3,
+        groupId: "group01",
+      },
+      {
+        leaderName: "Chong Mum Khong",
+        memberCount: 3,
+        groupId: "group01",
+      },
+      {
+        leaderName: "Chong Mum Khong",
+        memberCount: 3,
+        groupId: "group01",
+      },
+      {
+        leaderName: "Chong Mum Khong",
+        memberCount: 3,
+        groupId: "group01",
+      },
+      {
+        leaderName: "Chong Mum Khong",
+        memberCount: 3,
+        groupId: "group01",
+      },
+      {
+        leaderName: "Chong Mum Khong",
+        memberCount: 3,
+        groupId: "group01",
+      },
+      {
+        leaderName: "Chong Mum Khong",
+        memberCount: 3,
+        groupId: "group01",
+      },
+      {
+        leaderName: "Chong Mum Khong",
+        memberCount: 3,
+        groupId: "group01",
+      },
+    ],
+  }),
+  async mounted() {
+    // try {
+    //   let res = await axios.get(`assignment/${this.assignmentId}`);
+    //   this.subjectCode = res.data.subjectCode;
+    //   this.assignNo = res.data.assignNo;
+    //   res = await axios.get(`subject/${this.subjectCode}`);
+    //   this.subjectTitle = res.data.subjectTitle;
+    // }
+  },
+  computed: {
+    assignmentId() {
+      return this.$route.params.assignmentId;
+    },
+  },
 };
 </script>
 
 <style lang="sass" scoped>
-//
+.groupList
+  .speakup
+    padding: 14px
+    border-bottom: 1px solid #eee
+    text-align: center
+    font-weight: 800
+    span
+      color: brown
 </style>
