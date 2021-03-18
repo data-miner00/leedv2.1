@@ -11,19 +11,23 @@ export default {
   components: { UserLayout, MiscPanel },
   data: () => ({
     tabs: [
-      { title: "Home", icon: "mdi-home-outline", to: "home" },
-      { title: "Notification", icon: "mdi-bell-outline", to: "notification" },
+      { title: "Home", icon: "mdi-home-outline", to: "/l/home" },
+      {
+        title: "Notification",
+        icon: "mdi-bell-outline",
+        to: "/l/notification",
+      },
       {
         title: "Assignments",
         icon: "mdi-archive-alert-outline",
-        to: "assignments",
+        to: "/l/assignments",
       },
       {
         title: "Analytics",
         icon: "mdi-chart-box-outline",
-        to: "analytics",
+        to: "/l/analytics",
       },
-      { title: "Courses", icon: "mdi-school-outline", to: "courses" },
+      { title: "Courses", icon: "mdi-school-outline", to: "/l/courses" },
     ],
   }),
 };
