@@ -5,7 +5,7 @@
     .user-info
       .user-info-inner
         .user-name
-          .user-name-inner
+          .user-name-inner(:style="verifiedColor")
             span {{ username }}
         .user-id
           .user-id-inner
@@ -22,6 +22,16 @@ export default {
     username: String,
     userid: String,
     mdiicon: String,
+    color: String,
+  },
+  computed: {
+    verifiedColor() {
+      if (typeof this.color == undefined) {
+        return "color: black;";
+      } else {
+        return `color: ${this.color}`;
+      }
+    },
   },
 };
 </script>
