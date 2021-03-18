@@ -63,7 +63,7 @@
           :src="member.avatarUri"
           :username="member.name"
           :userid="member.id"
-          mdiicon="mdi-nuxt"
+          mdiicon="mdi-dots-horizontal"
           :color="member.color"
         />
       </div>
@@ -269,7 +269,7 @@ export default {
     const colors = [
       "#FFADAD",
       "#FFD6A5",
-      "#FDFFB6",
+      "#003049",
       "#CAFFBF",
       "#9BF6FF",
       "#A0C4FF",
@@ -423,5 +423,8 @@ export default {
   .legends
     width: 300px
     margin: 0 auto
+    border-radius: 5px
+    box-shadow: 2px 2px 30px rgb(0 0 0 / 20%)
+    padding: 20px
     // height: 200px
 </style>
