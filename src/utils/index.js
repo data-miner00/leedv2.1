@@ -32,3 +32,17 @@ export const range = function(start, stop, step) {
 
   return result;
 };
+
+export const randomChoice = (arr) => {
+  const size = arr.length;
+  return arr[Math.floor(Math.random() * size)];
+};
+
+export const randomColor = () => {
+  return (
+    "#" +
+    Math.random()
+      .toString()
+      .slice(2, 8)
+  );
+};
