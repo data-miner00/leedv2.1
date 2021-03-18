@@ -64,6 +64,7 @@
           :username="member.name"
           :userid="member.id"
           mdiicon="mdi-nuxt"
+          :color="member.color"
         />
       </div>
     </div>
@@ -265,15 +266,21 @@ export default {
   }),
   async mounted() {
     //
+    const colors = [
+      "#FFADAD",
+      "#FFD6A5",
+      "#FDFFB6",
+      "#CAFFBF",
+      "#9BF6FF",
+      "#A0C4FF",
+      "#BDB2FF",
+      "#FFC6FF",
+    ];
     try {
       const res = await axios.get(`group/${this.groupId}/members`);
       this.members = res.data;
       this.members.forEach((member) => {
-        member.color =
-          "#" +
-          Math.random()
-            .toString()
-            .slice(2, 8);
+        member.color = colors.shift();
       });
       console.log(this.members);
       console.log(this.getColor("1803151"));
@@ -414,7 +421,7 @@ export default {
   padding: 100px
 
   .legends
-    width: 500px
+    width: 300px
     margin: 0 auto
-    height: 200px
+    // height: 200px
 </style>
