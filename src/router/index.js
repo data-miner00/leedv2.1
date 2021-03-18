@@ -148,11 +148,29 @@ export default [
       },
       {
         path: "assignments",
-        name: "lecturerAssignments",
+        name: "lecturerAssignRoutes",
         component: () =>
           import(
-            /* webpackChunkName: "lecturerAssignments" */ "../views/lecturer/Assignments.vue"
+            /* webpackChunkName: "lecturerAssignmentsRoutes" */ "../views/lecturer/Assignments/index.vue"
           ),
+        children: [
+          {
+            path: "",
+            name: "lecturerAssignments",
+            component: () =>
+              import(
+                /* webpackChunkName: "lecturerAssignments" */ "../views/lecturer/Assignments/Contents/Assignments.vue"
+              ),
+          },
+          {
+            path: "groups",
+            name: "assignGroupsList",
+            component: () =>
+              import(
+                /* webpackChunkName: "assignGroupsList" */ "../views/lecturer/Assignments/Contents/AssignGroupList.vue"
+              ),
+          },
+        ],
       },
       {
         path: "courses",
