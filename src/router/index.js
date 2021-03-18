@@ -163,11 +163,19 @@ export default [
               ),
           },
           {
-            path: "groups",
+            path: ":assignmentId/groups",
             name: "assignGroupsList",
             component: () =>
               import(
                 /* webpackChunkName: "assignGroupsList" */ "../views/lecturer/Assignments/Contents/AssignGroupList.vue"
+              ),
+          },
+          {
+            path: ":assignmentId/info",
+            name: "assignmentInfo",
+            component: () =>
+              import(
+                /* webpackChunkName: "assignmentInfo" */ "../views/lecturer/Assignments/Contents/AssignInfo.vue"
               ),
           },
         ],
