@@ -10,8 +10,9 @@
             | #[span.normal(:style="memberCount>=maxMember?'color:crimson;':'color:green'") {{ memberCount }}]
             | #[span.to-small /{{ maxMember }} members currently]
       .actions
-        .link-icon
-          v-icon mdi-star-four-points-outline
+        router-link(:to="assignRoute")
+          .link-icon
+            v-icon mdi-star-four-points-outline
         .link-icon
           v-icon mdi-information-outline
         .link-icon(v-if="submitted")
@@ -33,6 +34,11 @@ export default {
       default: false,
     },
     submittedDate: String,
+  },
+  computed: {
+    assignRoute() {
+      return `/s/assignment/${this.groupId}/workspace`;
+    },
   },
 };
 </script>
