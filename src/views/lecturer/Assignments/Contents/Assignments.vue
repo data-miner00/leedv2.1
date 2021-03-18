@@ -11,27 +11,47 @@
       :key="assignment.assignmentId"
       :courseCode="assignment.subjectCode"
       :courseName="assignment.subjectTitle"
+      :assignmentId="assignment.assignmentId"
       :assignNo="assignment.assignNo"
     )
 </template>
 
 <script>
 import AssignmentItem from "@/components/lecturer/AssignmentItem";
-import axios from "axios";
+// import axios from "axios";
 export default {
   components: {
     AssignmentItem,
   },
   data: () => ({
-    assignments: [],
+    assignments: [
+      {
+        assignmentId: "assign1",
+        assignNo: 1,
+        subjectCode: "UECS1234",
+        subjectTitle: "Ancient Programming",
+      },
+      {
+        assignmentId: "assign2",
+        assignNo: 2,
+        subjectCode: "UECS1234",
+        subjectTitle: "Ancient Programming",
+      },
+      {
+        assignmentId: "assign3",
+        assignNo: 1,
+        subjectCode: "UECS1235",
+        subjectTitle: "System Analysis",
+      },
+    ],
   }),
   async mounted() {
-    try {
-      const res = await axios.get(`assignment/${this.userId}/overview`);
-      this.assignments = res.data;
-    } catch (error) {
-      console.error(error);
-    }
+    // try {
+    //   const res = await axios.get(`assignment/${this.userId}/overview`);
+    //   this.assignments = res.data;
+    // } catch (error) {
+    //   console.error(error);
+    // }
   },
   computed: {
     userId() {
