@@ -77,7 +77,7 @@
             type="text"
             @keydown.enter="sendMessage"
             v-model="chatboxValue"
-            placeholder="Type something to chat..."
+            placeholder="💬 Type something to chat..."
           />
         </div>
       </div>
