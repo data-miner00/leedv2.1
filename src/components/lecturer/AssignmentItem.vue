@@ -6,12 +6,14 @@
         .course-name {{ courseName }}
         .assign-no {{ assignNo }}
     .link-wrapper
+      router-link(:to="{ name: 'assignGroupsList', params: { assignmentId } }")
+        .link-icon
+          v-icon mdi-account-group
+      router-link(:to="{ name: 'assignmentInfo', params: { assignmentId } }")
+        .link-icon
+          v-icon mdi-information-outline
       .link-icon
-        v-icon mdi-alien-outline
-      .link-icon
-        v-icon mdi-alien-outline
-      .link-icon
-        v-icon mdi-alien-outline
+        v-icon mdi-folder
 </template>
 
 <script>
