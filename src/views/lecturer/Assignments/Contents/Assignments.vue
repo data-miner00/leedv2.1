@@ -14,6 +14,11 @@
       :assignmentId="assignment.assignmentId"
       :assignNo="assignment.assignNo"
     )
+    .add-assignment
+      .add-wrapper
+        .icon-wrap
+          v-icon mdi-plus-circle
+        .label Add an Assignment
 </template>
 
 <script>
@@ -61,4 +66,26 @@ export default {
 };
 </script>
 
-<style lang="sass" scoped></style>
+<style lang="sass" scoped>
+.add-assignment
+  height: 75px
+  display: grid
+  place-items: center
+  border-bottom: 1px solid #eee
+  cursor: pointer
+  // can be exported
+  // background: #f7f9fa
+  transition: background 0.2s
+  &:hover
+    background: #eee
+  // end
+  .add-wrapper
+    width: fit-content
+    height: fit-content
+    display: flex
+    align-items: center
+    .icon-wrap
+
+    .label
+      margin-left: 10px
+</style>
