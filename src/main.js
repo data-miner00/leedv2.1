@@ -4,6 +4,7 @@ import router from "./plugins/router";
 import store from "./plugins/store";
 import vuetify from "./plugins/vuetify";
 import socketio from "./plugins/socketio";
+import echarts from "./plugins/echarts";
 
 import { Rainbow, ClickOutside } from "@/directives";
 
@@ -29,6 +30,8 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 library.add(fas);
 library.add(fab);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
+
+Vue.component("v-chart", echarts);
 
 Vue.config.productionTip = false;
 
