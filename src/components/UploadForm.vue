@@ -7,7 +7,6 @@
           type="file" 
           :name="uploadFieldName" 
           :disabled="isSaving" 
-          multiple
           @change="filesChange($event.target.name, $event.target.files); fileCount = $event.target.files.length"
           accept=".zip"
         )
@@ -79,7 +78,7 @@ export default {
     },
     upload(formData) {
       const BASE_URL = "http://localhost:5000";
-      const url = `${BASE_URL}/upload`;
+      const url = `${BASE_URL}/api/assignment/assign1/upload`;
       return (
         axios
           .post(url, formData)
