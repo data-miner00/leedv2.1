@@ -55,7 +55,7 @@ export default [
         name: "Notification",
         component: () =>
           import(
-            /* webpackChunkName: "notif" */ "../views/student/Notification.vue"
+            /* webpackChunkName: "notif" */ "../views/shared/Notification.vue"
           ),
       },
       {
