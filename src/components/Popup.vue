@@ -69,7 +69,7 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn color="primary" text @click="confirmTime">
-          I accept
+          Confirm
         </v-btn>
       </v-card-actions>
     </v-card>
