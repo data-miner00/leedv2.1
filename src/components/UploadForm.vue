@@ -13,6 +13,7 @@
         p(v-if="isInitial")
           | Drag your file here to begin #[br] or click to browse
         p(v-if="isSaving") Uploading file...
+    .success-msg(v-if="isSuccess") Assignment uploaded successfully! Thank you for your effort!
 </template>
 
 <script>
@@ -41,6 +42,12 @@ export default {
     },
     isFailed() {
       return this.currentStatus === STATUS_FAILED;
+    },
+    assignmentId() {
+      return this.$store.state.assignment.assignmentId;
+    },
+    groupId() {
+      return this.$store.state.assignment.groupId;
     },
   },
   methods: {
@@ -77,18 +84,17 @@ export default {
       this.save(formData);
     },
     upload(formData) {
-      const BASE_URL = "http://localhost:5000";
-      const url = `${BASE_URL}/api/assignment/assign1/upload`;
       return (
         axios
-          .post(url, formData)
+          .post(
+            `assignment/${this.assignmentId}/upload/${this.groupId}`,
+            formData
+          )
           // get data
           .then((x) => x.data)
           // add url field
           .then((x) =>
-            x.map((img) =>
-              Object.assign({}, img, { url: `${BASE_URL}/images/${img.id}` })
-            )
+            x.map((img) => Object.assign({}, img, { url: `/images/${img.id}` }))
           )
       );
     },
