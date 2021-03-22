@@ -100,5 +100,18 @@ export default {
         commit("setFaculty", faculty);
       }
     },
+    LOGOUT: ({ commit }) => {
+      commit("setUserType", "");
+      commit("setName", "");
+      commit("setEmail", "");
+      commit("setUserId", "");
+      commit("setSubjectsId", []);
+      commit("setAvatarUri", "");
+      commit("setGroupsId", []);
+      commit("setFaculty", "");
+      commit("setAuthenticated", false);
+
+      localStorage.removeItem(`${prefix}user-details`);
+    },
   },
 };

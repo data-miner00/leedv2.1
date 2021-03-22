@@ -66,6 +66,8 @@ export default {
   methods: {
     logout() {
       //
+      this.$store.dispatch("LOGOUT");
+      this.$router.push("/");
     },
     verifyPanelState() {
       if (this.isPanelClicked) this.isPanelClicked = false;
