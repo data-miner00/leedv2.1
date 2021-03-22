@@ -82,6 +82,15 @@ export default {
         case "assignmentRelease":
           typeDisplay = "Assignment Release";
           break;
+        case "discussionBook":
+          typeDisplay = "Discussion Book";
+          break;
+        case "discussionConfirmed":
+          typeDisplay = "Discussion Confirmed";
+          break;
+        case "assignmentSubmit":
+          typeDisplay = "Assignment Submit";
+          break;
         default:
           typeDisplay = "Unknown";
       }
