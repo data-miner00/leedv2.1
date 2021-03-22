@@ -155,8 +155,12 @@
               </v-col> -->
 
               <v-col cols="12">
-                <div class="title">Self-set deadline</div>
-                <v-date-picker v-model="picker"></v-date-picker>
+                <v-row justify="center" class="mb-3"
+                  ><div class="title">Self-set deadline</div></v-row
+                >
+                <v-row justify="center"
+                  ><v-date-picker v-model="picker"></v-date-picker
+                ></v-row>
               </v-col>
             </v-row>
           </v-container>
