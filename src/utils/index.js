@@ -1,7 +1,4 @@
-export const snippet = (string, stopAt) => {
-  let number = 100;
-
-  if (stopAt) number = stopAt;
+export const snippet = (string, stopAt = 100) => {
   return string.slice(0, stopAt) + "...";
 };
 
