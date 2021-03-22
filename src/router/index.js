@@ -1,11 +1,22 @@
 import store from "../store";
-import Home from "../views/Home.vue";
 
 export default [
   {
     path: "/",
     name: "Home",
-    component: Home,
+    component: () =>
+      import(/* webpackChunkName: "home" */ "../views/Login.vue"),
+    beforeEnter: (to, from, next) => {
+      if (store.modules.user.state.authenticated) {
+        if (store.modules.user.state.userType == "student") {
+          next("/s/home");
+        } else {
+          next("/l/home");
+        }
+      } else {
+        next();
+      }
+    },
   },
   {
     path: "/about",
@@ -26,7 +37,7 @@ export default [
     beforeEnter: (to, from, next) => {
       if (store.modules.user.state.authenticated == false) {
         //next(false);
-        next("/login");
+        next("/");
       } else {
         if (store.modules.user.state.userType == "student") next();
         else next("/forbidden");
@@ -91,24 +102,7 @@ export default [
     beforeEnter: (to, from, next) => {
       if (store.modules.user.state.authenticated == false) {
         //next(false);
-        next("/login");
-      } else {
-        next();
-      }
-    },
-  },
-  {
-    path: "/login",
-    name: "Login",
-    component: () =>
-      import(/* webpackChunkName: "login" */ "../views/Login.vue"),
-    beforeEnter: (to, from, next) => {
-      if (store.modules.user.state.authenticated) {
-        if (store.modules.user.state.userType == "student") {
-          next("/s/home");
-        } else {
-          next("/l/home");
-        }
+        next("/");
       } else {
         next();
       }
@@ -126,7 +120,7 @@ export default [
         if (store.modules.user.state.userType == "lecturer") next();
         else next("/forbidden");
       } else {
-        next("/login");
+        next("/");
       }
     },
     children: [
