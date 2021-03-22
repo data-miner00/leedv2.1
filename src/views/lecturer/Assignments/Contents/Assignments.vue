@@ -14,19 +14,23 @@
       :assignmentId="assignment.assignmentId"
       :assignNo="assignment.assignNo"
     )
-    .add-assignment
+    .add-assignment(@click="dialog = true")
       .add-wrapper
         .icon-wrap
           v-icon mdi-plus-circle
         .label Add an Assignment
+    v-dialog(v-model="dialog" width="400")
+      AddAssignPopup(@close="dialog = false")/
 </template>
 
 <script>
 import AssignmentItem from "@/components/lecturer/AssignmentItem";
+import AddAssignPopup from "@/components/lecturer/AddAssignmentPopup";
 // import axios from "axios";
 export default {
   components: {
     AssignmentItem,
+    AddAssignPopup,
   },
   data: () => ({
     assignments: [
@@ -49,6 +53,7 @@ export default {
         subjectTitle: "System Analysis",
       },
     ],
+    dialog: false,
   }),
   async mounted() {
     // try {
