@@ -18,7 +18,7 @@
         </div>
       </router-link>
       <div class="link-icon create-or-join" v-else @click="dialog = true">
-        <v-icon>mdi-alien-outline</v-icon>
+        <v-icon>mdi-star-four-points-outline</v-icon>
       </div>
       <div class="link-icon">
         <v-icon>mdi-nuxt</v-icon>
@@ -73,7 +73,8 @@ export default {
         assignNo: this.assignNo,
         groupId: this.groupId,
         language: this.language,
-        // maybe set assignmentId to store too?
+        // maybe set assignmentId to store too? (yes)
+        assignmentId: this.assignmentId,
       });
     },
   },
