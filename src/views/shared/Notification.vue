@@ -1,8 +1,14 @@
 <template lang="pug">
   .notification
+    .page-description
+      | Notification keeps you aware of what is happening around you so that 
+      | swift response and actions can be taken especially in a timely manner 
+      | to get everything sorted out effortlessly. 
     .section-divider
+    .wrapper(v-if="notifications.length == 0") 
+      .wrapper-item There are no notifications yet :-)
     NotiItem(
-      v-if="notifications.length > 0"
+      v-else
       v-for="noti in notifications"
       :key="Math.random()"
       :createdDate="noti.createdDate"
@@ -15,8 +21,6 @@
       :subjectCode="noti.subjectCode"
       :type="noti.type"
     )
-    .wrapper 
-      .wrapper-item There are no notifications yet :-)
 </template>
 
 <script>
