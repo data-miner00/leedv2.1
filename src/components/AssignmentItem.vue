@@ -67,15 +67,15 @@ export default {
   },
   methods: {
     setThisDetails() {
-      this.$store.dispatch("SELECT_WORKSPACE", {
-        subjectCode: this.courseCode,
-        subjectTitle: this.courseName,
-        assignNo: this.assignNo,
-        groupId: this.groupId,
-        language: this.language,
-        // maybe set assignmentId to store too? (yes)
-        assignmentId: this.assignmentId,
-      });
+      // this.$store.dispatch("SELECT_WORKSPACE", {
+      //   subjectCode: this.courseCode,
+      //   subjectTitle: this.courseName,
+      //   assignNo: this.assignNo,
+      //   groupId: this.groupId,
+      //   language: this.language,
+      //   // maybe set assignmentId to store too? (yes)
+      //   assignmentId: this.assignmentId,
+      // });
     },
   },
   computed: {
