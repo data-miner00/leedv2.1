@@ -20,9 +20,6 @@
       <div class="link-icon create-or-join" v-else @click="dialog = true">
         <v-icon>mdi-star-four-points-outline</v-icon>
       </div>
-      <div class="link-icon">
-        <v-icon>mdi-nuxt</v-icon>
-      </div>
 
       <router-link
         :to="{ name: 'Details', params: { groupId } }"
@@ -115,7 +112,7 @@ export default {
   .link-wrapper
     display: flex
     justify-content: space-between
-    width: 80px
+    width: 55px
 
     .create-or-join
       cursor: pointer
