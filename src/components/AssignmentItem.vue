@@ -27,11 +27,11 @@
         @click.native="setThisDetails"
       >
         <div class="link-icon infor">
-          <v-icon>mdi-information-outline</v-icon>
+          <v-icon>mdi-information</v-icon>
         </div>
       </router-link>
       <div class="link-icon" v-else>
-        <v-icon>mdi-information</v-icon>
+        <v-icon>mdi-information-outline</v-icon>
       </div>
     </div>
     <v-dialog v-model="dialog" width="500">
