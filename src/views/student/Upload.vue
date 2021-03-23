@@ -1,12 +1,14 @@
 <template lang="pug">
   AssignmentLayout(:courseCode="subjectCode" :courseName="subjectTitle" :assignNo="assignNo")
     .containern
-      UploadForm/
+      UploadForm(v-if="!isSubmitted")/
+      .submitted-msg(v-else) Thank you for your effort and your submission has been received!
 </template>
 
 <script>
 import AssignmentLayout from "@/components/layouts/AssignInfo";
 import UploadForm from "@/components/UploadForm";
+import axios from "axios";
 
 export default {
   components: {
@@ -16,6 +18,9 @@ export default {
   props: {
     //
   },
+  data: () => ({
+    isSubmitted: false,
+  }),
   computed: {
     subjectCode() {
       return this.$store.state.assignment.subjectCode;
@@ -26,6 +31,13 @@ export default {
     assignNo() {
       return this.$store.state.assignment.assignNo;
     },
+    groupId() {
+      return this.$store.state.assignment.groupId;
+    },
+  },
+  async mounted() {
+    const req = await axios.get(`group/${this.groupId}`);
+    this.isSubmitted = req.data.submissionStatus;
   },
 };
 </script>
@@ -34,4 +46,5 @@ export default {
 .containern
   width: 50%
   margin: 0 auto
+  padding: 100px 0
 </style>
