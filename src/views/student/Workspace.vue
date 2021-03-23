@@ -98,6 +98,12 @@ import "prismjs/components/prism-clike";
 // import "prismjs/components/prism-javascript";
 // import "prismjs/components/prism-csharp";
 import "prismjs/themes/prism-dark.css"; // import syntax highlighting styles
+import "prismjs/components/prism-csharp";
+import "prismjs/components/prism-c";
+import "prismjs/components/prism-cpp";
+import "prismjs/components/prism-java";
+import "prismjs/components/prism-javascript";
+import "prismjs/components/prism-python";
 
 import ChatItem from "@/components/Chat";
 
@@ -167,32 +173,32 @@ namespace HelloWorld
       console.error(error);
     }
 
-    switch (this.$store.state.assignment.language.toLowerCase()) {
-      case "c#":
-        await import("prismjs/components/prism-csharp");
-        break;
-      case "c":
-        await import("prismjs/components/prism-c");
-        break;
-      case "c++":
-        await import("prismjs/components/prism-cpp");
-        break;
-      case "java":
-        await import("prismjs/components/prism-java");
-        break;
-      case "javascript":
-        await import("prismjs/components/prism-javascript");
-        break;
-      case "python":
-        await import("prismjs/components/prism-python");
-        break;
-      case "go":
-        await import("prismjs/components/prism-go");
-        break;
-      default:
-        await import("prismjs/components/prism-haskell");
-        break;
-    }
+    // switch (this.$store.state.assignment.language.toLowerCase()) {
+    //   case "c#":
+    //     await import("prismjs/components/prism-csharp");
+    //     break;
+    //   case "c":
+    //     await import("prismjs/components/prism-c");
+    //     break;
+    //   case "c++":
+    //     await import("prismjs/components/prism-cpp");
+    //     break;
+    //   case "java":
+    //     await import("prismjs/components/prism-java");
+    //     break;
+    //   case "javascript":
+    //     await import("prismjs/components/prism-javascript");
+    //     break;
+    //   case "python":
+    //     await import("prismjs/components/prism-python");
+    //     break;
+    //   case "go":
+    //     await import("prismjs/components/prism-go");
+    //     break;
+    //   default:
+    //     await import("prismjs/components/prism-haskell");
+    //     break;
+    // }
   },
   beforeDestroy() {
     this.$socket.emit("leave-workspace", {
@@ -442,6 +448,7 @@ namespace HelloWorld
   line-height: 1.5
   padding: 5px
   cursor: text
+  width: 100%
 
 .prism-editor__textarea:focus
   outline: none
