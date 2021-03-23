@@ -23,6 +23,7 @@
             :mdiicon="mdiicon"
           )
         .indicator #[span.member-count {{ memberCount }}]/{{ maxStudent }} members currently
+      
       .right-portion
         .description.info-section
           .info-label Assignment Description
@@ -38,7 +39,12 @@
           .info-content #[v-icon mdi-calendar] {{ dueDate }}
         .info-section
           .info-label Submission Status
-          .info-content #[v-icon mdi-check-circle-outline] {{ submissionStatus }}
+          .info-content 
+            | #[v-icon {{ submissionIcon }}] 
+            | #[span(v-if="submissionStatus") #[a.file(:href="downloadLink" target="_blank") {{ filename }}]] 
+            | #[span(v-else)  Not submitted yet]
+        
+        
         .mini-action-bar
           .icon-box
             v-icon mdi-download
@@ -74,6 +80,7 @@ export default {
     assignmentId: "",
     subjectCode: "",
     subjectTitle: "",
+    filename: "",
   }),
   computed: {
     groupId() {
@@ -101,6 +108,19 @@ export default {
         default:
           return "mdi-language-swift";
       }
+    },
+    submissionIcon() {
+      return this.submissionStatus
+        ? "mdi-check-circle-outline"
+        : "mdi-close-circle-outline";
+    },
+    downloadLink() {
+      return "http://localhost:5000/api/assignment/submitted/" + this.filename;
+    },
+    questionLink() {
+      return (
+        "http://localhost:5000/api/assignment/question/" + this.assignmentDoc
+      );
     },
     // Fixed properties
     size() {
