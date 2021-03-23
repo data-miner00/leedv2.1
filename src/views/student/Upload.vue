@@ -2,7 +2,8 @@
   AssignmentLayout(:courseCode="subjectCode" :courseName="subjectTitle" :assignNo="assignNo")
     .containern
       UploadForm(v-if="!isSubmitted")/
-      .submitted-msg(v-else) Thank you for your effort and your submission has been received!
+      .submitted-msg(v-else) 
+        div Thank you for your effort and your submission has been received!
 </template>
 
 <script>
@@ -47,4 +48,13 @@ export default {
   width: 50%
   margin: 0 auto
   padding: 100px 0
+  .submitted-msg
+    background: #eee
+    height: 300px
+    font-size: 19px
+    display: grid
+    place-items: center
+    border-radius: 5px
+    div
+      width: fit-content
 </style>
