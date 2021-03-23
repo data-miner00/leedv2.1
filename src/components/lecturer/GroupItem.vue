@@ -11,13 +11,13 @@
             | #[span.to-small /{{ maxMember }} members currently]
       .actions
         router-link(:to="assignRoute")
-          .link-icon
+          .link-icon.workspace
             v-icon mdi-star-four-points-outline
-        .link-icon
+        .link-icon.infor
           v-icon mdi-information-outline
-        .link-icon(v-if="submitted")
+        .link-icon.good(v-if="submitted")
           v-icon.submitted mdi-check-bold
-        .link-icon(v-else)
+        .link-icon.bad(v-else)
           v-icon.not-submitted mdi-close-thick
 </template>
 
@@ -44,6 +44,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+@import "../../assets/sass/_mixins"
 .group-item
   border-bottom: 1px solid #eee
   .wrapperr
@@ -82,12 +83,30 @@ export default {
             padding-left: 2px
             font-size: 12px
             // color: rgb(121, 75, 196)
-
-
     .actions
       display: flex
       justify-content: space-between
-      width: 80px
+      width: 88px
+
+      .link-icon
+        border-radius: 999px
+        padding: 4px 5px
+        position: relative
+
+        @include tooltip-helper
+
+        &.workspace
+          @include tooptip("Workspace", -35px)
+
+        &.infor
+          @include tooptip("Info")
+
+        &.good
+          @include tooptip("Submitted", -35px)
+
+        &.bad
+          @include tooptip("No submission", -45px)
+
 
       .submitted
         color: green !important
