@@ -7,31 +7,6 @@
         </div>
       </div>
       <div class="rs">
-        <!-- <div class="thread-info">
-          <span>
-            <span class="name">{{ username }}</span>
-            &nbsp;&nbsp;
-            <span class="userid">{{ userid }}</span>
-            &nbsp;&nbsp;
-            <span>·</span>
-            &nbsp;&nbsp;
-            <span class="time-elapsed">{{ timeElapsed }}</span>
-          </span>
-        </div>
-        <div class="thread-content">
-          {{ threadContent }}
-        </div> -->
-        <!-- <div class="headein">
-          <span class="type">[ User Join ]</span> [ 3 March, 2021 ] &mdash;
-          20:03
-        </div>
-        <div class="description">
-          A user has joined the gang! Lorem ipsum dolor sit amet consectetur
-          adipisicing elit. Provident natus possimus iure asperiores eius,
-          soluta assumenda, explicabo quidem veniam esse tempora quaerat modi
-          eum! Dolorum repellendus odio aspernatur nobis nemo?
-          <span class="tag">@1803141</span>
-        </div> -->
         <div class="headein">
           <span class="type">[ {{ typeU }} ]</span> [ {{ createdDate }} ]
           &mdash;
