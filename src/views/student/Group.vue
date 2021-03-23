@@ -1,13 +1,13 @@
 <template lang="pug">
-  AssignInfo(:courseCode="code" :courseName="name" :assignNo="assignNo" purpose="Group Details")
+  AssignInfo(:courseCode="subjectCode" :courseName="subjectTitle" :assignNo="assignNo" purpose="Group Details")
     .content-div
       .left-portion
         .leader
           .user-label Leader #[span.leader-icon #[v-icon mdi-crown]]
           UserCard(
-            :username="username"
-            :userid="userid"
-            :src="src"
+            :username="leader.name"
+            :userid="leader.id"
+            :src="leader.avatarUri"
             :size="size"
             :mdiicon="mdiicon"
           )
@@ -15,49 +15,45 @@
           .user-label Members 
           UserCard(
             v-for="member in members"
-            :key="member.userid"
-            :username="member.username"
-            :userid="member.userid"
-            :src="member.src"
+            :key="member.id"
+            :username="member.name"
+            :userid="member.id"
+            :src="member.avatarUri"
             :size="size"
             :mdiicon="mdiicon"
           )
-        .indicator Member 4 of 4 are full
+        .indicator #[span.member-count {{ memberCount }}]/{{ maxStudent }} members currently
       .right-portion
         .description.info-section
-          .info-label Description
-          .desc-content 
-            | lorem ipsum dolor sit esmart dsfjsifjufsifjffsfuhfhfsfh
-            | sufhufhsf dasdasdgiugjasuighsufh dsfahfuihdfuashdfiuudhf
-            | fsuifjjfuiweujf jsfujsfisjafuijasuifhuifhasufhasufhueef.
+          .info-label Assignment Description
+          .desc-content {{ description }}
         .info-section
           .info-label Group ID
-          .info-content vk17BnBq3n
+          .info-content {{ groupId }}
         .info-section
           .info-label Programming Language
-          .info-content #[v-icon mdi-language-csharp] C#
+          .info-content #[v-icon {{ languageIcon }}] {{ language }}
         .info-section
-          .info-label Date of Submission
-          .info-content #[v-icon mdi-calendar] 17 March, Thursday before 23:59
+          .info-label Assignment Due Date
+          .info-content #[v-icon mdi-calendar] {{ dueDate }}
         .info-section
           .info-label Submission Status
-          .info-content #[v-icon mdi-check-circle-outline] Submitted on 7th January 23:59 by Foo Zheng Xyu
+          .info-content #[v-icon mdi-check-circle-outline] {{ submissionStatus }}
         .mini-action-bar
-          .icon-box
-            v-icon mdi-rename-box
-          .icon-box
-            v-icon mdi-account-multiple-check-outline
           .icon-box
             v-icon mdi-download
           .icon-box
-            v-icon mdi-upload
+            v-icon mdi-account-multiple-check-outline
           .icon-box
-            v-icon mdi-clock-alert-outline
+            v-icon mdi-upload
+          //- .icon-box
+          //-   v-icon mdi-clock-alert-outline
           .icon-box
             v-icon mdi-star-four-points
 </template>
 
 <script>
+import axios from "axios";
 import AssignInfo from "@/components/layouts/AssignInfo";
 import UserCard from "@/components/UserCard";
 export default {
@@ -66,45 +62,90 @@ export default {
     UserCard,
   },
   data: () => ({
-    code: "UECS1234",
-    name: "Ancient Programming",
+    leader: {},
+    members: [],
+    submissionStatus: false,
     assignNo: 1,
-
-    username: "Rhong Kok",
-    userid: "1803315",
-    src:
-      "https://pbs.twimg.com/profile_images/1353340827708186634/UOeSEUW8_400x400.jpg",
-    size: "39",
-    mdiicon: "mdi-fingerprint",
-
-    members: [
-      {
-        username: "CodeMiko",
-        userid: "1500432",
-        src:
-          "https://pbs.twimg.com/profile_images/1356259426491977731/IWrndszd_400x400.jpg",
-      },
-      {
-        username: "Savant G",
-        userid: "1557104",
-        src:
-          "https://pbs.twimg.com/profile_images/1356355238756712448/n8w7UzE0_400x400.jpg",
-      },
-      {
-        username: "Then Chuns",
-        userid: "1748532",
-        src:
-          "https://pbs.twimg.com/profile_images/1338595420344262657/Azz9l8e5_400x400.jpg",
-      },
-    ],
+    description: "",
+    dueDate: {},
+    language: "",
+    maxStudent: null,
+    assignmentDoc: "",
+    assignmentId: "",
+    subjectCode: "",
+    subjectTitle: "",
   }),
   computed: {
     groupId() {
-      return this.$router.params.groupId;
+      return this.$route.params.groupId;
+    },
+    memberCount() {
+      return this.members.length + 1;
+    },
+    languageIcon() {
+      switch (this.language.toLowerCase()) {
+        case "c#":
+          return "mdi-language-csharp";
+        case "c++":
+          return "mdi-language-cpp";
+        case "c":
+          return "mdi-language-c";
+        case "python":
+          return "mdi-language-python";
+        case "java":
+          return "mdi-language-java";
+        case "javascript":
+          return "mdi-language-javascript";
+        case "php":
+          return "mdi-language-php";
+        default:
+          return "mdi-language-swift";
+      }
+    },
+    // Fixed properties
+    size() {
+      return "39";
+    },
+    mdiicon() {
+      return "mdi-account-circle";
     },
   },
-  mounted() {
+  async mounted() {
     //
+    try {
+      const res = await axios.get(`/group/${this.groupId}/extended/v1`);
+      const {
+        leader,
+        members,
+        filename,
+        submissionStatus,
+        assignNo,
+        description,
+        dueDate,
+        language,
+        maxStudent,
+        assignmentDoc,
+        assignmentId,
+        subjectCode,
+        subjectTitle,
+      } = res.data;
+
+      this.leader = leader;
+      this.members = members;
+      this.filename = filename;
+      this.submissionStatus = submissionStatus;
+      this.assignNo = assignNo;
+      this.description = description;
+      this.dueDate = dueDate; // timestamp object
+      this.language = language;
+      this.maxStudent = maxStudent;
+      this.assignmentDoc = assignmentDoc;
+      this.assignmentId = assignmentId;
+      this.subjectCode = subjectCode;
+      this.subjectTitle = subjectTitle;
+    } catch (error) {
+      console.error(error);
+    }
   },
 };
 </script>
@@ -122,13 +163,13 @@ export default {
     border-radius: 16px
     width: 260px
     background: #eee
+    height: fit-content
 
     .members
-      margin-top: 16px
+      margin: 16px 0
 
     .indicator
       font-size: 14px
-      margin-top: 16px
       padding-top: 12px
       border-top: 1px solid white
 
