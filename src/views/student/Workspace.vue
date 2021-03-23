@@ -144,7 +144,7 @@ namespace HelloWorld
         avatarUri: "https://picsum.photos/200",
       },
     ],
-    groupInfo: { subjectCode: "placeholder" },
+    leaderId: "",
     assignmentInfo: {},
   }),
   sockets: {
@@ -164,11 +164,34 @@ namespace HelloWorld
       groupId: this.groupId,
       name: this.name,
     });
-    axios;
     // Fetch Group info and Assignment info
     try {
-      let res = await axios.get(`group/${this.groupId}`);
-      this.groupInfo = res.data;
+      let res = await axios.get(`group/${this.groupId}/extended/v1`);
+      const {
+        leader,
+        // members,
+        // filename,
+        // submissionStatus,
+        assignNo,
+        // description,
+        // dueDate,
+        language,
+        // maxStudent,
+        // assignmentDoc,
+        assignmentId,
+        subjectCode,
+        subjectTitle,
+      } = res.data;
+      this.leaderId = leader.id;
+      this.$store.dispatch("SELECT_WORKSPACE", {
+        subjectCode,
+        subjectTitle,
+        assignNo,
+        groupId: this.groupId,
+        language,
+        // maybe set assignmentId to store too? (yes)
+        assignmentId,
+      });
     } catch (error) {
       console.error(error);
     }
@@ -234,8 +257,7 @@ namespace HelloWorld
       return this.$store.state.user.name;
     },
     title() {
-      return `${this.subjectCode} Assgn ${this.assignNo} ${this.userId ===
-        this.groupInfo.leaderId}`;
+      return `${this.subjectCode} Assgn ${this.assignNo}`;
     },
     avatarUri() {
       return this.$store.state.user.avatarUri;
@@ -244,7 +266,7 @@ namespace HelloWorld
       return this.$store.state.user.userId;
     },
     isGroupLeader() {
-      return this.userId === this.groupInfo.leaderId;
+      return this.userId === this.leaderId;
     },
     subjectCode() {
       return this.$store.state.assignment.subjectCode;
@@ -449,6 +471,7 @@ namespace HelloWorld
   padding: 5px
   cursor: text
   width: 100%
+  height: 100vh
 
 .prism-editor__textarea:focus
   outline: none
