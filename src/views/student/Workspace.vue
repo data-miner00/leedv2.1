@@ -51,12 +51,13 @@
         <div class="assign-title">{{ title }}</div>
       </div>
       <div class="text-editor">
-        <prism-editor
-          class="my-editor"
+        <MonacoEditor
+          language="typescript"
           v-model="code"
-          :highlight="highlighter"
-          line-numbers
-        ></prism-editor>
+          :editorOptions="options"
+          @mounted="onMounted"
+          style="text-align: left;"
+        />
       </div>
       <div class="chat-box">
         <div class="chat-tab">
@@ -85,48 +86,22 @@
   </div>
 </template>
 
-<!-- Prism Editor -->
 <script>
 import axios from "axios";
-// import Prism Editor
-import { PrismEditor } from "vue-prism-editor";
-import "vue-prism-editor/dist/prismeditor.min.css"; // import the styles somewhere
-
-// import highlighting library (you can use any library you want just return html string)
-import { highlight, languages } from "prismjs/components/prism-core";
-import "prismjs/components/prism-clike";
-// import "prismjs/components/prism-javascript";
-// import "prismjs/components/prism-csharp";
-import "prismjs/themes/prism-dark.css"; // import syntax highlighting styles
-import "prismjs/components/prism-csharp";
-import "prismjs/components/prism-c";
-import "prismjs/components/prism-cpp";
-import "prismjs/components/prism-java";
-import "prismjs/components/prism-javascript";
-import "prismjs/components/prism-python";
+import MonacoEditor from "vue-monaco-editor";
 
 import ChatItem from "@/components/Chat";
 
 export default {
   components: {
-    PrismEditor,
+    MonacoEditor,
     ChatItem,
   },
   data: () => ({
-    code: `using System;
-using System.Text;
-using System.Collections.Linq;
-using System.Threading.Tasks;
-
-namespace HelloWorld
-{
-    class Hello {         
-        static void Main(string[] args)
-        {
-            System.Console.WriteLine("Hello World!");
-        }
-    }
-}`,
+    code: "// Type away! \n",
+    options: {
+      selectOnLineNumbers: false,
+    },
     chatboxValue: "",
     chats: [
       {
@@ -146,6 +121,7 @@ namespace HelloWorld
     ],
     leaderId: "",
     assignmentInfo: {},
+    language: "javascript",
   }),
   sockets: {
     connect() {
@@ -195,33 +171,6 @@ namespace HelloWorld
     } catch (error) {
       console.error(error);
     }
-
-    // switch (this.$store.state.assignment.language.toLowerCase()) {
-    //   case "c#":
-    //     await import("prismjs/components/prism-csharp");
-    //     break;
-    //   case "c":
-    //     await import("prismjs/components/prism-c");
-    //     break;
-    //   case "c++":
-    //     await import("prismjs/components/prism-cpp");
-    //     break;
-    //   case "java":
-    //     await import("prismjs/components/prism-java");
-    //     break;
-    //   case "javascript":
-    //     await import("prismjs/components/prism-javascript");
-    //     break;
-    //   case "python":
-    //     await import("prismjs/components/prism-python");
-    //     break;
-    //   case "go":
-    //     await import("prismjs/components/prism-go");
-    //     break;
-    //   default:
-    //     await import("prismjs/components/prism-haskell");
-    //     break;
-    // }
   },
   beforeDestroy() {
     this.$socket.emit("leave-workspace", {
@@ -230,11 +179,12 @@ namespace HelloWorld
     });
   },
   methods: {
-    highlighter(code) {
-      return highlight(code, this.protobuf); // languages.<insert language> to return html with markup
+    onMounted(editor) {
+      this.editor = editor;
     },
-    redirectToEditor() {
-      // document.getElementsByClassName("my-editor")[0]
+    onCodeChange(editor) {
+      console.log("called");
+      this.$socket.emit("code", editor.getValue());
     },
     sendMessage() {
       const wrappedMessage = {
@@ -274,39 +224,11 @@ namespace HelloWorld
     assignNo() {
       return this.$store.state.assignment.assignNo;
     },
-    protobuf() {
-      let language;
-      switch (this.$store.state.assignment.language.toLowerCase()) {
-        case "c#":
-          language = languages.csharp;
-          break;
-        case "c":
-          language = languages.c;
-          break;
-        case "c++":
-          language = languages.cpp;
-          break;
-        case "java":
-          language = languages.java;
-          break;
-        case "python":
-          language = languages.python;
-          break;
-        case "javascript":
-          language = languages.js;
-          break;
-        case "go":
-          language = languages.go;
-          break;
-        default:
-          language = languages.haskell;
-      }
-      return language;
-    },
   },
   watch: {
     code() {
       this.$socket.emit("code", this.code);
+      console.log(this.code);
     },
   },
 };
@@ -315,6 +237,7 @@ namespace HelloWorld
 <style lang="sass" scoped>
 .workspace
   height: 100vh
+  overflow: hidden
 .header
   height: 64px
   display: flex
@@ -459,20 +382,4 @@ namespace HelloWorld
         height: 100%
         padding: 8px 10px
         border-top: 1px solid #eee
-</style>
-
-<style lang="sass" scoped>
-.my-editor
-  background: #2d2d2d//#2d2d2d
-  color: #ccc
-  font-family: Fira code, Fira Mono, Consolas, Menlo, Courier, monospace
-  font-size: 14px
-  line-height: 1.5
-  padding: 5px
-  cursor: text
-  width: 100%
-  height: 100vh
-
-.prism-editor__textarea:focus
-  outline: none
 </style>
