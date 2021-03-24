@@ -13,6 +13,8 @@
           : { background: 'white' }
       "
     ></td>
+    <td class="edit" @click="editGantt"><v-icon>mdi-pencil</v-icon></td>
+    <td class="delte" @click="delteGantt"><v-icon>mdi-trash-can</v-icon></td>
   </tr>
 </template>
 
@@ -25,7 +27,12 @@ export default {
     from: Number,
     until: Number,
     color: String,
+    id: String,
+    assigneeId: String,
   },
+  data: () => ({
+    dialog: false,
+  }),
   mounted() {
     //
   },
@@ -56,6 +63,20 @@ export default {
 
       return result;
     },
+    editGantt() {
+      this.$emit("edit", {
+        index: this.index,
+        activity: this.description,
+        deadline: this.dateOfCompletion,
+        from: this.from,
+        to: this.until,
+        id: this.id,
+        assigneeId: this.assigneeId,
+      });
+    },
+    delteGantt() {
+      this.$emit("delete", this.id);
+    },
   },
 };
 </script>
@@ -70,4 +91,15 @@ export default {
 
   td
     padding: 8px
+
+  .edit, .delte
+    transition: color 0.2s
+    color: rgba(0, 0, 0, 0.54)
+    cursor: pointer
+
+    i
+      color: inherit
+
+    &:hover
+      color: black
 </style>
