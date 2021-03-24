@@ -1,7 +1,7 @@
 <template lang="pug">
   .groupList 
     .section-divider
-    .speakup #[span UECS1234] Ancient Programming
+    .speakup #[span UECS1234] Ancient Programming A{{ assignNo }}
     GroupItem(
       v-for="(group, index) in groups"
       :key="index"
@@ -10,6 +10,7 @@
       :maxMember="maxMember"
       :memberCount="group.memberCount"
       :groupId="group.groupId"
+      :submitted="group.submitted"
     )
 </template>
 
@@ -30,6 +31,7 @@ export default {
         leaderName: "Chong Mum Khong",
         memberCount: 2,
         groupId: "group01",
+        submitted: true,
       },
       {
         leaderName: "Chong Mum Khong",
