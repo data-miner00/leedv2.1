@@ -434,8 +434,8 @@ export default {
           activity: this.activity,
           assigneeId: this.assigneeId,
           deadline: this.picker,
-          from: this.from,
-          to: this.to,
+          from: Number(this.from),
+          to: Number(this.to),
         };
         await axios.patch(
           `group/${this.groupId}/gantt/${this.ganttId}`,
