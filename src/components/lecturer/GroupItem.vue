@@ -7,14 +7,14 @@
         .details
           .leader-name {{ leaderName }}
           .group-member-count 
-            | #[span.normal(:style="memberCount>=maxMember?'color:crimson;':'color:green'") {{ memberCount }}]
+            | #[span.normal(:style="memberCount>=maxMember?'color:crimson;':'color:green;'") {{ memberCount }}]
             | #[span.to-small /{{ maxMember }} members currently]
       .actions
         router-link(:to="assignRoute")
           .link-icon.workspace
-            v-icon mdi-star-four-points-outline
+            v-icon mdi-star-four-points
         .link-icon.infor
-          v-icon mdi-information-outline
+          v-icon mdi-information
         .link-icon.good(v-if="submitted")
           v-icon.submitted mdi-check-bold
         .link-icon.bad(v-else)
@@ -111,5 +111,5 @@ export default {
       .submitted
         color: green !important
       .not-submitted
-        color: crimson
+        color: crimson !important
 </style>
