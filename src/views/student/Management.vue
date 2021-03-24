@@ -326,6 +326,7 @@ export default {
     to: null,
     assigneeId: "",
     activity: "",
+    ganttIndex: null,
     // -----------------
     // Edit Gantt Dialog
     editDialog: false,
@@ -399,13 +400,16 @@ export default {
       this.assigneeId = "";
       this.picker = new Date().toISOString().substr(0, 10);
     },
-    showEditGantt({ activity, deadline, from, to, id, assigneeId }) {
+    showEditGantt({ index, activity, deadline, from, to, id, assigneeId }) {
       this.activity = activity;
       this.picker = deadline;
       this.from = from;
       this.to = to;
       this.ganttId = id;
       this.assigneeId = assigneeId;
+
+      // Index is used to update UI for update and delete actions!
+      this.ganttIndex = index;
 
       this.editDialog = true;
     },
@@ -426,12 +430,20 @@ export default {
     },
     async editGantt() {
       try {
-        await axios.put(`group/gantt/${this.ganttId}`, {
+        const updatedGantt = {
           activity: this.activity,
           assigneeId: this.assigneeId,
           deadline: this.picker,
           from: this.from,
           to: this.to,
+        };
+        await axios.patch(
+          `group/${this.groupId}/gantt/${this.ganttId}`,
+          updatedGantt
+        );
+        this.gantts.splice(this.ganttIndex, 1, {
+          ganttId: this.ganttId,
+          ...updatedGantt,
         });
         this.editDialog = false;
       } catch (error) {
@@ -440,7 +452,8 @@ export default {
     },
     async deleteGantt() {
       try {
-        await axios.delete(`group/gantt/${this.ganttId}`);
+        await axios.delete(`group/${this.groupId}/gantt/${this.ganttId}`);
+        this.gantts.splice(this.ganttIndex, 1);
         this.delteDialog = false;
       } catch (error) {
         console.error(error);
