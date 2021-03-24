@@ -36,6 +36,7 @@
             <th>W15</th>
             <th>W16</th>
             <th>W17</th>
+            <th colspan="2"></th>
           </tr>
         </thead>
         <tbody>
@@ -48,6 +49,10 @@
             :from="item.from"
             :until="item.until || item.to"
             :color="getColor(item.assigneeId)"
+            :id="item.ganttId"
+            :assigneeId="item.assigneeId"
+            @edit="showEditGantt"
+            @delete="showDeleteGantt"
           />
         </tbody>
         <!-- </template
@@ -88,20 +93,6 @@
                 ></v-text-field>
               </v-col>
 
-              <!-- <v-col cols="12" sm="6" md="4">
-                <v-text-field
-                  label="Legal middle name"
-                  hint="example of helper text only on focus"
-                ></v-text-field>
-              </v-col>
-              <v-col cols="12" sm="6" md="4">
-                <v-text-field
-                  label="Legal last name*"
-                  hint="example of persistent helper text"
-                  persistent-hint
-                  required
-                ></v-text-field>
-              </v-col> -->
               <v-col cols="12" sm="6" md="4">
                 <v-text-field
                   label="From week"
@@ -129,30 +120,6 @@
                   v-model="assigneeId"
                 ></v-select>
               </v-col>
-              <!-- <v-col cols="12" sm="6">
-                <v-select
-                  :items="['0-17', '18-29', '30-54', '54+']"
-                  label="Age*"
-                  required
-                ></v-select>
-              </v-col>
-              <v-col cols="12" sm="6">
-                <v-autocomplete
-                  :items="[
-                    'Skiing',
-                    'Ice hockey',
-                    'Soccer',
-                    'Basketball',
-                    'Hockey',
-                    'Reading',
-                    'Writing',
-                    'Coding',
-                    'Basejump',
-                  ]"
-                  label="Interests"
-                  multiple
-                ></v-autocomplete>
-              </v-col> -->
 
               <v-col cols="12">
                 <v-row justify="center" class="mb-3"
@@ -179,6 +146,96 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <v-dialog v-model="editDialog" width="500">
+      <v-card>
+        <v-card-title class="headline grey lighten-2">
+          Edit activity details
+        </v-card-title>
+
+        <v-card-text>
+          <v-container>
+            <v-row>
+              <v-col cols="12">
+                <v-text-field
+                  label="Activity"
+                  required
+                  v-model="activity"
+                ></v-text-field>
+              </v-col>
+
+              <v-col cols="12" sm="6" md="4">
+                <v-text-field
+                  label="From week"
+                  required
+                  type="number"
+                  :rules="weekInputRules"
+                  v-model="from"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12" sm="6" md="4">
+                <v-text-field
+                  label="To week"
+                  type="number"
+                  required
+                  :rules="weekInputRules"
+                  v-model="to"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12" sm="6" md="4">
+                <v-select
+                  :items="members"
+                  item-text="name"
+                  item-value="id"
+                  label="Asignee"
+                  v-model="assigneeId"
+                ></v-select>
+              </v-col>
+
+              <v-col cols="12">
+                <v-row justify="center" class="mb-3"
+                  ><div class="title">Self-set deadline</div></v-row
+                >
+                <v-row justify="center"
+                  ><v-date-picker v-model="picker"></v-date-picker
+                ></v-row>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card-text>
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" text @click="closeEditGantt">
+            Close
+          </v-btn>
+          <v-btn color="blue darken-1" text @click="editGantt">
+            Confirm
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="delteDialog" width="600">
+      <v-card>
+        <v-card-title>Confirmation Required</v-card-title>
+        <v-card-text
+          >Are you sure you want to remove this activity? This action can't be
+          undone.</v-card-text
+        >
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" text @click="delteDialog = false">
+            Close
+          </v-btn>
+          <v-btn color="blue darken-1" text @click="deleteGantt">
+            Confirm
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </AssignmentLayout>
 </template>
 
@@ -197,7 +254,6 @@ export default {
     UserCard,
   },
   data: () => ({
-    picker: new Date().toISOString().substr(0, 10),
     gantts: [
       {
         description: "Build domething cool",
@@ -256,17 +312,27 @@ export default {
         assigneeId: "1803171",
       },
     ],
+
+    // Add Gantt Dialog
     isDialogOpen: false,
     weekInputRules: [
       (v) => !!v || "This field is required",
       (v) => (v && v > 0) || "The week must not be smaller than 1",
       (v) => (v && v <= 17) || "The week must not be bigger than 17",
     ],
+    picker: new Date().toISOString().substr(0, 10),
     members: [],
     from: null,
     to: null,
     assigneeId: "",
     activity: "",
+    // -----------------
+    // Edit Gantt Dialog
+    editDialog: false,
+    ganttId: "",
+    // -----------------
+    // Delete Gantt Dialog
+    delteDialog: false,
   }),
   async mounted() {
     //
@@ -286,21 +352,20 @@ export default {
       this.members.forEach((member) => {
         member.color = colors.shift();
       });
-      console.log(this.members);
-      console.log(this.getColor("1803151"));
     } catch (error) {
       console.error(error);
     }
 
-    // try {
-    //   const res = await axios.get(`group/${this.groupId}/gantt`);
-    //   this.gantts = res.data;
-    // } catch (error) {
-    //   console.error(error);
-    // }
+    try {
+      const res = await axios.get(`group/${this.groupId}/gantt`);
+      this.gantts = res.data;
+    } catch (error) {
+      console.error(error);
+    }
   },
   methods: {
     openDialog() {
+      this.resetFields();
       this.isDialogOpen = true;
     },
     async saveActivity() {
@@ -325,7 +390,7 @@ export default {
     getColor(memberId) {
       const member = this.members.find((member) => member.id == memberId);
       if (member) return member.color;
-      else return "#000";
+      return "#000";
     },
     reset() {
       this.activity = "";
@@ -333,6 +398,53 @@ export default {
       this.to = null;
       this.assigneeId = "";
       this.picker = new Date().toISOString().substr(0, 10);
+    },
+    showEditGantt({ activity, deadline, from, to, id, assigneeId }) {
+      this.activity = activity;
+      this.picker = deadline;
+      this.from = from;
+      this.to = to;
+      this.ganttId = id;
+      this.assigneeId = assigneeId;
+
+      this.editDialog = true;
+    },
+    showDeleteGantt(ganttId) {
+      this.ganttId = ganttId;
+      this.delteDialog = true;
+    },
+    closeEditGantt() {
+      this.editDialog = false;
+    },
+    resetFields() {
+      this.picker = new Date().toISOString().substr(0, 10);
+      this.members = [];
+      this.from = null;
+      this.to = null;
+      this.assigneeId = "";
+      this.activity = "";
+    },
+    async editGantt() {
+      try {
+        await axios.put(`group/gantt/${this.ganttId}`, {
+          activity: this.activity,
+          assigneeId: this.assigneeId,
+          deadline: this.picker,
+          from: this.from,
+          to: this.to,
+        });
+        this.editDialog = false;
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async deleteGantt() {
+      try {
+        await axios.delete(`group/gantt/${this.ganttId}`);
+        this.delteDialog = false;
+      } catch (error) {
+        console.error(error);
+      }
     },
   },
   computed: {
