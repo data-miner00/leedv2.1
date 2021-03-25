@@ -5,7 +5,20 @@
       | More features coming soon.
     .section-divider
     .infok
-      .group-title {{ subjectCode }} {{ subjectTitle }} A{{ assignNo }}
+      .group-header 
+        .group-title {{ subjectCode }} {{ subjectTitle }} A{{ assignNo }}
+        .shortcut
+          router-link(:to="{ name: 'Plans', params: { groupId } }")
+            .action.plan
+              v-icon mdi-calendar-blank-multiple
+          router-link(:to="{ name: 'Booking', params: { groupId } }")
+            .action.discussion
+              v-icon mdi-android-messages
+          router-link(:to="{ name: 'Uploads', params: { groupId } }" v-if="isGroupLeader")
+            .action.upload
+              v-icon mdi-upload
+          .action.download
+            v-icon mdi-download
       .infos
         .infos-item
           .icon
@@ -131,23 +144,46 @@ export default {
     questionLink() {
       return config.url + "/assignment/question/" + this.assignmentDoc;
     },
+    isGroupLeader() {
+      return this.userId === this.leader.id;
+    },
   },
 };
 </script>
 
 <style lang="sass" scoped>
+@import "../../../../assets/sass/_mixins"
 .infok
   border-bottom: 1px solid #eee
 
-  .group-title
-    padding: 10px 0
-    font-size: 19px
-    font-weight: 800
+  .group-header
+    padding: 10px 15px
+    display: flex
     background: #fff
     width: 100%
-    text-align: center
     border-bottom: 1px solid #eee
+    justify-content: space-between
+    .group-title
+      font-size: 19px
+      font-weight: 800
+    .shortcut
+      display: flex
+      width: 110px
+      justify-content: space-between
 
+      .action
+        @include tooltip-helper
+        &.plan
+          @include tooptip("Plans", -15px)
+        &.discussion
+          @include tooptip("Book discussion", -56px)
+        &.upload
+          @include tooptip("Upload assignment", -67px)
+        &.download
+          cursor: pointer
+          @include tooptip("Download question", -67px)
+      i
+        color: black
   .infos
     padding: 10px 15px
 
