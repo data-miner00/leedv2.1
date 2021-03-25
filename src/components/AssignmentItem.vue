@@ -33,6 +33,13 @@
       <div class="link-icon" v-else>
         <v-icon>mdi-information-outline</v-icon>
       </div>
+
+      <div class="link-icon download" v-if="filename">
+        <v-icon>mdi-download</v-icon>
+      </div>
+      <div class="link-icon no-download" v-else>
+        <v-icon>mdi-download-outline</v-icon>
+      </div>
     </div>
     <v-dialog v-model="dialog" width="500">
       <Popup2 :assignmentId="assignmentId" />
@@ -54,6 +61,7 @@ export default {
     groupId: String,
     assignmentId: String,
     language: String,
+    filename: String,
   },
   data: () => ({
     dialog: false,
@@ -112,12 +120,13 @@ export default {
 
   .link-wrapper
     display: flex
-    justify-content: space-between
-    width: 65px
+    justify-content: flex-end
+
 
     .link-icon
       border-radius: 999px
       padding: 4px 5px
+
       @include tooltip-helper
       &.create-or-join
         cursor: pointer
@@ -126,4 +135,9 @@ export default {
         @include tooptip("Workspace", -35px)
       &.infor
         @include tooptip("Info")
+      &.download
+        cursor: pointer
+        @include tooptip("Download question", -55px)
+      &.no-download
+        @include tooptip("Question unavailable", -65px)
 </style>

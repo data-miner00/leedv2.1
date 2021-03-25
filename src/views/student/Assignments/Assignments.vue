@@ -16,6 +16,7 @@
       :assignNo="assignment.assignNo"
       :assignmentId="assignment.assignmentId"
       :language="assignment.language"
+      :filename="assignment.filename"
     />
   </div>
 </template>
@@ -39,8 +40,6 @@ export default {
 
         // If namespaced: true, need to commit("assignment/setAssignments", res.data);
         if (res.status == 200) this.$store.commit("setAssignments", res.data);
-        console.log(this.assignments);
-        console.log(res.status);
       } catch (error) {
         console.error(error);
       }
