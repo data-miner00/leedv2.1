@@ -147,8 +147,18 @@ export default {
           return "mdi-language-javascript";
         case "php":
           return "mdi-language-php";
-        default:
+        case "swift":
           return "mdi-language-swift";
+        case "go":
+          return "mdi-language-go";
+        case "haskell":
+          return "mdi-language-haskell";
+        case "r":
+          return "mdi-language-r";
+        case "html":
+          return "mdi-language-html5";
+        default:
+          return "mdi-music-clef-treble";
       }
     },
     submissionIcon() {
