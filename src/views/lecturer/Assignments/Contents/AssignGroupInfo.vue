@@ -8,6 +8,9 @@
       .group-header 
         .group-title {{ subjectCode }} {{ subjectTitle }} A{{ assignNo }}
         .shortcut
+          router-link(:to="{ name: 'Workspace', params: { groupId } }")
+            .action.workspace
+              v-icon mdi-star-four-points
           router-link(:to="{ name: 'Plans', params: { groupId } }")
             .action.plan
               v-icon mdi-calendar-blank-multiple
@@ -168,11 +171,13 @@ export default {
       font-weight: 800
     .shortcut
       display: flex
-      width: 110px
-      justify-content: space-between
+      justify-content: flex-end
 
       .action
+        margin-left: 15px
         @include tooltip-helper
+        &.workspace
+          @include tooptip("Workspace", -35px)
         &.plan
           @include tooptip("Plans", -15px)
         &.discussion
