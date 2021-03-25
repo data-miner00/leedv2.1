@@ -422,7 +422,6 @@ export default {
     },
     resetFields() {
       this.picker = new Date().toISOString().substr(0, 10);
-      this.members = [];
       this.from = null;
       this.to = null;
       this.assigneeId = "";
