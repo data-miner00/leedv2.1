@@ -17,6 +17,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+@import "../../assets/sass/_variables"
 .header
   height: 53px
   padding: 0 15px
@@ -27,6 +28,7 @@ export default {
   background: #fff
   top: 0
   z-index: 1
+  color: $color-black
 
   &-inner
     span

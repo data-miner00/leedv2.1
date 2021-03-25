@@ -1,11 +1,13 @@
 <template>
   <div
     class="nav-item"
-    :style="`color: ${isPageSelected ? 'rgb(121, 75, 196)' : 'black'}`"
+    :style="
+      `color: ${isPageSelected ? 'rgb(121, 75, 196)' : 'rgb(15, 20, 25)'}`
+    "
   >
     <v-icon
       class="icon"
-      :color="isPageSelected ? 'rgb(121, 75, 196)' : 'black'"
+      :color="isPageSelected ? 'rgb(121, 75, 196)' : 'rgb(15, 20, 25)'"
       >{{ navIcon }}</v-icon
     >
 
