@@ -86,6 +86,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+@import "../assets/sass/_mixins"
 .wrapper
   padding: 15px
   border-bottom: 1px solid #eee
@@ -117,36 +118,12 @@ export default {
     .link-icon
       border-radius: 999px
       padding: 4px 5px
-      position: relative
-      transition: color 0.2s
-
-      &:hover
-        color: #eee // no use
-        &::after
-          transition: all 3s ease
-          position: absolute
-          top: -45px
-          background: rgba(0, 0, 0, 0.6)
-          color: white
-          border-radius: 5px
-          padding: 8px 0
-          text-align: center
-
-    .create-or-join
-      cursor: pointer
-      &:hover::after
-        content: "Create/Join"
-        left: -35px
-        right: -35px
-
-    .workspace
-      &:hover::after
-        content: "Workspace"
-        left: -35px
-        right: -35px
-    .infor
-      &:hover::after
-        content: "Info"
-        left: -10px
-        right: -10px
+      @include tooltip-helper
+      &.create-or-join
+        cursor: pointer
+        @include tooptip("Create/Join", -35px)
+      &.workspace
+        @include tooptip("Workspace", -35px)
+      &.infor
+        @include tooptip("Info")
 </style>
