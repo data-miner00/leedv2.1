@@ -7,12 +7,12 @@
         .assign-no {{ assignNo }}
     .link-wrapper
       router-link(:to="{ name: 'assignGroupsList', params: { assignmentId } }")
-        .link-icon
+        .link-icon.list
           v-icon mdi-account-group
       router-link(:to="{ name: 'assignmentInfo', params: { assignmentId } }")
-        .link-icon
+        .link-icon.infor
           v-icon mdi-information-outline
-      .link-icon
+      .link-icon.ntg
         v-icon mdi-folder
 </template>
 
@@ -28,6 +28,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+@import "../../assets/sass/_mixins"
 .wrapper
   padding: 15px
   border-bottom: 1px solid #eee
@@ -55,4 +56,13 @@ export default {
     display: flex
     justify-content: space-between
     width: 80px
+
+    .link-icon
+      @include tooltip-helper
+      &.list
+        @include tooptip("Groups list", -35px)
+      &.infor
+        @include tooptip("Info")
+      &.ntg
+        @include tooptip("Ntg")
 </style>
