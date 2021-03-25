@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import { range } from "@/utils";
 export default {
   props: {
     index: Number,
@@ -40,29 +41,7 @@ export default {
     checkOccupy(weekNumber) {
       return weekNumber >= this.from && weekNumber <= this.until;
     },
-    // Util method
-    range: function(start, stop, step) {
-      if (typeof stop == "undefined") {
-        // one param defined
-        stop = start;
-        start = 0;
-      }
-
-      if (typeof step == "undefined") {
-        step = 1;
-      }
-
-      if ((step > 0 && start >= stop) || (step < 0 && start <= stop)) {
-        return [];
-      }
-
-      var result = [];
-      for (var i = start; step > 0 ? i < stop : i > stop; i += step) {
-        result.push(i);
-      }
-
-      return result;
-    },
+    range,
     editGantt() {
       this.$emit("edit", {
         index: this.index,
