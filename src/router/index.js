@@ -172,6 +172,14 @@ export default [
                 /* webpackChunkName: "assignmentInfo" */ "../views/lecturer/Assignments/Contents/AssignInfo.vue"
               ),
           },
+          {
+            path: ":assignmentId/groups/:groupId",
+            name: "assignGroupInfo",
+            component: () =>
+              import(
+                /* webpackChunkName: "assignGroupInfo" */ "../views/lecturer/Assignments/Contents/AssignGroupInfo.vue"
+              ),
+          },
         ],
       },
       {

@@ -13,8 +13,9 @@
         router-link(:to="assignRoute")
           .link-icon.workspace
             v-icon mdi-star-four-points
-        .link-icon.infor
-          v-icon mdi-information
+        router-link(:to="{ name: 'assignGroupInfo', params: { assignmentId, groupId } }")
+          .link-icon.infor
+            v-icon mdi-information
         .link-icon.good(v-if="submitted")
           v-icon.submitted mdi-check-bold
         .link-icon.bad(v-else)
@@ -34,6 +35,7 @@ export default {
       default: false,
     },
     submittedDate: String,
+    assignmentId: String,
   },
   computed: {
     assignRoute() {

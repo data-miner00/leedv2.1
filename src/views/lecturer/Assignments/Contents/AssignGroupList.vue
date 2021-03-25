@@ -11,6 +11,7 @@
       :memberCount="group.memberCount"
       :groupId="group.groupId"
       :submitted="group.submitted"
+      :assignmentId="assignmentId"
     )
 </template>
 
@@ -36,7 +37,7 @@ export default {
       {
         leaderName: "Chong Mum Khong",
         memberCount: 3,
-        groupId: "group01",
+        groupId: "group02",
       },
       {
         leaderName: "Chong Mum Khong",
