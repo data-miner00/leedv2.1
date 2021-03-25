@@ -62,7 +62,25 @@
             .label Submission
             .description
               | #[span(v-if="submissionStatus") #[a.file(:href="downloadLink" target="_blank") {{ filename }}]] 
-              | #[span(v-else)  Not submitted yet]
+              | #[span(v-else)  No submission yet.]
+    .members-section
+      .members-header 
+        .members-title Members
+      .members-item-wrapper
+        .members-item(
+          v-for="(member, index) in allMembers"
+          :key="member.id"
+        )
+          .left
+            .index {{ index + 1 }}
+          .right
+            .middle
+              .name {{ member.name }} #[span #[v-icon.leader(v-if="member.id == leader.id") mdi-crown]]
+              .id @{{ member.id }}
+            .side
+              div
+                v-avatar(size="39")
+                  img(:src="member.avatarUri")
 </template>
 
 <script>
@@ -150,6 +168,9 @@ export default {
     isGroupLeader() {
       return this.userId === this.leader.id;
     },
+    allMembers() {
+      return [this.leader, ...this.members];
+    },
   },
 };
 </script>
@@ -211,4 +232,57 @@ export default {
         .label
           font-size: 13px
           color: #5b7083
+.members-section
+  border-bottom: 1px solid #eee
+  .members-header
+    padding: 10px 15px
+    display: flex
+    background: #fff
+    width: 100%
+    border-bottom: 1px solid #eee
+    justify-content: space-between
+    .members-title
+      font-size: 19px
+      font-weight: 800
+  .members-item-wrapper
+    width: 300px
+    margin: 0 auto
+    .members-item
+      padding: 15px
+      display: flex
+      align-items: center
+      width: 100%
+      margin: 0 auto
+      .left
+        width: 50px
+        height: 100%
+        display: grid
+        place-items: center
+        .index
+          text-align: center
+          border-radius: 999px
+          font-size: 11px
+          line-height: 25px
+          background: #eee
+          height: 25px
+          width: 25px
+      .right
+        display: flex
+        .middle
+          width: 150px
+          .name
+            font-weight: 800
+            .leader
+              font-size: 14px
+              color: #faa61a
+            span
+              font-weight: normal
+              @include tooltip-helper
+              @include tooptip("Group leader", -45px)
+          .id
+            color: #777
+        .side
+          margin-left: 25px
+          div
+            margin: auto 0
 </style>
