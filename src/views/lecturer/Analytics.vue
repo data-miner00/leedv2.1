@@ -6,91 +6,48 @@
       | active and proceeding most of the time.
     .section-divider
     .graph
-      v-chart.chart(:option="option")
+      AssignmentGraphs(
+        :subjectTitle="subjectTitle"
+        :subjectCode="subjectCode"
+        :dataset1="dataset1"
+        :dataset2="dataset2"
+      )
 </template>
 
 <script>
-import { use } from "echarts/core";
-import { CanvasRenderer } from "echarts/renderers";
-import { PieChart } from "echarts/charts";
-import {
-  TitleComponent,
-  TooltipComponent,
-  LegendComponent,
-} from "echarts/components";
-import VChart from "vue-echarts";
-
-use([
-  CanvasRenderer,
-  PieChart,
-  TitleComponent,
-  TooltipComponent,
-  LegendComponent,
-]);
+// import axios from "axios";
+import AssignmentGraphs from "@/components/lecturer/AssignmentGraphs";
 
 export default {
-  name: "HelloWorld",
   components: {
-    VChart,
+    AssignmentGraphs,
   },
-  // provide: {
-  //   [THEME_KEY]: "dark",
-  // },
-  data() {
-    return {
-      option: {
-        title: {
-          text: "Traffic Sources",
-          left: "center",
-        },
-        tooltip: {
-          trigger: "item",
-          formatter: "{a} <br/>{b} : {c} ({d}%)",
-        },
-        legend: {
-          orient: "vertical",
-          left: "left",
-          data: [
-            "Direct",
-            "Email",
-            "Ad Networks",
-            "Video Ads",
-            "Search Engines",
-          ],
-        },
-        series: [
-          {
-            name: "Traffic Sources",
-            type: "pie",
-            radius: "55%",
-            center: ["50%", "60%"],
-            data: [
-              { value: 335, name: "Direct" },
-              { value: 310, name: "Email" },
-              { value: 234, name: "Ad Networks" },
-              { value: 135, name: "Video Ads" },
-              { value: 1548, name: "Search Engines" },
-            ],
-            emphasis: {
-              itemStyle: {
-                shadowBlur: 10,
-                shadowOffsetX: 0,
-                shadowColor: "rgba(0, 0, 0, 0.5)",
-              },
-            },
-          },
-        ],
-      },
-    };
+  data: () => ({
+    subjectTitle: "Signal Engineering",
+    subjectCode: "UECS1234",
+    dataset1: [
+      { name: "5 People", value: 12 },
+      { name: "4 People", value: 8 },
+      { name: "3 People", value: 5 },
+      { name: "2 People", value: 2 },
+      { name: "Orphan", value: 10 },
+    ],
+    dataset2: [
+      { name: "Submitted", value: 12 },
+      { name: "Not Submitted", value: 12 },
+    ],
+    // dataset3: [
+    //   { name: "", value: "" }
+    // ]
+  }),
+  async mounted() {
+    try {
+      // cons res = await axios.get("")
+    } catch (error) {
+      console.error(error);
+    }
   },
 };
 </script>
 
-<style lang="sass" scoped>
-.graph
-  padding-top: 50px
-  .chart
-    width: 500px
-    height: 500px
-    margin: 0 auto
-</style>
+<style lang="sass" scoped></style>
