@@ -93,7 +93,6 @@ export default {
       .link-icon
         border-radius: 999px
         padding: 4px 5px
-        position: relative
 
         @include tooltip-helper
 
