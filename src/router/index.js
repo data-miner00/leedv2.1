@@ -63,8 +63,26 @@ export default [
         name: "Assignments",
         component: () =>
           import(
-            /* webpackChunkName: "assignments" */ "../views/student/Assignments.vue"
+            /* webpackChunkName: "assignments" */ "../views/student/Assignments/index.vue"
           ),
+        children: [
+          {
+            path: "",
+            name: "assignments1",
+            component: () =>
+              import(
+                /* webpackChunkName: "assignments1" */ "../views/student/Assignments/Assignments.vue"
+              ),
+          },
+          {
+            path: ":groupId/details",
+            name: "Details",
+            component: () =>
+              import(
+                /* webpackChunkName: "assignments1" */ "../views/shared/AssignGroupInfo.vue"
+              ),
+          },
+        ],
       },
       {
         path: "resources",
@@ -215,11 +233,6 @@ export default [
     path: "/s/assignment/:groupId/uploads",
     name: "Uploads",
     component: () => import(/* */ "../views/student/Upload.vue"),
-  },
-  {
-    path: "/s/assignment/:groupId/details",
-    name: "Details",
-    component: () => import(/* */ "../views/student/Group.vue"),
   },
   {
     path: "/forbidden",
