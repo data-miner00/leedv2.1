@@ -24,10 +24,12 @@ export default {
       },
       {
         title: "Analytics",
-        icon: "mdi-chart-box-outline",
+        icon: "mdi-finance",
         to: "/l/analytics",
       },
       { title: "Courses", icon: "mdi-school-outline", to: "/l/courses" },
+      { title: "Help", icon: "mdi-help-circle-outline", to: "/" },
+      { title: "More", icon: "mdi-dots-horizontal-circle-outline", to: "/" },
     ],
   }),
 };

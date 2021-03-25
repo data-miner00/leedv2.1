@@ -34,6 +34,7 @@ export default {
         to: "resources",
       },
       { title: "People", icon: "mdi-account-star-outline", to: "/s/people" },
+      { title: "Help", icon: "mdi-help-circle-outline", to: "/" },
       { title: "More", icon: "mdi-dots-horizontal-circle-outline", to: "/" },
     ],
   }),
