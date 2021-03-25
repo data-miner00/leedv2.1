@@ -35,8 +35,11 @@
       </div>
 
       <div class="link-icon download" v-if="filename">
-        <v-icon>mdi-download</v-icon>
+        <a :href="downloadLink" target="_blank">
+          <v-icon>mdi-download</v-icon>
+        </a>
       </div>
+
       <div class="link-icon no-download" v-else>
         <v-icon>mdi-download-outline</v-icon>
       </div>
@@ -48,6 +51,7 @@
 </template>
 
 <script>
+import config from "../config";
 import Popup2 from "@/components/Popup2";
 export default {
   components: {
@@ -88,6 +92,10 @@ export default {
       return (
         this.groupId != null && this.groupId != "" && this.groupId != undefined
       );
+    },
+    downloadLink() {
+      // Assignment question
+      return `${config.url}/assignment/question/${this.filename}`;
     },
   },
 };
@@ -136,7 +144,6 @@ export default {
       &.infor
         @include tooptip("Info")
       &.download
-        cursor: pointer
         @include tooptip("Download question", -55px)
       &.no-download
         @include tooptip("Question unavailable", -65px)
