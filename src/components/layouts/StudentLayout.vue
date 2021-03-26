@@ -20,7 +20,7 @@ export default {
       {
         title: "Assignments",
         icon: "mdi-archive-alert-outline",
-        to: "assignments",
+        to: "/s/assignments",
       },
       // {
       //   title: "Announcements",
