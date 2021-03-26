@@ -40,6 +40,9 @@ export default {
     userId() {
       return this.$store.state.user.userId;
     },
+    email() {
+      return this.$store.state.user.email;
+    },
   },
   methods: {
     async join() {
@@ -48,6 +51,8 @@ export default {
         const res = await axios.post("group/join", {
           studentId: this.userId,
           groupId: this.groupIdInput,
+          email: this.email,
+          assignmentId: this.assignmentId,
         });
 
         if (res.status == 200) {
