@@ -1,6 +1,6 @@
 <template lang="pug">
   .graphs
-    .taitle {{ subjectCode }} {{ subjectTitle }}
+    .taitle {{ subjectCode }} {{ subjectTitle }} A{{ assignNo }}
     .graphs-wrapper
       v-chart.chart(:option="option1")
     .graphs-wrapper
@@ -33,6 +33,7 @@ export default {
   props: {
     subjectTitle: String,
     subjectCode: String,
+    assignNo: Number,
     dataset1: Array,
     dataset2: Array,
     dataset3: Array,

@@ -9,6 +9,7 @@
       AssignmentGraphs(
         :subjectTitle="subjectTitle"
         :subjectCode="subjectCode"
+        :assignNo="assignNo"
         :dataset1="dataset1"
         :dataset2="dataset2"
       )
@@ -25,6 +26,7 @@ export default {
   data: () => ({
     subjectTitle: "Signal Engineering",
     subjectCode: "UECS1234",
+    assignNo: 1,
     dataset1: [
       { name: "5 People", value: 12 },
       { name: "4 People", value: 8 },
