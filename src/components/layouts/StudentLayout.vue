@@ -31,7 +31,7 @@ export default {
       {
         title: "Resources",
         icon: "mdi-format-quote-open-outline",
-        to: "resources",
+        to: "/s/resources",
       },
       { title: "People", icon: "mdi-account-star-outline", to: "/s/people" },
       { title: "Help", icon: "mdi-help-circle-outline", to: "/" },
