@@ -69,18 +69,20 @@ export default {
       }
     },
     async create() {
-      //
-      // try {
-      //   const res = await axios.post("group/create", {
-      //     studentId: this.userId,
-      //     assignmentId: this.assignmentId,
-      //   });
-      //   if (res.status == 200) {
-      //   } else if (res.status == 400) {
-      //   }
-      // } catch (error) {
-      //   console.error(error);
-      // }
+      try {
+        const res = await axios.post("group/create", {
+          studentId: this.userId,
+          assignmentId: this.assignmentId,
+        });
+        if (res.status == 400) {
+          this.errored = true;
+          this.errorMessage = "Sorry, something happened.";
+          return;
+        }
+        this.$emit("done");
+      } catch (error) {
+        console.error(error);
+      }
     },
     async matchmake() {
       // try {
