@@ -10,13 +10,10 @@
               type="text"
               v-model="groupIdInput"
             )
-            
             .join-btn.btn(@click="join")
               div
                 v-icon mdi-at
-                
                 span Join
-            
           .create
             .create-btn.btn(@click="create")
               div
