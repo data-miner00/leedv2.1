@@ -1,7 +1,7 @@
 <template lang="pug">
   .upload-form
     form(enctype="multipart/form-data" novalidate v-if="isInitial || isSaving")
-      .action-label Upload files
+      .action-label Upload one single file only
       .dropbox
         input.input-file(
           type="file" 
@@ -106,6 +106,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.upload-form {
+  padding-top: 50px;
+}
+
 .dropbox {
   outline: 2px dashed grey; /* the dash box */
   outline-offset: -10px;
