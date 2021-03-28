@@ -66,16 +66,19 @@ export default {
     ],
   }),
   async mounted() {
-    axios;
-    // try {
-    //   const res = await axios.get(`/`)
-    // } catch (error) {
-    //   console.error(error)
-    // }
+    try {
+      const res = await axios.post("subject", this.subjectsId);
+      this.courses = res.data;
+    } catch (error) {
+      console.error(error);
+    }
   },
   computed: {
     isStudent() {
       return this.$store.state.user.userType === "student";
+    },
+    subjectsId() {
+      return this.$store.state.user.subjectsId;
     },
   },
 };

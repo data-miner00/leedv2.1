@@ -105,7 +105,7 @@ export default [
         name: "Courses",
         component: () =>
           import(
-            /* webpackChunkName: "courses" */ "../views/student/Courses.vue"
+            /* webpackChunkName: "courses" */ "../views/shared/Courses.vue"
           ),
       },
     ],
