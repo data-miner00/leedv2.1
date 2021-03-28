@@ -8,7 +8,9 @@
       | All the programming courses that is enrolled is shown on below. Click on
       | the individual course to view the details of it.
     .section-divider
+    Loader(v-if="loading")
     Course(
+      v-else
       v-for="course in courses"
       :key="course.code"
       :code="course.code"
@@ -17,16 +19,20 @@
       :lecturerName="course.lecturerName"
       :studentsCount="course.studentsCount"
     )
+    
 </template>
 
 <script>
 import Course from "@/components/Course";
+import Loader from "@/components/Loader";
 import axios from "axios";
 export default {
   components: {
     Course,
+    Loader,
   },
   data: () => ({
+    loading: true,
     courses: [
       {
         code: "UECS1234",
@@ -69,6 +75,7 @@ export default {
     try {
       const res = await axios.post("subject", this.subjectsId);
       this.courses = res.data;
+      this.loading = false;
     } catch (error) {
       console.error(error);
     }
@@ -84,4 +91,7 @@ export default {
 };
 </script>
 
-<style lang="sass" scoped></style>
+<style lang="sass" scoped>
+.courses
+  position: relative
+</style>
