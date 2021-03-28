@@ -63,10 +63,19 @@
           text
           type="error"
         ) An unexpected error has been occurred. The update for assignment #[strong {{ assignmentId }}] has not been successful!
+      .assign-title Assignment Question File
+      .filename 
+        .content(v-if="filename") #[a(:href="filepath" target="_blank") {{ filename }}]
+        .content(v-else) No question file has been uploaded. 
+      .upload-btn
+        .up Assignment upload: #[input(type="file" id="file" ref="file" v-on:change="uploadQuestion")/]
+      
+        
 </template>
 
 <script>
 import axios from "axios";
+import config from "@/config";
 export default {
   //
   data: () => ({
@@ -77,21 +86,24 @@ export default {
     maxStudent: 2,
     subjectCode: "UECS1234",
     subjectTitle: "Fallback",
+    filename: "",
     isSuccess: false,
     isError: false,
+    file: "",
   }),
   async mounted() {
-    try {
-      const res = await axios.get(`assignment/${this.assignmentId}`);
-      this.assignNo = res.data.assignNo;
-      this.description = res.data.description;
-      this.dueDate = res.data.dueDate;
-      this.language = res.data.language;
-      this.maxStudent = res.data.maxStudent;
-      this.subjectCode = res.data.subjectCode;
-    } catch (error) {
-      console.error(error);
-    }
+    // try {
+    //   const res = await axios.get(`assignment/${this.assignmentId}`);
+    //   this.assignNo = res.data.assignNo;
+    //   this.description = res.data.description;
+    //   this.dueDate = res.data.dueDate;
+    //   this.language = res.data.language;
+    //   this.maxStudent = res.data.maxStudent;
+    //   this.subjectCode = res.data.subjectCode;
+    //   this.filename = res.data.filename;
+    // } catch (error) {
+    //   console.error(error);
+    // }
   },
   methods: {
     async updateDetails() {
@@ -105,6 +117,26 @@ export default {
         this.isSuccess = true;
       } catch (error) {
         this.isError = true;
+        console.error(error);
+      }
+    },
+    async uploadQuestion() {
+      try {
+        this.file = this.$refs.file.files[0];
+        let formData = new FormData();
+        formData.append("quest", this.file, this.file.name);
+        await axios.post(
+          `assignment/${this.assignmentId}/upload/ques`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        this.filename = this.file.name;
+        console.log("success!");
+      } catch (error) {
         console.error(error);
       }
     },
@@ -161,6 +193,9 @@ export default {
           return "mdi-music-clef-treble";
       }
     },
+    filepath() {
+      return config.url + "/assignment/question/" + this.filename;
+    },
   },
 };
 </script>
@@ -214,4 +249,17 @@ input.desc
   padding: 20px
   text-align: center
   font-size: 16px
+
+.filename
+  display: grid
+  place-items: center
+  height: 200px
+  border-bottom: 1px solid #eee
+  .content
+    width: fit-content
+.upload-btn
+  padding: 10px 15px
+  border-bottom: 1px solid #eee
+  input
+    width: fit-content
 </style>
