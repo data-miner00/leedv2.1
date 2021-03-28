@@ -4,90 +4,100 @@
       | Here contains all the essential information about the group of students.
       | More features coming soon.
     .section-divider
-    .infok
-      .group-header 
-        .group-title {{ subjectCode }} {{ subjectTitle }} A{{ assignNo }}
-        .shortcut
-          router-link(:to="{ name: 'Workspace', params: { groupId } }")
-            .action.workspace
-              v-icon mdi-star-four-points
-          router-link(:to="{ name: 'Plans', params: { groupId } }")
-            .action.plan
-              v-icon mdi-calendar-blank-multiple
-          router-link(:to="{ name: 'Booking', params: { groupId } }")
-            .action.discussion
-              v-icon mdi-android-messages
-          router-link(:to="{ name: 'Uploads', params: { groupId } }" v-if="isGroupLeader")
-            .action.upload
-              v-icon mdi-upload
-          .action.download
-            v-icon mdi-download
-      .infos
-        .infos-item
-          .icon
-            v-icon mdi-card-bulleted-outline
-          .right
-            .label Group ID
-            .description {{ groupId }}
-        .infos-item
-          .icon
-            v-icon mdi-circle-slice-3
-          .right
-            .label Members Count
-            .description {{ memberCount }} 
-              | out of allowed {{ maxStudent }} members. 
-              | ({{ memberCount }}/{{ maxStudent }})
-        .infos-item
-          .icon
-            v-icon mdi-post-outline
-          .right
-            .label Assignment Description
-            .description {{ description }}
-        .infos-item
-          .icon
-            v-icon {{ languageIcon }}
-          .right
-            .label Programming Language
-            .description {{ langDisplay }}
-        .infos-item
-          .icon
-            v-icon mdi-calendar-alert
-          .right
-            .label Due Date
-            .description {{ dueDate }}
-        .infos-item
-          .icon
-            v-icon {{ submissionIcon }}
-          .right
-            .label Submission
-            .description
-              | #[span(v-if="submissionStatus") #[a.file(:href="downloadLink" target="_blank") {{ filename }}]] 
-              | #[span(v-else)  No submission yet.]
-    .members-section
-      .members-header 
-        .members-title Members
-      .members-item-wrapper
-        .members-item(
-          v-for="(member, index) in allMembers"
-          :key="member.id"
-        )
-          .left
-            .index {{ index + 1 }}
-          .right
-            .middle
-              .name {{ member.name }} #[span #[v-icon.leader(v-if="member.id == leader.id") mdi-crown]]
-              .id @{{ member.id }}
-            .side
-              div
-                v-avatar(size="39")
-                  img(:src="member.avatarUri")
+    Loader(v-if="loading")
+    div(v-else)
+      .infok
+        .group-header 
+          .group-title {{ subjectCode }} {{ subjectTitle }} A{{ assignNo }}
+          .shortcut
+            router-link(:to="{ name: 'Workspace', params: { groupId } }")
+              .action.workspace
+                v-icon mdi-star-four-points
+            router-link(:to="{ name: 'Plans', params: { groupId } }")
+              .action.plan
+                v-icon mdi-calendar-blank-multiple
+            router-link(:to="{ name: 'Booking', params: { groupId } }")
+              .action.discussion
+                v-icon mdi-android-messages
+            router-link(:to="{ name: 'Uploads', params: { groupId } }" v-if="isGroupLeader")
+              .action.upload
+                v-icon mdi-upload
+            .action.download
+              v-icon mdi-download
+        .infos
+          .infos-item
+            .icon
+              v-icon mdi-card-bulleted-outline
+            .right
+              .label Group ID
+              .description {{ groupId }}
+          .infos-item
+            .icon
+              v-icon mdi-circle-slice-3
+            .right
+              .label Members Count
+              .description {{ memberCount }} 
+                | out of allowed {{ maxStudent }} members. 
+                | ({{ memberCount }}/{{ maxStudent }})
+          .infos-item
+            .icon
+              v-icon mdi-post-outline
+            .right
+              .label Assignment Description
+              .description {{ description }}
+          .infos-item
+            .icon
+              v-icon {{ languageIcon }}
+            .right
+              .label Programming Language
+              .description {{ langDisplay }}
+          .infos-item
+            .icon
+              v-icon mdi-calendar-alert
+            .right
+              .label Due Date
+              .description {{ dueDate }}
+          .infos-item
+            .icon
+              v-icon {{ submissionIcon }}
+            .right
+              .label Submission
+              .description
+                | #[span(v-if="submissionStatus") #[a.file(:href="downloadLink" target="_blank") {{ filename }}]] 
+                | #[span(v-else)  No submission yet.]
+      .members-section
+        .members-header 
+          .members-title Members
+        .members-item-wrapper
+          .members-item(
+            v-for="(member, index) in allMembers"
+            :key="member.id"
+          )
+            .left
+              .index {{ index + 1 }}
+            .right
+              .middle
+                .name {{ member.name }} #[span #[v-icon.leader(v-if="member.id == leader.id") mdi-crown]]
+                .id @{{ member.id }}
+              .side
+                div
+                  v-avatar(size="39")
+                    img(:src="member.avatarUri")
 </template>
 
 <script>
 import axios from "axios";
 import config from "@/config.js";
+
+import Loader from "@/components/Loader";
+
 export default {
+  components: {
+    Loader,
+  },
   data: () => ({
+    loading: true,
+
     leader: {
       id: "1803151",
       name: "John Mum Khong",
@@ -130,6 +140,8 @@ export default {
       this.maxStudent = res.data.maxStudent;
       this.subjectCode = res.data.subjectCode;
       this.subjectTitle = res.data.subjectTitle;
+
+      this.loading = false;
     } catch (error) {
       console.error(error);
     }
@@ -227,6 +239,10 @@ export default {
 
 <style lang="sass" scoped>
 @import "../../assets/sass/_mixins"
+
+.group-info
+  position: relative
+
 .infok
   border-bottom: 1px solid #eee
 
