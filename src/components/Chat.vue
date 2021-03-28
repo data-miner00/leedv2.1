@@ -31,7 +31,9 @@ export default {
         const currentHour = current.getHours();
         const currentMinute = current.getMinutes();
         // TODO: Add Pad
-        return `Today at ${currentHour}:${currentMinute}`;
+        return `Today at ${currentHour
+          .toString()
+          .padStart(2, "0")}:${currentMinute.toString().padStart(2, "0")}`;
       }
     },
   },
