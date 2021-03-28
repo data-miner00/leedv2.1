@@ -9,7 +9,7 @@
         .lable Select course
         v-select(:items="courseCodes" v-model="selectedCourse" )
         .lable Select programming language
-        v-select(:items="languages" v-model="selectedLanguage")
+        v-select(:items="languages" item-text="name" item-value="value" v-model="selectedLanguage")
         .lable Maximum students per group
         .max-student
           input(type="number" min="2" v-model="maxStudent")
@@ -31,11 +31,11 @@ export default {
   },
   data: () => ({
     //
+    courseCodes: [],
+    //
     description: "",
     maxStudent: null,
-    courseCodes: [],
     selectedCourse: "",
-    languages: ["C#", "Python", "C++", "Java", "Javascript"],
     selectedLanguage: "",
     dueDate: new Date().toISOString().substr(0, 10),
     assignNo: null,
@@ -72,6 +72,22 @@ export default {
     //
     userId() {
       return this.$store.state.user.userId;
+    },
+    languages() {
+      return [
+        { name: "C#", value: "csharp" },
+        { name: "Javascript", value: "javascript" },
+        { name: "Java", value: "java" },
+        { name: "C++", value: "cpp" },
+        { name: "C", value: "c" },
+        { name: "Haskell", value: "haskell" },
+        { name: "Swift", value: "swift" },
+        { name: "PHP", value: "php" },
+        { name: "R", value: "r" },
+        { name: "Go", value: "go" },
+        { name: "HTML", value: "html" },
+        { name: "Typescript", value: "typescript" },
+      ];
     },
   },
 };
