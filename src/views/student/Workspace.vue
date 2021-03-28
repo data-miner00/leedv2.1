@@ -61,8 +61,9 @@
       </div>
       <div class="chat-box">
         <div class="chat-tab">
-          <div class="tab"><div>Important</div></div>
-          <div class="tab"><div>General</div></div>
+          <!-- <div class="tab"><div>Important</div></div>
+          <div class="tab"><div>General</div></div> -->
+          <div>Text Channel</div>
         </div>
         <div class="chat-display">
           <ChatItem
@@ -232,13 +233,13 @@ export default {
   watch: {
     code() {
       this.$socket.emit("code", this.code);
-      console.log(this.code);
     },
   },
 };
 </script>
 
 <style lang="sass" scoped>
+@import "../../assets/sass/_variables"
 .workspace
   height: 100vh
   overflow: hidden
@@ -356,17 +357,24 @@ export default {
       border-bottom: 1px solid #eee
       width: 100%
       display: grid
-      grid-template-columns: auto auto
+      place-items: center
 
-      .tab
-        cursor: pointer
-        display: grid
-        place-items: center
-        div
-          height: fit-content
-          width: fit-content
-        &:hover
-          background: #eee
+      div
+        font-size: 18px
+        font-weight: 800
+        // color: $pcolor7
+
+      // grid-template-columns: auto auto
+
+      // .tab
+      //   cursor: pointer
+      //   display: grid
+      //   place-items: center
+      //   div
+      //     height: fit-content
+      //     width: fit-content
+      //   &:hover
+      //     background: #eee
 
     .chat-display
       padding: 10px
