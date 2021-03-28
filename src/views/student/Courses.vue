@@ -1,8 +1,8 @@
 <template>
   <div class="courses">
     <div class="page-description">
-      All the programming courses that is enrolled is shown on below. Click on
-      the individual course to view the details of it.
+      All the programming courses that is enrolled is shown on below. Brief
+      details are shown accordingly. Refresh to get latest update.
     </div>
     <div class="section-divider"></div>
     <Course
@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import Course from "@/components/Course";
 
 export default {
@@ -33,20 +34,47 @@ export default {
       },
       {
         code: "UEEN8332",
-        name: "Wire and Rope Analysis",
+        name: "Hydraulics Analysis",
         description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-        lecturerName: "Lucifer Anept",
+        lecturerName: "Dave Hudson",
         studentsCount: 190,
       },
       {
         code: "UEEP7847",
-        name: "Paper Philosophy",
+        name: "Ancient Programming",
         description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
         lecturerName: "Pope Martin",
         studentsCount: 100,
       },
+      {
+        code: "UEEP1784",
+        name: "Advanced Quantum Mechanics",
+        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+        lecturerName: "Edward Einstein",
+        studentsCount: 200,
+      },
+      {
+        code: "UEMH4532",
+        name: "Harmonics",
+        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+        lecturerName: "Van de Walls",
+        studentsCount: 150,
+      },
     ],
   }),
+  async mounted() {
+    try {
+      const res = await axios.post("subject", this.subjectsId);
+      this.courses = res.data;
+    } catch (error) {
+      console.error(error);
+    }
+  },
+  computed: {
+    subjectsId() {
+      return this.$store.state.user.subjectsId;
+    },
+  },
 };
 </script>
 
