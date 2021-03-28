@@ -49,11 +49,24 @@
               .label Group Capacity
               .description
                 input.desc(type="text" v-model="maxStudent" min="2")
-        
+          .save-btn(@click="updateDetails") Save
+
+        v-alert(
+          v-if="isSuccess"
+          dense
+          text
+          type="success"
+        ) The details of the assignment with ID #[strong {{ assignmentId }}] has been updated #[strong successfully]!
+        v-alert(
+          v-if="isError"
+          dense
+          text
+          type="error"
+        ) An unexpected error has been occurred. The update for assignment #[strong {{ assignmentId }}] has not been successful!
 </template>
 
 <script>
-// import axios from "axios";
+import axios from "axios";
 export default {
   //
   data: () => ({
@@ -64,19 +77,37 @@ export default {
     maxStudent: 2,
     subjectCode: "UECS1234",
     subjectTitle: "Fallback",
+    isSuccess: false,
+    isError: false,
   }),
   async mounted() {
-    // try {
-    //   const res = await axios.get(`assignment/${this.assignmentId}`);
-    //   this.assignNo = res.data.assignNo;
-    //   this.description = res.data.description;
-    //   this.dueDate = res.data.dueDate;
-    //   this.language = res.data.language;
-    //   this.maxStudent = res.data.maxStudent;
-    //   this.subjectCode = res.data.subjectCode;
-    // } catch (error) {
-    //   console.error(error);
-    // }
+    try {
+      const res = await axios.get(`assignment/${this.assignmentId}`);
+      this.assignNo = res.data.assignNo;
+      this.description = res.data.description;
+      this.dueDate = res.data.dueDate;
+      this.language = res.data.language;
+      this.maxStudent = res.data.maxStudent;
+      this.subjectCode = res.data.subjectCode;
+    } catch (error) {
+      console.error(error);
+    }
+  },
+  methods: {
+    async updateDetails() {
+      try {
+        await axios.patch(`assignment/${this.assignmentId}`, {
+          description: this.description,
+          dueDate: this.dueDate,
+          language: this.language,
+          maxStudent: Number(this.maxStudent),
+        });
+        this.isSuccess = true;
+      } catch (error) {
+        this.isError = true;
+        console.error(error);
+      }
+    },
   },
   computed: {
     assignmentId() {
@@ -170,4 +201,17 @@ input.desc
   width: 450px
   border-bottom: 1px solid #eee
   outline: none
+.save-btn
+  border: 1px solid #eee
+  padding: 10px 16px
+  width: fit-content
+  margin: 20px 90px 20px auto
+  cursor: pointer
+  transition: background 0.2s
+  &:hover
+    background: #eee
+.inner
+  padding: 20px
+  text-align: center
+  font-size: 16px
 </style>
