@@ -195,7 +195,7 @@ export default [
             name: "assignGroupInfo",
             component: () =>
               import(
-                /* webpackChunkName: "assignGroupInfo" */ "../views/lecturer/Assignments/Contents/AssignGroupInfo.vue"
+                /* webpackChunkName: "assignGroupInfo" */ "../views/shared/AssignGroupInfo.vue"
               ),
           },
         ],
