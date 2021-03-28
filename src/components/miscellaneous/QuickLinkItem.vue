@@ -1,19 +1,21 @@
 <template>
-  <div class="quick-link-item">
-    <div class="icon">
-      <div>
-        <font-awesome-icon :icon="['fab', icon]"></font-awesome-icon>
+  <a :href="url" target="_blank">
+    <div class="quick-link-item">
+      <div class="icon">
+        <div>
+          <font-awesome-icon :icon="['fab', icon]"></font-awesome-icon>
+        </div>
+      </div>
+      <div class="item-details">
+        <div>
+          <span class="brand-name">{{ brand }}</span>
+        </div>
+        <div>
+          <span class="brand-field">{{ type }}</span>
+        </div>
       </div>
     </div>
-    <div class="item-details">
-      <div>
-        <span class="brand-name">{{ brand }}</span>
-      </div>
-      <div>
-        <span class="brand-field">{{ type }}</span>
-      </div>
-    </div>
-  </div>
+  </a>
 </template>
 
 <script>
@@ -28,6 +30,8 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+a
+  color: inherit
 .quick-link-item
   display: flex
 
