@@ -7,7 +7,9 @@
       star button.
     </div>
     <div class="section-divider"></div>
+    <Loader v-if="loading" />
     <AssignmentItem
+      v-else
       v-for="(assignment, index) in assignments"
       :key="index"
       :groupId="assignment.groupId"
@@ -23,12 +25,18 @@
 
 <script>
 import axios from "axios";
+
 import AssignmentItem from "@/components/AssignmentItem";
+import Loader from "@/components/Loader";
+
 export default {
   components: {
     AssignmentItem,
+    Loader,
   },
-  data: () => ({}),
+  data: () => ({
+    loading: true,
+  }),
   async mounted() {
     //
     if (this.assignments.length == 0) {
@@ -40,9 +48,12 @@ export default {
 
         // If namespaced: true, need to commit("assignment/setAssignments", res.data);
         if (res.status == 200) this.$store.commit("setAssignments", res.data);
+        this.loading = false;
       } catch (error) {
         console.error(error);
       }
+    } else {
+      this.loading = false;
     }
   },
   computed: {
@@ -59,4 +70,7 @@ export default {
 };
 </script>
 
-<style lang="sass" scoped></style>
+<style lang="sass" scoped>
+.assignments
+  position: relative
+</style>
