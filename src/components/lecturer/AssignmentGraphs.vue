@@ -92,7 +92,7 @@ export default {
         },
         series: [
           {
-            name: "Members Count",
+            name: "Submission Count",
             type: "pie",
             radius: "55%",
             center: ["50%", "60%"],
