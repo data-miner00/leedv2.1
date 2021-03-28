@@ -45,7 +45,7 @@
       </div>
     </div>
     <v-dialog v-model="dialog" width="500">
-      <Popup2 :assignmentId="assignmentId" />
+      <Popup2 :assignmentId="assignmentId" @done="dialog = false" />
     </v-dialog>
   </div>
 </template>
