@@ -39,7 +39,7 @@
               | ({{ memberCount }}/{{ maxStudent }})
         .infos-item
           .icon
-            v-icon mdi-music-note
+            v-icon mdi-post-outline
           .right
             .label Assignment Description
             .description {{ description }}
@@ -48,7 +48,7 @@
             v-icon {{ languageIcon }}
           .right
             .label Programming Language
-            .description {{ language }}
+            .description {{ langDisplay }}
         .infos-item
           .icon
             v-icon mdi-calendar-alert
@@ -111,15 +111,25 @@ export default {
     description: "Build an atomic bomb. Lorem Ipsum dolor sit amet.",
     assignmentId: "assign1",
     dueDate: "March 10, 2021",
-    language: "C++",
+    language: "cpp",
     maxStudent: 4,
     subjectCode: "UECS1234",
     subjectTitle: "Ancient Programming",
   }),
   async mounted() {
     try {
-      // const res = await axios.get(``);
-      axios;
+      const res = await axios.get(`group/${this.groupId}/extended/v1`);
+      this.leader = res.data.leader;
+      this.members = res.data.members;
+      this.filename = res.data.filename;
+      this.submissionStatus = res.data.submissionStatus;
+      this.assignNo = res.data.assignNo;
+      this.description = res.data.description;
+      this.dueDate = res.data.dueDate;
+      this.language = res.data.language;
+      this.maxStudent = res.data.maxStudent;
+      this.subjectCode = res.data.subjectCode;
+      this.subjectTitle = res.data.subjectTitle;
     } catch (error) {
       console.error(error);
     }
@@ -133,9 +143,9 @@ export default {
     },
     languageIcon() {
       switch (this.language.toLowerCase()) {
-        case "c#":
+        case "csharp":
           return "mdi-language-csharp";
-        case "c++":
+        case "cpp":
           return "mdi-language-cpp";
         case "c":
           return "mdi-language-c";
@@ -159,6 +169,36 @@ export default {
           return "mdi-language-html5";
         default:
           return "mdi-music-clef-treble";
+      }
+    },
+    langDisplay() {
+      switch (this.language) {
+        case "csharp":
+          return "C#";
+        case "cpp":
+          return "C++";
+        case "c":
+          return "C";
+        case "python":
+          return "Python";
+        case "java":
+          return "Java";
+        case "javascript":
+          return "Javascript";
+        case "php":
+          return "PHP";
+        case "swift":
+          return "Swift";
+        case "go":
+          return "Go";
+        case "haskell":
+          return "Haskell";
+        case "r":
+          return "R";
+        case "html":
+          return "HTML";
+        default:
+          return this.language.charAt(0).toUpperCase() + this.language.slice(1);
       }
     },
     submissionIcon() {
