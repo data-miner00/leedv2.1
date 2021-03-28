@@ -52,7 +52,7 @@
       </div>
       <div class="text-editor">
         <MonacoEditor
-          language="typescript"
+          :language="language"
           v-model="code"
           :editorOptions="options"
           @mounted="onMounted"
@@ -135,11 +135,7 @@ export default {
       this.code = latestCode;
     },
   },
-  async mounted() {
-    this.$socket.emit("join-workspace", {
-      groupId: this.groupId,
-      name: this.name,
-    });
+  async beforeMount() {
     // Fetch Group info and Assignment info
     try {
       let res = await axios.get(`group/${this.groupId}/extended/v1`);
@@ -159,6 +155,8 @@ export default {
         subjectTitle,
       } = res.data;
       this.leaderId = leader.id;
+      this.language = language;
+      console.log(this.language);
       this.$store.dispatch("SELECT_WORKSPACE", {
         subjectCode,
         subjectTitle,
@@ -171,6 +169,12 @@ export default {
     } catch (error) {
       console.error(error);
     }
+  },
+  async mounted() {
+    this.$socket.emit("join-workspace", {
+      groupId: this.groupId,
+      name: this.name,
+    });
   },
   beforeDestroy() {
     this.$socket.emit("leave-workspace", {
