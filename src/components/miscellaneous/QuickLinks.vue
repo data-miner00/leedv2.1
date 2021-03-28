@@ -13,9 +13,11 @@
         :url="item.url"
       />
     </MiscItemWrapper>
-    <MiscItemWrapper last>
-      <span class="show-more">Show More</span>
-    </MiscItemWrapper>
+    <router-link to="/s/resources">
+      <MiscItemWrapper last>
+        <span class="show-more">Show More</span>
+      </MiscItemWrapper>
+    </router-link>
   </div>
 </template>
 
@@ -33,49 +35,49 @@ export default {
         icon: "google",
         brand: "Google",
         type: "Search Engine",
-        url: "",
+        url: "https://www.google.com",
       },
       {
         icon: "youtube",
         brand: "Youtube",
         type: "Video Tutorials",
-        url: "",
+        url: "https://www.youtube.com",
       },
       {
         icon: "github",
         brand: "GitHub",
         type: "Code Repository",
-        url: "",
+        url: "https://www.github.com",
       },
       {
         icon: "stack-overflow",
         brand: "Stack Overflow",
         type: "Discussion Forum",
-        url: "",
+        url: "https://stackoverflow.com/",
       },
       {
         icon: "medium",
         brand: "Medium",
         type: "Articles",
-        url: "",
+        url: "https://medium.com/",
       },
       {
         icon: "gitlab",
         brand: "GitLab",
         type: "Code Repository",
-        url: "",
+        url: "https://gitlab.com/",
       },
       {
         icon: "kaggle",
         brand: "Kaggle",
         type: "Data Science",
-        url: "",
+        url: "https://kaggle.com/",
       },
       {
         icon: "stack-exchange",
         brand: "Stack Exchange",
         type: "Discussion Forum",
-        url: "",
+        url: "https://stackexchange.com/",
       },
     ],
   }),
