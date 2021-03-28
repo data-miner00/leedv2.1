@@ -13,7 +13,7 @@
         :url="item.url"
       />
     </MiscItemWrapper>
-    <router-link to="/s/resources">
+    <router-link to="/s/resources" @click.native="setHeader">
       <MiscItemWrapper last>
         <span class="show-more">Show More</span>
       </MiscItemWrapper>
@@ -81,6 +81,11 @@ export default {
       },
     ],
   }),
+  methods: {
+    setHeader() {
+      this.$store.commit("setCurrentPage", "Resources");
+    },
+  },
 };
 </script>
 
