@@ -29,7 +29,7 @@ export default {
       const date = new Date(seconds * 1e3 + nanoseconds / 1e6);
 
       const diffTime = Math.abs(today - date);
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) - 1;
 
       if (diffDays == 0) {
         return `Today at ${date
