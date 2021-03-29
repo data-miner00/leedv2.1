@@ -24,6 +24,10 @@
                 v-icon mdi-upload
             .action.download
               v-icon mdi-download
+            .action.open(v-if="isOpen && members.length + 1 < maxStudent" @click="changeAvailability(true)")
+              v-icon mdi-account-arrow-left
+            .action.close(v-else @click="changeAvailability(false)")
+              v-icon mdi-account-cancel
         .infos
           .infos-item
             .icon
@@ -125,6 +129,7 @@ export default {
     maxStudent: 4,
     subjectCode: "UECS1234",
     subjectTitle: "Ancient Programming",
+    isOpen: true,
   }),
   async mounted() {
     try {
@@ -140,11 +145,25 @@ export default {
       this.maxStudent = res.data.maxStudent;
       this.subjectCode = res.data.subjectCode;
       this.subjectTitle = res.data.subjectTitle;
-
+      this.isOpen = res.data.isOpen;
+      console.log(this.members.length + 1 < this.maxStudent);
       this.loading = false;
     } catch (error) {
       console.error(error);
     }
+  },
+  methods: {
+    async changeAvailability(isOpen) {
+      try {
+        if (this.isOpen != isOpen) {
+          this.isOpen = isOpen;
+
+          await axios.patch(`group/${this.groupId}/availability`, this.isOpen);
+        } else console.log("You already is!");
+      } catch (error) {
+        console.error(error);
+      }
+    },
   },
   computed: {
     // assignmentId() {
@@ -274,6 +293,11 @@ export default {
         &.download
           cursor: pointer
           @include tooptip("Download question", -67px)
+        &.open
+          @include tooptip("Close group", -45px)
+        &.close
+          @include tooptip("Open group", -45px)
+
       i
         color: black
   .infos
