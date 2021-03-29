@@ -72,6 +72,7 @@
             :username="chat.name"
             :message="chat.message"
             :avatarUri="chat.avatarUri"
+            :timestamp="chat.createdAt"
           />
         </div>
         <div class="message-box">
@@ -176,6 +177,9 @@ export default {
       groupId: this.groupId,
       name: this.name,
     });
+
+    const res = await axios.get(`/group/${this.groupId}/chats`);
+    this.chats = [...this.chats, ...res.data];
   },
   beforeDestroy() {
     this.$socket.emit("leave-workspace", {
@@ -193,7 +197,6 @@ export default {
     },
     sendMessage() {
       const wrappedMessage = {
-        id: Math.floor(Math.random() * 10000),
         name: this.name,
         message: this.chatboxValue,
         avatarUri: this.avatarUri,
