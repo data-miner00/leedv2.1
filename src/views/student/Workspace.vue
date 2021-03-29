@@ -69,7 +69,7 @@
           <ChatItem
             v-for="chat in chats"
             :key="chat.id"
-            :userName="chat.name"
+            :username="chat.name"
             :message="chat.message"
             :avatarUri="chat.avatarUri"
           />
@@ -136,7 +136,7 @@ export default {
       this.code = latestCode;
     },
   },
-  async beforeMount() {
+  async created() {
     // Fetch Group info and Assignment info
     try {
       let res = await axios.get(`group/${this.groupId}/extended/v1`);

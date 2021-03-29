@@ -5,7 +5,7 @@
     </div>
     <div class="right">
       <div class="definition">
-        <div class="name">{{ userName }}</div>
+        <div class="name">{{ username }}</div>
         <div class="time">{{ getTimestamp }}</div>
       </div>
       <div class="message">
@@ -19,7 +19,7 @@
 export default {
   props: {
     avatarUri: String,
-    userName: String,
+    username: String,
     message: String,
     timestamp: String,
   },
@@ -30,7 +30,6 @@ export default {
         const current = new Date();
         const currentHour = current.getHours();
         const currentMinute = current.getMinutes();
-        // TODO: Add Pad
         return `Today at ${currentHour
           .toString()
           .padStart(2, "0")}:${currentMinute.toString().padStart(2, "0")}`;
