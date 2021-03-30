@@ -26,4 +26,8 @@ export default {
   position: fixed
   top: 0
   right: 275px
+
+@media only screen and (max-width: 1800px)
+  .misc-panel
+    display: none
 </style>

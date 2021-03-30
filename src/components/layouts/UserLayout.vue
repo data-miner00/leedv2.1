@@ -48,4 +48,8 @@ export default {
 
 .invisi-misc
   width: 378px
+
+@media only screen and (max-width: 1800px)
+  .invisi-misc
+    display: none
 </style>
