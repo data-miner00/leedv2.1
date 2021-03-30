@@ -6,7 +6,9 @@
       | active and proceeding most of the time.
     .section-divider
     .graph
+      Loader(v-if="loading")
       AssignmentGraphs(
+        v-else
         v-for="(assignment, index) in assignmentsData"
         :key="index"
         :subjectTitle="assignment.subjectTitle"
@@ -21,13 +23,16 @@
 import axios from "axios";
 
 import AssignmentGraphs from "@/components/lecturer/AssignmentGraphs";
-// import Loader from "@/components/Loader"
+import Loader from "@/components/Loader";
 
 export default {
   components: {
     AssignmentGraphs,
+    Loader,
   },
   data: () => ({
+    loading: true,
+
     assignmentsData: [],
     subjectTitle: "Signal Engineering",
     subjectCode: "UECS1234",
@@ -52,12 +57,15 @@ export default {
       const res = await axios.post(`lecturer/${this.userId}/assignments`, {
         subjectsId: this.subjectsId,
       });
+
       const { assignmentsId } = res.data;
-      console.log(assignmentsId);
+
       assignmentsId.forEach(async (id) => {
         const resp = await axios.get(`assignment/${id}/data`);
         this.assignmentsData.push(resp.data);
       });
+
+      this.loading = false;
     } catch (error) {
       console.error(error);
     }
