@@ -1,6 +1,6 @@
 <template lang="pug">
   .graphs
-    .taitle {{ subjectCode }} {{ subjectTitle }} A{{ assignNo }}
+    .taitle #[span {{ subjectCode }}] {{ subjectTitle }} A{{ assignNo }}
     .graphs-wrapper
       v-chart.chart(:option="option1")
     .graphs-wrapper
@@ -120,6 +120,8 @@ export default {
     font-weight: 800
     font-size: 19px
     border-bottom: 1px solid #eee
+    span
+      color: brown
   .graphs-wrapper
     padding-top: 30px
     border-bottom: 1px solid #eee
