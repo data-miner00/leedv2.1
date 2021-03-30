@@ -7,23 +7,28 @@
     .section-divider
     .graph
       AssignmentGraphs(
-        :subjectTitle="subjectTitle"
-        :subjectCode="subjectCode"
-        :assignNo="assignNo"
-        :dataset1="dataset1"
-        :dataset2="dataset2"
+        v-for="(assignment, index) in assignmentsData"
+        :key="index"
+        :subjectTitle="assignment.subjectTitle"
+        :subjectCode="assignment.subjectCode"
+        :assignNo="assignment.assignNo"
+        :dataset1="assignment.dataset1"
+        :dataset2="assignment.dataset2"
       )
 </template>
 
 <script>
-// import axios from "axios";
+import axios from "axios";
+
 import AssignmentGraphs from "@/components/lecturer/AssignmentGraphs";
+// import Loader from "@/components/Loader"
 
 export default {
   components: {
     AssignmentGraphs,
   },
   data: () => ({
+    assignmentsData: [],
     subjectTitle: "Signal Engineering",
     subjectCode: "UECS1234",
     assignNo: 1,
@@ -44,10 +49,26 @@ export default {
   }),
   async mounted() {
     try {
-      // cons res = await axios.get("")
+      const res = await axios.post(`lecturer/${this.userId}/assignments`, {
+        subjectsId: this.subjectsId,
+      });
+      const { assignmentsId } = res.data;
+      console.log(assignmentsId);
+      assignmentsId.forEach(async (id) => {
+        const resp = await axios.get(`assignment/${id}/data`);
+        this.assignmentsData.push(resp.data);
+      });
     } catch (error) {
       console.error(error);
     }
+  },
+  computed: {
+    subjectsId() {
+      return this.$store.state.user.subjectsId;
+    },
+    userId() {
+      return this.$store.state.user.userId;
+    },
   },
 };
 </script>
