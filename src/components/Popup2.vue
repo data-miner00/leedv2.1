@@ -15,6 +15,10 @@
                 v-icon mdi-at
                 span Join
           .create
+            .matchmake-btn(@click="matchmake")
+              div
+                v-icon mdi-nuxt
+                span Matchmake
             .create-btn.btn(@click="create")
               div
                 v-icon mdi-asterisk
@@ -82,17 +86,21 @@ export default {
       }
     },
     async matchmake() {
-      // try {
-      //   const res = await axios.post("group/matchmake", {
-      //     studentId: this.userId,
-      //     assignmentId: this.assignmentId,
-      //   });
-      //   if (res.status == 200) {
-      //   } else if (res.status == 400) {
-      //   }
-      // } catch (error) {
-      //   console.error(error);
-      // }
+      try {
+        const res = await axios.post("group/matchmake", {
+          studentId: this.userId,
+          assignmentId: this.assignmentId,
+          email: this.email,
+        });
+        if (res.status == 200) {
+          console.log("Successfully placed in queue.");
+          this.$emit("done");
+        } else if (res.status == 400) {
+          console.log("Something failed");
+        }
+      } catch (error) {
+        console.error(error);
+      }
     },
     reset() {
       this.groupIdInput = "";
@@ -142,4 +150,15 @@ export default {
   border-radius: 5px
 .err-msg
   margin-top: 5px
+.matchmake-btn
+  width: 204.9px
+  height: 40px
+  display: grid
+  place-items: center
+  margin-bottom: 10px
+  border: 1px solid #eee
+  border-radius: 5px
+  cursor: pointer
+  &:hover
+    background: #efe
 </style>
