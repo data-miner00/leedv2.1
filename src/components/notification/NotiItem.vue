@@ -54,8 +54,8 @@ export default {
         case "userJoin":
           typeDisplay = "User Join";
           break;
-        case "groupJoined":
-          typeDisplay = "Group Joined";
+        case "groupJoin":
+          typeDisplay = "Group Join";
           break;
         case "assignmentRelease":
           typeDisplay = "Assignment Release";
