@@ -1,9 +1,11 @@
 // import store from "./store";
-import * as io from "socket.io-client";
+import Vue from "vue";
 import VueSocketIO from "vue-socket.io";
+import * as io from "socket.io-client";
+
 import config from "../config";
 
-export default new VueSocketIO({
+const socketio = new VueSocketIO({
   debug: true,
   connection: io(config.chatUrl),
   // vuex: {
@@ -12,3 +14,5 @@ export default new VueSocketIO({
   //   mutationPrefix: "SOCKET_",
   // },
 });
+
+Vue.use(socketio);

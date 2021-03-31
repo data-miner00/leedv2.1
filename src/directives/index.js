@@ -1,4 +1,7 @@
-export const Rainbow = {
+import Vue from "vue";
+
+// Definition
+const Rainbow = {
   bind(el) {
     el.style.color =
       "#" +
@@ -8,7 +11,7 @@ export const Rainbow = {
   },
 };
 
-export const ClickOutside = {
+const ClickOutside = {
   bind: function(el, binding, vnode) {
     el.clickOutsideEvent = function(event) {
       // here I check that click was outside the el and his children
@@ -24,35 +27,6 @@ export const ClickOutside = {
   },
 };
 
-export default {
-  Rainbow,
-  ClickOutside,
-};
-
-// Vue.directive("theme", {
-//   bind(el, binding, vnode) {
-//     if (binding.value == "wide") {
-//       el.style.maxWidth = "1200px";
-//     } else if (binding.value == "narrow") {
-//       el.style.maxWidth = "800px";
-//     }
-//     if (binding.arg == "column") {
-//       el.style.background = "#ddd";
-//       el.style.padding = "20px";
-//     }
-//   },
-// });
-
-// Vue.directive('click-outside', {
-//   bind () {
-//       this.event = event => this.vm.$emit(this.expression, event)
-//       this.el.addEventListener('click', this.stopProp)
-//       document.body.addEventListener('click', this.event)
-//   },
-//   unbind() {
-//     this.el.removeEventListener('click', this.stopProp)
-//     document.body.removeEventListener('click', this.event)
-//   },
-
-//   stopProp(event) { event.stopPropagation() }
-// })
+// Registration
+Vue.directive("rainbow", Rainbow);
+Vue.directive("click-outside", ClickOutside);
