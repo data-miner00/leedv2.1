@@ -36,24 +36,23 @@ export default {
   },
   data: () => ({
     loading: true,
+    assignments: [],
   }),
   async mounted() {
     //
-    if (this.assignments.length == 0) {
-      try {
-        const res = await axios.post("assignment/overview", {
-          subjectsId: this.subjectsId,
-          groupsId: this.groupsId,
-        });
 
-        // If namespaced: true, need to commit("assignment/setAssignments", res.data);
-        if (res.status == 200) this.$store.commit("setAssignments", res.data);
-        this.loading = false;
-      } catch (error) {
-        console.error(error);
-      }
-    } else {
+    try {
+      const res = await axios.post("assignment/overview", {
+        subjectsId: this.subjectsId,
+        groupsId: this.groupsId,
+      });
+
+      // If namespaced: true, need to commit("assignment/setAssignments", res.data);
+      // if (res.status == 200) this.$store.commit("setAssignments", res.data);
+      this.assignments = res.data;
       this.loading = false;
+    } catch (error) {
+      console.error(error);
     }
   },
   computed: {
@@ -62,9 +61,6 @@ export default {
     },
     groupsId() {
       return this.$store.state.user.groupsId;
-    },
-    assignments() {
-      return this.$store.state.assignment.assignments;
     },
   },
 };
