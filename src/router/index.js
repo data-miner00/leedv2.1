@@ -39,7 +39,7 @@ export default [
         path: "home",
         name: "StudentHome",
         component: () =>
-          import(/* webpackChunkName: "home" */ "../views/student/Home.vue"),
+          import(/* webpackChunkName: "home" */ "../views/shared/Home.vue"),
       },
       {
         path: "notification",
@@ -138,7 +138,7 @@ export default [
         name: "lecturerHome",
         component: () =>
           import(
-            /* webpackChunkName: "lecturerHome" */ "../views/lecturer/Home.vue"
+            /* webpackChunkName: "lecturerHome" */ "../views/shared/Home.vue"
           ),
       },
       {
