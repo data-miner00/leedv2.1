@@ -40,10 +40,12 @@
 </template>
 
 <script>
-import AssignmentLayout from "@/components/layouts/AssignInfo";
-import BookListItem from "@/components/BookListItem";
-import Popup from "@/components/Popup";
 import axios from "axios";
+
+import AssignmentLayout from "@/components/layouts/AssignInfo";
+import BookListItem from "@/components/student/BookListItem";
+import Popup from "@/components/student/Popup";
+
 export default {
   components: {
     AssignmentLayout,

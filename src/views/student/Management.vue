@@ -240,11 +240,12 @@
 </template>
 
 <script>
-import GanttItem from "@/components/GanttItem";
+import axios from "axios";
+
+import GanttItem from "@/components/student/GanttItem";
 import ReturnBtn from "@/components/ReturnBtn";
 import AssignmentLayout from "@/components/layouts/AssignInfo";
 import UserCard from "@/components/UserCard";
-import axios from "axios";
 
 export default {
   components: {

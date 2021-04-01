@@ -8,7 +8,7 @@
 
 <script>
 import AssignmentLayout from "@/components/layouts/AssignInfo";
-import UploadForm from "@/components/UploadForm";
+import UploadForm from "@/components/student/UploadForm";
 import axios from "axios";
 
 export default {

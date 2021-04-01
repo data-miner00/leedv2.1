@@ -26,7 +26,7 @@
 <script>
 import axios from "axios";
 
-import AssignmentItem from "@/components/AssignmentItem";
+import AssignmentItem from "@/components/student/AssignmentItem";
 import Loader from "@/components/Loader";
 
 export default {
