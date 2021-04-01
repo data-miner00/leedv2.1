@@ -11,7 +11,6 @@
       <router-link
         v-if="hasGroup"
         :to="{ name: 'Workspace', params: { groupId } }"
-        @click.native="setThisDetails"
       >
         <div class="link-icon workspace">
           <v-icon>mdi-star-four-points</v-icon>
@@ -52,7 +51,9 @@
 
 <script>
 import config from "../config";
+
 import Popup2 from "@/components/Popup2";
+
 export default {
   components: {
     Popup2,
@@ -73,19 +74,6 @@ export default {
   mounted() {
     console.log(this.hasGroup);
     console.log(this.groupId);
-  },
-  methods: {
-    setThisDetails() {
-      // this.$store.dispatch("SELECT_WORKSPACE", {
-      //   subjectCode: this.courseCode,
-      //   subjectTitle: this.courseName,
-      //   assignNo: this.assignNo,
-      //   groupId: this.groupId,
-      //   language: this.language,
-      //   // maybe set assignmentId to store too? (yes)
-      //   assignmentId: this.assignmentId,
-      // });
-    },
   },
   computed: {
     hasGroup() {
