@@ -50,9 +50,9 @@
 </template>
 
 <script>
-import config from "../config";
+import config from "../../config";
 
-import Popup2 from "@/components/Popup2";
+import Popup2 from "./Popup2";
 
 export default {
   components: {
@@ -90,7 +90,7 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-@import "../assets/sass/_mixins"
+@import "../../assets/sass/_mixins"
 .wrapper
   padding: 15px
   border-bottom: 1px solid #eee
