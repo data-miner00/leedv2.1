@@ -9,9 +9,7 @@
         <div class="right">
           <div class="label">Course Description</div>
           <div class="description">
-            {{
-              /*Lorem ipsum dolor sit amet consectetur adipisicing elit.*/ description
-            }}
+            {{ description }}
           </div>
         </div>
       </div>
