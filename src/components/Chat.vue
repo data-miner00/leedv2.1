@@ -50,7 +50,7 @@ export default {
       } else {
         return `${this.getStringMonth(
           date.getMonth()
-        )} ${date.getdate()} at ${date
+        )} ${date.getDate()} at ${date
           .getHours()
           .toString()
           .padStart(2, "0")}:${date
