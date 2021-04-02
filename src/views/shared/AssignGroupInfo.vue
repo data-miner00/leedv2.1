@@ -22,8 +22,10 @@
             router-link(:to="{ name: 'Uploads', params: { groupId } }" v-if="isGroupLeader")
               .action.upload
                 v-icon mdi-upload
-            .action.download
+            a.action.download(v-if="assignmentDoc" :href="downloadLink" target="_blank")
               v-icon mdi-download
+            .action.not-avail
+              v-icon mdi-download-outline
             .action.open(v-if="isOpen && members.length + 1 < maxStudent" @click="changeAvailability(false)")
               v-icon mdi-account-arrow-left
             .action.close(v-else @click="changeAvailability(true)")
@@ -130,6 +132,7 @@ export default {
     subjectCode: "UECS1234",
     subjectTitle: "Ancient Programming",
     isOpen: true,
+    assignmentDoc: "",
   }),
   async mounted() {
     try {
@@ -146,6 +149,7 @@ export default {
       this.subjectCode = res.data.subjectCode;
       this.subjectTitle = res.data.subjectTitle;
       this.isOpen = res.data.isOpen;
+      this.assignmentDoc = res.data.assignmentDoc;
 
       this.loading = false;
     } catch (error) {
@@ -293,8 +297,10 @@ export default {
         &.upload
           @include tooptip("Upload assignment", -67px)
         &.download
-          cursor: pointer
           @include tooptip("Download question", -67px)
+        &.not-avail
+          cursor: not-allowed
+          @include tooptip("Not available", -56px)
         &.open
           cursor: pointer
           @include tooptip("Close group", -45px)
