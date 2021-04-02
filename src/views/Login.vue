@@ -14,6 +14,7 @@
             input(type="text" v-model="userId" placeholder="User ID" required)
           div
             input(type="password" v-model="password" placeholder="Password" required)
+          .erro(v-if="isError") Sorry, the ID or password entered is incorrect.
           div
             input(type="submit" value="Login" @click.prevent="login")
         
@@ -54,8 +55,7 @@ export default {
           this.$store
             .dispatch("RETRIEVE_DETAIL", response)
             .then(() => {
-              console.log(this.$store.state.user.userType);
-              console.log(this.$store.state.user.userId);
+              this.isError = false;
               if (this.$store.state.user.userType === "student") {
                 this.$router.push("/s/home");
               } else {
@@ -124,6 +124,10 @@ export default {
           background: $color2
           color: white
           font-weight: 800
+
+        .erro
+          color: crimson
+          margin-top: 10px
 
 
 
