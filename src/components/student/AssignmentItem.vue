@@ -23,7 +23,6 @@
       <router-link
         :to="{ name: 'Details', params: { groupId } }"
         v-if="hasGroup"
-        @click.native="setThisDetails"
       >
         <div class="link-icon infor">
           <v-icon>mdi-information</v-icon>
