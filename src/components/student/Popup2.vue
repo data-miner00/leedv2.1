@@ -31,6 +31,7 @@ import axios from "axios";
 export default {
   props: {
     assignmentId: String,
+    assignNo: Number,
   },
   data: () => ({
     groupIdInput: "",
@@ -58,6 +59,7 @@ export default {
 
         if (res.status == 200) {
           this.reset();
+          this.$emit("done");
         } else if (res.status == 403) {
           this.errored = true;
           this.errorMessage = "Sorry, this group is unavailable.";
@@ -66,7 +68,7 @@ export default {
           this.errorMessage = "Sorry, the id does not belong to any group.";
         }
       } catch (error) {
-        console.error(error);
+        console.error(error.message);
       }
     },
     async create() {
@@ -74,6 +76,7 @@ export default {
         const res = await axios.post("group/create", {
           studentId: this.userId,
           assignmentId: this.assignmentId,
+          assignNo: this.assignNo,
         });
         if (res.status == 400) {
           this.errored = true;
@@ -90,6 +93,7 @@ export default {
         const res = await axios.post("group/matchmake", {
           studentId: this.userId,
           assignmentId: this.assignmentId,
+          assignNo: this.assignNo,
           email: this.email,
         });
         if (res.status == 200) {
@@ -106,7 +110,6 @@ export default {
       this.groupIdInput = "";
       this.errored = false;
       this.errorMessage = "Unknown Error Occurred!";
-      this.$emit("grouped");
     },
   },
 };
