@@ -1,5 +1,6 @@
 import UserModule from "./modules/user";
 import AssignmentModule from "./modules/assignment";
+import SnackbarModule from "./modules/snackbar";
 
 export default {
   state: {
@@ -17,6 +18,7 @@ export default {
   modules: {
     user: UserModule,
     assignment: AssignmentModule,
+    snackbar: SnackbarModule,
   },
   getters: {
     getCurrentPage: (state) => state.currentPage,
