@@ -15,8 +15,9 @@
           div
             input(type="password" v-model="password" placeholder="Password" required)
           .erro(v-if="isError") Sorry, the ID or password entered is incorrect.
-          div
+          div(v-if="!logging")
             input(type="submit" value="Login" @click.prevent="login")
+          div.dis(v-else) Login
         
     nav
       .link About
@@ -43,9 +44,11 @@ export default {
     userId: "",
     password: "",
     isError: false,
+    logging: false,
   }),
   methods: {
     login() {
+      this.logging = true;
       this.$store
         .dispatch("LOGIN", {
           userId: this.userId,
@@ -66,6 +69,7 @@ export default {
         })
         .catch(() => {
           this.isError = true;
+          this.logging = false;
         });
     },
   },
@@ -124,13 +128,21 @@ export default {
           background: $color2
           color: white
           font-weight: 800
+          border: none
+
+        .dis
+          width: 100%
+          background: rgba(121, 75, 196, 0.6)
+          color: white
+          margin-top: 10px
+          padding: 6px 10px
+          border-radius: 5px
+          font-size: 1.2rem
+          text-align: center
 
         .erro
           color: crimson
           margin-top: 10px
-
-
-
   nav
     padding: 12px 16px
     display: flex
