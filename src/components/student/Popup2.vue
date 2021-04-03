@@ -48,62 +48,55 @@ export default {
   },
   methods: {
     async join() {
-      //
-      try {
-        const res = await axios.post("group/join", {
-          studentId: this.userId,
-          groupId: this.groupIdInput,
-          email: this.email,
-          assignmentId: this.assignmentId,
-        });
+      // Removing try clause to get the response status
 
-        if (res.status == 200) {
-          this.reset();
-          this.$emit("done");
-        } else if (res.status == 403) {
-          this.errored = true;
-          this.errorMessage = "Sorry, this group is unavailable.";
-        } else if (res.status == 404) {
-          this.errored = true;
-          this.errorMessage = "Sorry, the id does not belong to any group.";
-        }
-      } catch (error) {
-        console.error(error.message);
+      const res = await axios.post("group/join", {
+        studentId: this.userId,
+        groupId: this.groupIdInput,
+        email: this.email,
+        assignmentId: this.assignmentId,
+      });
+
+      if (res.status == 200) {
+        this.reset();
+        this.$store.commit("showMessage", {
+          text: "Join successful!",
+          color: "success",
+        });
+        this.$emit("done");
+      } else if (res.status == 403) {
+        this.errored = true;
+        this.errorMessage = "Sorry, this group is unavailable.";
+      } else if (res.status == 404) {
+        this.errored = true;
+        this.errorMessage = "Sorry, the id does not belong to any group.";
       }
     },
     async create() {
       try {
-        const res = await axios.post("group/create", {
+        await axios.post("group/create", {
           studentId: this.userId,
           assignmentId: this.assignmentId,
           assignNo: this.assignNo,
         });
-        if (res.status == 400) {
-          this.errored = true;
-          this.errorMessage = "Sorry, something happened.";
-          return;
-        }
+
         this.$emit("done");
       } catch (error) {
         console.error(error);
       }
     },
     async matchmake() {
-      try {
-        const res = await axios.post("group/matchmake", {
-          studentId: this.userId,
-          assignmentId: this.assignmentId,
-          assignNo: this.assignNo,
-          email: this.email,
-        });
-        if (res.status == 200) {
-          console.log("Successfully placed in queue.");
-          this.$emit("done");
-        } else if (res.status == 400) {
-          console.log("Something failed");
-        }
-      } catch (error) {
-        console.error(error);
+      const res = await axios.post("group/matchmake", {
+        studentId: this.userId,
+        assignmentId: this.assignmentId,
+        assignNo: this.assignNo,
+        email: this.email,
+      });
+      if (res.status == 200) {
+        console.log("Successfully placed in queue.");
+        this.$emit("done");
+      } else if (res.status == 400) {
+        console.log("Something failed");
       }
     },
     reset() {
