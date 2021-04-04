@@ -4,7 +4,8 @@
       | This is a author view of the assginment details page. Lorem ipsum dolor sit amet,
       | adispicing valet.
     .section-divider
-    .details-section
+    Loader(v-if="loading")
+    .details-section(v-else)
       .assign-title {{ subjectCode }} {{ subjectTitle }} A{{ assignNo }}
       .details
         .infos
@@ -69,16 +70,23 @@
         .content(v-else) No question file has been uploaded. 
       .upload-btn
         .up Assignment upload: #[input(type="file" id="file" ref="file" v-on:change="uploadQuestion")/]
-      
         
 </template>
 
 <script>
 import axios from "axios";
 import config from "@/config";
+
+import Loader from "@/components/Loader";
+
 export default {
   //
+  components: {
+    Loader,
+  },
   data: () => ({
+    loading: true,
+
     assignNo: 1,
     description: "A sample lorem itsum description.",
     dueDate: "2012/05/20",
@@ -92,18 +100,20 @@ export default {
     file: "",
   }),
   async mounted() {
-    // try {
-    //   const res = await axios.get(`assignment/${this.assignmentId}`);
-    //   this.assignNo = res.data.assignNo;
-    //   this.description = res.data.description;
-    //   this.dueDate = res.data.dueDate;
-    //   this.language = res.data.language;
-    //   this.maxStudent = res.data.maxStudent;
-    //   this.subjectCode = res.data.subjectCode;
-    //   this.filename = res.data.filename;
-    // } catch (error) {
-    //   console.error(error);
-    // }
+    try {
+      const res = await axios.get(`assignment/${this.assignmentId}`);
+      this.assignNo = res.data.assignNo;
+      this.description = res.data.description;
+      this.dueDate = res.data.dueDate;
+      this.language = res.data.language;
+      this.maxStudent = res.data.maxStudent;
+      this.subjectCode = res.data.subjectCode;
+      this.filename = res.data.filename;
+
+      this.loading = false;
+    } catch (error) {
+      console.error(error);
+    }
   },
   methods: {
     async updateDetails() {
@@ -202,6 +212,8 @@ export default {
 
 <style lang="sass" scoped>
 //
+.assign-info
+  position: relative
 .assign-title
   font-size: 19px
   font-weight: 800
