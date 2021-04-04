@@ -2,14 +2,16 @@
   .groupList 
     .section-divider
     .speakup #[span {{ subjectCode }}] {{ subjectTitle }} A{{ assignNo }}
+    Loader(v-if="loading")
     GroupItem(
+      v-else
       v-for="(group, index) in groups"
       :key="index"
       :index="index"
       :leaderName="group.leaderName"
       :maxMember="maxMember"
       :memberCount="group.membersCount"
-      :groupId="group.groupId"
+      :groupId="group.id"
       :submitted="group.submitted"
       :assignmentId="assignmentId"
     )
@@ -19,58 +21,21 @@
 import axios from "axios";
 
 import GroupItem from "@/components/lecturer/GroupItem";
+import Loader from "@/components/Loader";
+
 export default {
   components: {
     GroupItem,
+    Loader,
   },
   data: () => ({
+    loading: true,
+
     subjectCode: "UECSXXXX",
     subjectTitle: "Sample Placeholder",
     assignNo: 1,
     maxMember: 4,
-    groups: [
-      {
-        leaderName: "Chong Mum Khong",
-        memberCount: 2,
-        groupId: "group01",
-        submitted: true,
-      },
-      {
-        leaderName: "Chong Mum Khong",
-        memberCount: 3,
-        groupId: "group02",
-      },
-      {
-        leaderName: "Chong Mum Khong",
-        memberCount: 4,
-        groupId: "group01",
-      },
-      {
-        leaderName: "Chong Mum Khong",
-        memberCount: 4,
-        groupId: "group01",
-      },
-      {
-        leaderName: "Chong Mum Khong",
-        memberCount: 4,
-        groupId: "group01",
-      },
-      {
-        leaderName: "Chong Mum Khong",
-        memberCount: 3,
-        groupId: "group01",
-      },
-      {
-        leaderName: "Chong Mum Khong",
-        memberCount: 3,
-        groupId: "group01",
-      },
-      {
-        leaderName: "Chong Mum Khong",
-        memberCount: 3,
-        groupId: "group01",
-      },
-    ],
+    groups: [],
   }),
   async mounted() {
     axios
@@ -87,6 +52,7 @@ export default {
     try {
       const res = await axios.get(`assignment/${this.assignmentId}/groups`);
       this.groups = res.data;
+      this.loading = false;
     } catch (error) {
       console.error(error);
     }
@@ -101,6 +67,7 @@ export default {
 
 <style lang="sass" scoped>
 .groupList
+  position: relative
   .speakup
     padding: 14px
     border-bottom: 1px solid #eee
