@@ -6,33 +6,40 @@
       | the button. To navigate to the assignment and group details, click on the
       | star button.
     .section-divider
-    AssignmentItem(
-      v-for="assignment in assignments"
-      :key="assignment.assignmentId"
-      :courseCode="assignment.subjectCode"
-      :courseName="assignment.subjectTitle"
-      :assignmentId="assignment.assignmentId"
-      :assignNo="assignment.assignNo"
-    )
-    .add-assignment(@click="dialog = true")
-      .add-wrapper
-        .icon-wrap
-          v-icon mdi-plus-circle
-        .label Add an Assignment
+    Loader(v-if="loading")
+    div(v-else)
+      AssignmentItem(
+        v-for="assignment in assignments"
+        :key="assignment.assignmentId"
+        :courseCode="assignment.subjectCode"
+        :courseName="assignment.subjectTitle"
+        :assignmentId="assignment.assignmentId"
+        :assignNo="assignment.assignNo"
+      )
+      .add-assignment(@click="dialog = true")
+        .add-wrapper
+          .icon-wrap
+            v-icon mdi-plus-circle
+          .label Add an Assignment
     v-dialog(v-model="dialog" width="400")
       AddAssignPopup(@close="dialog = false")/
 </template>
 
 <script>
+import axios from "axios";
+
 import AssignmentItem from "@/components/lecturer/AssignmentItem";
 import AddAssignPopup from "@/components/lecturer/AddAssignmentPopup";
-// import axios from "axios";
+import Loader from "@/components/Loader";
+
 export default {
   components: {
     AssignmentItem,
     AddAssignPopup,
+    Loader,
   },
   data: () => ({
+    loading: true,
     assignments: [
       {
         assignmentId: "assign1",
@@ -56,12 +63,13 @@ export default {
     dialog: false,
   }),
   async mounted() {
-    // try {
-    //   const res = await axios.get(`assignment/${this.userId}/overview`);
-    //   this.assignments = res.data;
-    // } catch (error) {
-    //   console.error(error);
-    // }
+    try {
+      const res = await axios.get(`assignment/${this.userId}/overview`);
+      this.assignments = res.data;
+      this.loading = false;
+    } catch (error) {
+      console.error(error);
+    }
   },
   computed: {
     userId() {
@@ -72,6 +80,8 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+.assignments
+  position: relative
 .add-assignment
   height: 75px
   display: grid
