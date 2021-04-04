@@ -1,14 +1,14 @@
 <template lang="pug">
   .groupList 
     .section-divider
-    .speakup #[span UECS1234] Ancient Programming A{{ assignNo }}
+    .speakup #[span {{ subjectCode }}] {{ subjectTitle }} A{{ assignNo }}
     GroupItem(
       v-for="(group, index) in groups"
       :key="index"
       :index="index"
       :leaderName="group.leaderName"
       :maxMember="maxMember"
-      :memberCount="group.memberCount"
+      :memberCount="group.membersCount"
       :groupId="group.groupId"
       :submitted="group.submitted"
       :assignmentId="assignmentId"
@@ -16,7 +16,8 @@
 </template>
 
 <script>
-// import axios from "axios"
+import axios from "axios";
+
 import GroupItem from "@/components/lecturer/GroupItem";
 export default {
   components: {
@@ -69,41 +70,26 @@ export default {
         memberCount: 3,
         groupId: "group01",
       },
-      {
-        leaderName: "Chong Mum Khong",
-        memberCount: 3,
-        groupId: "group01",
-      },
-      {
-        leaderName: "Chong Mum Khong",
-        memberCount: 3,
-        groupId: "group01",
-      },
-      {
-        leaderName: "Chong Mum Khong",
-        memberCount: 3,
-        groupId: "group01",
-      },
-      {
-        leaderName: "Chong Mum Khong",
-        memberCount: 3,
-        groupId: "group01",
-      },
-      {
-        leaderName: "Chong Mum Khong",
-        memberCount: 3,
-        groupId: "group01",
-      },
     ],
   }),
   async mounted() {
-    // try {
-    //   let res = await axios.get(`assignment/${this.assignmentId}`);
-    //   this.subjectCode = res.data.subjectCode;
-    //   this.assignNo = res.data.assignNo;
-    //   res = await axios.get(`subject/${this.subjectCode}`);
-    //   this.subjectTitle = res.data.subjectTitle;
-    // }
+    axios
+      .get(`assignment/${this.assignmentId}`)
+      .then((res) => {
+        this.subjectCode = res.data.subjectCode;
+        this.assignNo = res.data.assignNo;
+        axios.get(`subject/${this.subjectCode}`).then((res) => {
+          this.subjectTitle = res.data.name;
+        });
+      })
+      .catch(console.error);
+
+    try {
+      const res = await axios.get(`assignment/${this.assignmentId}/groups`);
+      this.groups = res.data;
+    } catch (error) {
+      console.error(error);
+    }
   },
   computed: {
     assignmentId() {
