@@ -1,4 +1,5 @@
 import * as utils from "@/utils";
+import { messageWrapper } from "@/utils/message";
 
 describe("All functions within utilities", () => {
   it("should get correct snippet string", () => {
@@ -47,5 +48,17 @@ describe("All functions within utilities", () => {
 
   it("should return # with 6 trailing numbers", () => {
     expect(utils.randomColor()).toMatch(/^#\d{6}$/);
+  });
+
+  it("should wrap the params into message object", () => {
+    const message = "This is a message";
+    const username = "Hailey";
+    const useravatar = "https://some-random-link.com/a/a.jpg";
+    const timestamp = "12/3/2012";
+
+    const result = messageWrapper(message, username, useravatar, timestamp);
+
+    expect(result.id).toBeTruthy();
+    expect(result.message).toMatch(message);
   });
 });
