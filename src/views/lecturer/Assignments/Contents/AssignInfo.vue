@@ -274,4 +274,9 @@ input.desc
   border-bottom: 1px solid #eee
   input
     width: fit-content
+
+select
+  cursor: pointer
+  border-radius: 3px
+  border: 1px solid #eee
 </style>
