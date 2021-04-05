@@ -18,9 +18,11 @@
           input(type="number" min="1" v-model="assignNo")
         .lable Due date
         v-date-picker(v-model="dueDate")/
+    v-divider
     v-card-actions
-      v-btn(color="secondary" @click="close") Cancel
-      v-btn(color="primary" @click="addAssignment") Confirm
+      v-spacer
+      v-btn(color="blue darken-1" text @click="close") Cancel
+      v-btn(color="blue darken-1" text @click="addAssignment") Confirm
 </template>
 
 <script>
