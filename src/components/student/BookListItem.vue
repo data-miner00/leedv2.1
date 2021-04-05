@@ -4,7 +4,7 @@
       .icon
         .inner
           v-icon mdi-check-bold
-      .description It checked yeay
+      .description User has placed his/her bookings
     .another-wrapper
       v-avatar(:size="49")
         img(:src="avatarUri" :alt="username")
@@ -20,7 +20,7 @@
               | &nbsp;&nbsp;
               span.time-elapsed {{ timeElapsed }}
           .action-icon
-            v-icon mdi-mine
+            v-icon mdi-account-question
         .member-selection-wrap(v-if="hasSelected")
           .member-selection(v-for="day in days" :key="Math.random()")
             .day {{ day.day }}
@@ -31,6 +31,8 @@
 </template>
 
 <script>
+import { isEmpty } from "@/utils";
+
 export default {
   props: {
     username: String,
@@ -48,7 +50,15 @@ export default {
   mounted() {},
   computed: {
     verified() {
-      return this.selections !== undefined;
+      return !(
+        isEmpty(this.sunday) &&
+        isEmpty(this.monday) &&
+        isEmpty(this.tuesday) &&
+        isEmpty(this.wednesday) &&
+        isEmpty(this.thursday) &&
+        isEmpty(this.friday) &&
+        isEmpty(this.saturday)
+      );
     },
     days() {
       return [
