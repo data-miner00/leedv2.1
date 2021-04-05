@@ -75,3 +75,14 @@ export const randomColor = () => {
       .slice(2, 8)
   );
 };
+
+/**
+ *  Check if an object is empty.
+ *
+ *  @param {Object} obj
+ *
+ *  @returns {boolean}
+ */
+export const isEmpty = (obj) => {
+  return obj && Object.keys(obj).length === 0 && obj.constructor === Object;
+};
