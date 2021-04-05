@@ -68,6 +68,9 @@
 
       <v-card-actions>
         <v-spacer></v-spacer>
+        <v-btn color="primary" text @click="dialog = false">
+          Cancel
+        </v-btn>
         <v-btn color="primary" text @click="confirmTime">
           Confirm
         </v-btn>
@@ -128,9 +131,6 @@ export default {
     };
   },
   methods: {
-    addedTime() {
-      // this.$emit('added', {});
-    },
     async confirmTime() {
       try {
         await axios.post(`group/${this.groupId}/booking`, {
