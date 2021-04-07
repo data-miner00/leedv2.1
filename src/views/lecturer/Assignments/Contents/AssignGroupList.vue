@@ -43,6 +43,7 @@ export default {
       .then((res) => {
         this.subjectCode = res.data.subjectCode;
         this.assignNo = res.data.assignNo;
+        this.maxMember = res.data.maxStudent;
         axios.get(`subject/${this.subjectCode}`).then((res) => {
           this.subjectTitle = res.data.name;
         });
