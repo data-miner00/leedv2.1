@@ -12,8 +12,6 @@
       router-link(:to="{ name: 'assignmentInfo', params: { assignmentId } }")
         .link-icon.infor
           v-icon mdi-information-outline
-      .link-icon.ntg
-        v-icon mdi-folder
 </template>
 
 <script>
@@ -55,7 +53,7 @@ export default {
   .link-wrapper
     display: flex
     justify-content: space-between
-    width: 80px
+    width: 55px
 
     .link-icon
       @include tooltip-helper
@@ -63,6 +61,4 @@ export default {
         @include tooptip("Groups list", -35px)
       &.infor
         @include tooptip("Info")
-      &.ntg
-        @include tooptip("Ntg")
 </style>
