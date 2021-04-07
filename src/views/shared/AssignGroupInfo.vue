@@ -24,7 +24,7 @@
                 v-icon mdi-upload
             a.action.download(v-if="assignmentDoc" :href="downloadLink" target="_blank")
               v-icon mdi-download
-            .action.not-avail
+            .action.not-avail(v-else)
               v-icon mdi-download-outline
             .action.open(v-if="isOpen && members.length + 1 < maxStudent" @click="changeAvailability(false)")
               v-icon mdi-account-arrow-left
