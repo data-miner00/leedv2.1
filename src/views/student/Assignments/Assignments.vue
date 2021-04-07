@@ -43,8 +43,7 @@ export default {
 
     try {
       const res = await axios.post("assignment/overview", {
-        subjectsId: this.subjectsId,
-        groupsId: this.groupsId,
+        studentId: this.userId,
       });
 
       // If namespaced: true, need to commit("assignment/setAssignments", res.data);
@@ -56,11 +55,8 @@ export default {
     }
   },
   computed: {
-    subjectsId() {
-      return this.$store.state.user.subjectsId;
-    },
-    groupsId() {
-      return this.$store.state.user.groupsId;
+    userId() {
+      return this.$store.state.user.userId;
     },
   },
 };
