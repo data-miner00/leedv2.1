@@ -204,6 +204,8 @@ export default {
           return "mdi-language-r";
         case "html":
           return "mdi-language-html5";
+        case "typescript":
+          return "mdi-language-typescript";
         default:
           return "mdi-music-clef-treble";
       }
