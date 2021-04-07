@@ -339,14 +339,14 @@ export default {
   async mounted() {
     //
     const colors = [
-      "#FFADAD",
-      "#FFD6A5",
-      "#003049",
-      "#CAFFBF",
-      "#9BF6FF",
-      "#A0C4FF",
       "#BDB2FF",
+      "#9BF6FF",
+      "#CAFFBF",
+      "#FDFFB6",
+      "#FFD6A5",
       "#FFC6FF",
+      "#DEE2FF",
+      "#EFD3D7",
     ];
     try {
       const res = await axios.get(`group/${this.groupId}/members`);
