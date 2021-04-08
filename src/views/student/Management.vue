@@ -483,6 +483,7 @@ export default {
 .management-content
   width: fit-content
   margin: auto
+  padding-top: 100px
 
   .new-task
     display: flex
