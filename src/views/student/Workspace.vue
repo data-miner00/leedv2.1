@@ -49,6 +49,8 @@
       </div>
       <div class="file-structure">
         <div class="assign-title">{{ title }}</div>
+        <!-- -->
+        <!-- <div class="save">Save</div> -->
       </div>
       <div class="text-editor">
         <MonacoEditor
@@ -196,15 +198,17 @@ export default {
       this.$socket.emit("code", editor.getValue());
     },
     sendMessage() {
-      const wrappedMessage = {
-        name: this.name,
-        message: this.chatboxValue,
-        avatarUri: this.avatarUri,
-      };
-      this.chatboxValue = "";
-      this.$socket.emit("message", wrappedMessage);
+      if (this.chatboxValue !== "") {
+        const wrappedMessage = {
+          name: this.name,
+          message: this.chatboxValue,
+          avatarUri: this.avatarUri,
+        };
+        this.chatboxValue = "";
+        this.$socket.emit("message", wrappedMessage);
 
-      console.log("proceeded");
+        console.log("proceeded");
+      }
     },
   },
   computed: {
