@@ -1,5 +1,10 @@
 <template lang="pug">
-  AssignmentLayout(:courseCode="subjectCode" :courseName="subjectTitle" :assignNo="assignNo" purpose="Upload Assignment File")
+  AssignmentLayout(
+    :courseCode="subjectCode" 
+    :courseName="subjectTitle" 
+    :assignNo="assignNo" 
+    purpose="Upload Assignment File"
+  )
     .containern
       UploadForm(v-if="!isSubmitted")/
       .submitted-msg(v-else) 
@@ -7,9 +12,10 @@
 </template>
 
 <script>
+import axios from "axios";
+
 import AssignmentLayout from "@/components/layouts/AssignInfo";
 import UploadForm from "@/components/student/UploadForm";
-import axios from "axios";
 
 export default {
   components: {
