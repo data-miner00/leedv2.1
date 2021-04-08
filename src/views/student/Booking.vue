@@ -10,7 +10,7 @@
         <div class="result-box">
           <div v-if="isConfirmed">
             The discussion is confirmed at {{ confirmedTime.startTime }} -
-            {{ confirmedTime.endTime }} {{ confirmedTime.day }}!
+            {{ confirmedTime.endTime }} {{ capitalize(confirmedTime.day) }}!
           </div>
           <div v-else>
             All members are required to provide suggestions for result!
@@ -91,6 +91,9 @@ export default {
       const date = new Date(seconds * 1e3 + nanoseconds / 1e6);
       return `March ${date.getDate()}, ${date.getFullYear()}`;
     },
+    capitalize(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1);
+    },
   },
   computed: {
     isConfirmed() {
@@ -121,15 +124,14 @@ export default {
     width: 100%
 
     .result-box
-      background: #eee
       text-align: center
-      height: 200px
-      width: 45%
+      height: 50px
+      width: fit-content
       margin: 0 auto
-      border-radius: 250px
       display: grid
       place-items: center
-      box-shadow: 2px 2px 30px rgb(0 0 0 / 20%)
+      border: 1px solid #eee
+      padding: 0 15px
       div
         width: fit-content
         font-weight: 800
