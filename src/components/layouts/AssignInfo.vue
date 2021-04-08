@@ -3,12 +3,16 @@
     <ReturnBtn />
 
     <div class="information">
-      <div class="icon">Leed</div>
-      <div class="subject">
-        <div>{{ courseCode }}</div>
-        {{ courseName }} <v-chip>{{ assignNo }}</v-chip>
+      <div class="wrapper">
+        <div class="purpose">
+          <div>{{ purpose }}</div>
+        </div>
+        <div>
+          <span class="cc">{{ courseCode }}</span> {{ courseName }} A{{
+            assignNo
+          }}
+        </div>
       </div>
-      <div>{{ purpose }}</div>
     </div>
 
     <slot></slot>
@@ -35,27 +39,27 @@ export default {
 
 .assign-info
   min-height: 100vh
-  padding: 100px 0
   font-size: 14px
 
   .information
-    width: fit-content
-    margin: auto
-    text-align: center
-
-    .icon
-      text-transform: uppercase
-      font-size: 30px
-      font-family: $shippori
-      font-weight: 800
-      letter-spacing: 5px
-
-    .subject
-      font-size: 25px
-      margin: 25px 0
-
-      div
-        font-size: 14px
+    width: 100vw
+    display: flex
+    justify-content: center
+    height: 53px
+    border-bottom: 1px solid #eee
+    position: sticky
+    background: #fff
+    top: 0
+    z-index: 1
+    .wrapper
+      width: 689px
+      border-left: 1px solid #eee
+      padding-left: 15px
+      .purpose
         font-weight: 800
-        padding: 6px 8px
+        font-size: 19px
+
+      .cc
+        font-weight: 800
+        color: brown
 </style>
