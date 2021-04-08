@@ -63,12 +63,15 @@ export default {
       );
 
       if (res.status == 200) {
+        this.$emit("done", {
+          assignmentId: this.assignmentId,
+          groupId: this.groupIdInput,
+        });
         this.reset();
         this.$store.commit("showMessage", {
           text: "Join successful!",
           color: "success",
         });
-        this.$emit("done");
       } else if (res.status == 403) {
         this.errored = true;
         this.errorMessage = "Sorry, this group is unavailable.";
@@ -83,13 +86,22 @@ export default {
     },
     async create() {
       try {
-        await axios.post("group/create", {
+        const res = await axios.post("group/create", {
           studentId: this.userId,
           assignmentId: this.assignmentId,
           assignNo: this.assignNo,
         });
 
-        this.$emit("done");
+        //
+        this.$emit("done", {
+          assignmentId: this.assignmentId,
+          groupId: res.data,
+        });
+
+        this.$store.commit("showMessage", {
+          text: "Group created successfully!",
+          color: "success",
+        });
       } catch (error) {
         console.error(error);
       }
@@ -104,7 +116,7 @@ export default {
         });
 
         console.log("Successfully placed in queue.");
-        this.$emit("done");
+        this.$emit("done", {});
       } catch (error) {
         console.error(error);
       }

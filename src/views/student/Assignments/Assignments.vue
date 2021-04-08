@@ -19,6 +19,7 @@
       :assignmentId="assignment.assignmentId"
       :language="assignment.language"
       :filename="assignment.filename"
+      @update="updateAssignment"
     />
   </div>
 </template>
@@ -57,6 +58,13 @@ export default {
   computed: {
     userId() {
       return this.$store.state.user.userId;
+    },
+  },
+  methods: {
+    updateAssignment({ assignmentId, groupId }) {
+      this.assignments.find(
+        (assign) => assign.assignmentId == assignmentId
+      ).groupId = groupId;
     },
   },
 };

@@ -46,7 +46,7 @@
       <Popup2
         :assignmentId="assignmentId"
         :assignNo="assignNo"
-        @done="dialog = false"
+        @done="handlebars"
       />
     </v-dialog>
   </div>
@@ -87,6 +87,13 @@ export default {
     downloadLink() {
       // Assignment question
       return `${config.url}/assignment/question/${this.filename}`;
+    },
+  },
+  methods: {
+    // Mediator of data from grandchild to parent
+    handlebars(evt) {
+      this.$emit("update", evt);
+      this.dialog = false;
     },
   },
 };
