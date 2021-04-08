@@ -1,5 +1,5 @@
 <template lang="pug">
-  AssignmentLayout(:courseCode="subjectCode" :courseName="subjectTitle" :assignNo="assignNo")
+  AssignmentLayout(:courseCode="subjectCode" :courseName="subjectTitle" :assignNo="assignNo" purpose="Upload Assignment File")
     .containern
       UploadForm(v-if="!isSubmitted")/
       .submitted-msg(v-else) 
