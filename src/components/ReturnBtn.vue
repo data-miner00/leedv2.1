@@ -16,6 +16,7 @@
   left: 25px
   opacity: .75
   cursor: pointer
+  z-index: 2
 
   &:hover
     opacity: 0.95
