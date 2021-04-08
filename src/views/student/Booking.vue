@@ -3,7 +3,7 @@
     :courseCode="subjectCode"
     :courseName="subjectTitle"
     :assignNo="assignNo"
-    purpose="Book a time"
+    purpose="Discussion Booking"
   >
     <div class="booking">
       <div class="content-wrap">
@@ -94,7 +94,7 @@ export default {
   },
   computed: {
     isConfirmed() {
-      return this.confirmedTime !== null;
+      return this.confirmedTime !== undefined;
     },
     groupId() {
       return this.$route.params.groupId;
