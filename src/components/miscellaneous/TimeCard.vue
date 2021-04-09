@@ -12,7 +12,19 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
+  data: () => ({
+    week: 1,
+  }),
+  async mounted() {
+    try {
+      const res = await axios.get("week");
+      this.week = res.data.serverWeek;
+    } catch (error) {
+      console.error(error);
+    }
+  },
   computed: {
     date() {
       const months = [
@@ -54,7 +66,7 @@ export default {
     },
     week() {
       // store
-      return 4;
+      return 9;
     },
   },
 };
