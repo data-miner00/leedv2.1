@@ -34,18 +34,15 @@ export default {
     subjectCode: String,
     assignNo: Number,
   },
-  data: () => ({
-    d: [
-      "{{ username }} has joined the journey for {{ coursecode }} Assignment {{ assignNo }}",
-      "{{ username }} has released Assignment {{ assignNo }} for {{ coursecode }}",
-      "{{ username }} has updated Assignment {{ assignNo }} for {{ coursecode }}",
-      "You have successfully joined assignment group for {{ coursecode }} Assignment {{ assignNo }}",
-      "Tomorrow is the discussion session for {{ coursecode }} Assignment {{ assignNo }}",
-      "{{ coursecode }} Assignment {{ assignNo }} will be due on {{ day }} more days. Please make sure that you have finished.",
-      "You have joined {{ coursecode }} {{ coursename }}!",
-      "{{ leaderId }} has submitted the Assignment {{ assignNo }} for {{ coursecode }}",
-    ],
-  }),
+  created() {
+    console.log("created");
+  },
+  mounted() {
+    console.log("mounted");
+  },
+  beforeDestroy() {
+    console.log("beforeDestroy");
+  },
   computed: {
     typeU() {
       let typeDisplay;
