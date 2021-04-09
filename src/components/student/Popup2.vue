@@ -3,7 +3,6 @@
     v-card.px-4
       v-card-title Create or Join a Group
       v-card-text
-
         .alignment
           .join
             input.group-id-input(
