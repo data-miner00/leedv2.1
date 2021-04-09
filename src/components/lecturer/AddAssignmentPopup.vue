@@ -22,7 +22,7 @@
     v-card-actions
       v-spacer
       v-btn(color="blue darken-1" text @click="close") Cancel
-      v-btn(color="blue darken-1" text @click="addAssignment") Confirm
+      v-btn(color="blue darken-1" text @click="addAssignment" :disabled="!isFilled") Confirm
 </template>
 
 <script>
@@ -61,6 +61,12 @@ export default {
           maxStudent: Number(this.maxStudent),
           subjectCode: this.selectedCourse,
         });
+
+        this.$store.commit("showMessage", {
+          text:
+            "New assignment has been successfully added! Please refresh the page.",
+          color: "success",
+        });
         this.close();
       } catch (error) {
         console.error(error);
@@ -90,6 +96,15 @@ export default {
         { name: "HTML", value: "html" },
         { name: "Typescript", value: "typescript" },
       ];
+    },
+    isFilled() {
+      return (
+        this.description !== "" &&
+        this.maxStudent !== null &&
+        this.selectedCourse !== "" &&
+        this.selectedLanguage !== "" &&
+        this.assignNo !== null
+      );
     },
   },
 };
