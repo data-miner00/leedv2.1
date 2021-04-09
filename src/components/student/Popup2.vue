@@ -115,7 +115,10 @@ export default {
           email: this.email,
         });
 
-        console.log("Successfully placed in queue.");
+        this.$store.commit("showMessage", {
+          text: "Successfully placed in queue!",
+          color: "success",
+        });
         this.$emit("done", {});
       } catch (error) {
         console.error(error);
