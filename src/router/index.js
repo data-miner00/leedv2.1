@@ -84,14 +84,6 @@ export default [
           ),
       },
       {
-        path: "people",
-        name: "People",
-        component: () =>
-          import(
-            /* webpackChunkName: "people" */ "../views/student/People.vue"
-          ),
-      },
-      {
         path: "courses",
         name: "Courses",
         component: () =>
