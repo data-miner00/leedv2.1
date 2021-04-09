@@ -11,6 +11,7 @@
       <router-link
         v-if="hasGroup"
         :to="{ name: 'Workspace', params: { groupId } }"
+        @click.native="setThisDetails"
       >
         <div class="link-icon workspace">
           <v-icon>mdi-star-four-points</v-icon>
@@ -23,6 +24,7 @@
       <router-link
         :to="{ name: 'Details', params: { groupId } }"
         v-if="hasGroup"
+        @click.native="setThisDetails"
       >
         <div class="link-icon infor">
           <v-icon>mdi-information</v-icon>
@@ -94,6 +96,14 @@ export default {
     handlebars(evt) {
       this.$emit("update", evt);
       this.dialog = false;
+    },
+    setThisDetails() {
+      this.$store.dispatch("SELECT_WORKSPACE", {
+        subjectCode: this.courseCode,
+        subjectTitle: this.courseName,
+        assignNo: this.assignNo,
+        groupId: this.groupId,
+      });
     },
   },
 };
