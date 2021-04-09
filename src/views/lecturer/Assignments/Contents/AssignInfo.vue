@@ -169,6 +169,7 @@ export default {
         { name: "Go", value: "go" },
         { name: "HTML", value: "html" },
         { name: "Typescript", value: "typescript" },
+        { name: "Python", value: "python" },
       ];
     },
     languageIcon() {
