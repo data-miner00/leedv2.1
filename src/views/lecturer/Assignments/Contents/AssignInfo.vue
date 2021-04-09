@@ -109,6 +109,7 @@ export default {
       this.maxStudent = res.data.maxStudent;
       this.subjectCode = res.data.subjectCode;
       this.filename = res.data.filename;
+      this.subjectTitle = res.data.subjectTitle;
 
       this.loading = false;
     } catch (error) {
