@@ -13,7 +13,7 @@
         p(v-if="isInitial")
           | Drag your file here to begin #[br] or click to browse
         p(v-if="isSaving") Uploading file...
-    .success-msg(v-if="isSuccess") Assignment uploaded successfully! Thank you for your effort!
+    .success-msg(v-if="currentStatus == 3") Assignment uploaded successfully! Thank you for your effort!
 </template>
 
 <script>
@@ -102,12 +102,25 @@ export default {
   mounted() {
     this.reset();
   },
+  watch: {
+    currentStatus() {
+      console.log(this.currentStatus);
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .upload-form {
   padding-top: 50px;
+}
+
+.success-msg {
+  text-align: center;
+  font-size: 19px;
+  font-weight: 600;
+  background: #eee;
+  height: 30px;
 }
 
 .dropbox {
