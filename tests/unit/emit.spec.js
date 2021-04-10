@@ -23,11 +23,12 @@ describe("Testing emit behaviour", () => {
       },
     });
 
-    wrapper.vm.$emit("done", assignmentId, assignNo);
+    wrapper.vm.$emit("done", { assignmentId, assignNo });
 
     await wrapper.vm.$nextTick();
 
     expect(wrapper.emitted().done).toBeTruthy();
     expect(wrapper.emitted().done.length).toBe(1);
+    expect(wrapper.emitted().done[0]).toEqual([{ assignmentId, assignNo }]);
   });
 });
