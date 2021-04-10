@@ -3,7 +3,7 @@ import Vuetify from "vuetify";
 
 import NotiItem from "@/components/notification/NotiItem";
 
-describe("Lyfecyele hooks", () => {
+describe("Test lifecycle hooks", () => {
   const localVue = createLocalVue();
   let vuetify;
 
