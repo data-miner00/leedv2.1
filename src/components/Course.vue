@@ -89,4 +89,7 @@ export default {
         .label
           font-size: 13px
           color: #5b7083
+
+        .description
+          max-width: 475px
 </style>
