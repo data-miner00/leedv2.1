@@ -64,10 +64,6 @@ export default {
 
       return `${days[dayToday]}`;
     },
-    week() {
-      // store
-      return 9;
-    },
   },
 };
 </script>
