@@ -381,7 +381,12 @@ export default {
           assigneeId: this.assigneeId,
           deadline: this.picker,
         };
-        await axios.post(`group/${this.groupId}/gantt/create`, newGantt);
+        const res = await axios.post(
+          `group/${this.groupId}/gantt/create`,
+          newGantt
+        );
+
+        newGantt.ganttId = res.data;
         this.gantts.push(newGantt);
         this.isDialogOpen = false;
         this.reset();
