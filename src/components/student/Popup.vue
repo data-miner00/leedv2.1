@@ -163,7 +163,11 @@ export default {
 <style lang="sass" scoped>
 .add-btn
   position: fixed
-  top: 15px
-  right: 24px
+  top: 5px
+  right: 40vw
   z-index: 2
+  background: #eee
+  border-radius: 25px
+  padding: 10px 15px
+  cursor: pointer
 </style>
