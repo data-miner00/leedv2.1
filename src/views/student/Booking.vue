@@ -10,7 +10,7 @@
         <div class="result-box">
           <div v-if="isConfirmed">
             The discussion is confirmed at {{ confirmedTime.startTime }} -
-            {{ confirmedTime.endTime }} {{ capitalize(confirmedTime.day) }}!
+            {{ confirmedTime.endTime }} {{ confirmedTime.day }}!
           </div>
           <div v-else>
             All members are required to provide suggestions for result!
@@ -41,6 +41,7 @@
 
 <script>
 import axios from "axios";
+import { isEmpty } from "@/utils";
 
 import AssignmentLayout from "@/components/layouts/AssignInfo";
 import BookListItem from "@/components/student/BookListItem";
@@ -97,7 +98,7 @@ export default {
   },
   computed: {
     isConfirmed() {
-      return this.confirmedTime !== undefined;
+      return this.confirmedTime !== undefined && !isEmpty(this.confirmedTime);
     },
     groupId() {
       return this.$route.params.groupId;
@@ -125,17 +126,16 @@ export default {
 
     .result-box
       text-align: center
-      height: 50px
       width: fit-content
       margin: 0 auto
       display: grid
       place-items: center
       border: 1px solid #eee
-      padding: 0 15px
+      padding: 20px 30px
       div
         width: fit-content
         font-weight: 800
-        font-size: 19px
+        font-size: 28px
 
 .results-wrap
   margin-top: 70px
