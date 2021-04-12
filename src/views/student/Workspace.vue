@@ -25,12 +25,12 @@
         </div>
         <div class="sidebar-inner">
           <router-link :to="{ name: 'Plans', params: { groupId } }">
-            <div class="action">
+            <div class="action" title="Gantt Chart">
               <v-icon>mdi-24px mdi-calendar-blank-multiple</v-icon>
             </div>
           </router-link>
           <router-link :to="{ name: 'Booking', params: { groupId } }">
-            <div class="action">
+            <div class="action" title="Discussion Booking">
               <v-icon>mdi-24px mdi-android-messages</v-icon>
             </div>
           </router-link>
@@ -38,7 +38,7 @@
             :to="{ name: 'Uploads', params: { groupId } }"
             v-if="isGroupLeader"
           >
-            <div class="action">
+            <div class="action" title="Submit Assignment">
               <v-icon>mdi-24px mdi-upload</v-icon>
             </div>
           </router-link>
@@ -207,7 +207,7 @@ export default {
         this.chatboxValue = "";
         this.$socket.emit("message", wrappedMessage);
 
-        console.log("proceeded");
+        console.log(wrappedMessage);
       }
     },
   },
