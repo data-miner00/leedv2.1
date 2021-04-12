@@ -260,6 +260,9 @@ export default {
     allMembers() {
       return [this.leader, ...this.members];
     },
+    userId() {
+      return this.$store.state.user.userId;
+    },
   },
 };
 </script>
@@ -297,18 +300,18 @@ export default {
         &.discussion
           @include tooptip("Book discussion", -56px)
         &.upload
-          @include tooptip("Upload assignment", -67px)
+          @include tooptip("Submit assignment", -67px)
         &.download
-          @include tooptip("Download question", -67px)
+          @include tooptip("Download assignment question", -117px)
         &.not-avail
           cursor: not-allowed
           @include tooptip("Not available", -56px)
         &.open
           cursor: pointer
-          @include tooptip("Close group", -45px)
+          @include tooptip("Close group from others", -81px)
         &.close
           cursor: pointer
-          @include tooptip("Open group", -45px)
+          @include tooptip("Open group for others", -76px)
 
       i
         color: black
