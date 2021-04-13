@@ -164,10 +164,17 @@ export default {
 .add-btn
   position: fixed
   top: 5px
-  right: 40vw
+  right: 560px
   z-index: 2
   background: #eee
-  border-radius: 25px
-  padding: 10px 15px
   cursor: pointer
+
+
+  padding: 10px 15px
+  width: fit-content
+  background: #eee
+  color: black
+
+  border-radius: 250px
+  box-shadow: 2px 2px 5px rgb(0 0 0 / 20%)
 </style>
