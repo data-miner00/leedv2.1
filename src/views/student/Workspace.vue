@@ -43,9 +43,9 @@
             </div>
           </router-link>
         </div>
-        <div class="settings">
+        <!-- <div class="settings">
           <v-icon>mdi-cog</v-icon>
-        </div>
+        </div> -->
       </div>
       <div class="file-structure">
         <div class="assign-title">{{ title }}</div>
