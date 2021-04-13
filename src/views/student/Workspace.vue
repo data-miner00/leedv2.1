@@ -96,6 +96,8 @@ import MonacoEditor from "vue-monaco-editor";
 
 import ChatItem from "@/components/Chat";
 
+let globalId = "";
+
 export default {
   components: {
     MonacoEditor,
@@ -179,16 +181,17 @@ export default {
       groupId: this.groupId,
       name: this.name,
     });
-
+    globalId = this.groupId;
     const res = await axios.get(`/group/${this.groupId}/chats`);
     this.chats = [...this.chats, ...res.data];
   },
   beforeDestroy() {
     this.$socket.emit("leave-workspace", {
-      groupId: this.groupId,
+      groupId: globalId,
       name: this.name,
     });
   },
+
   methods: {
     onMounted(editor) {
       this.editor = editor;
