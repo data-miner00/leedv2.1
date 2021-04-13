@@ -60,5 +60,5 @@ export default {
       &.list
         @include tooptip("Groups list", -35px)
       &.infor
-        @include tooptip("Info")
+        @include tooptip("Assignment info", -60px)
 </style>
