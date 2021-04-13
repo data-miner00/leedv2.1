@@ -50,7 +50,7 @@
       <div class="file-structure">
         <div class="assign-title">{{ title }}</div>
         <!-- -->
-        <!-- <div class="save">Save</div> -->
+        <div class="save" @click="save">Save</div>
       </div>
       <div class="text-editor">
         <MonacoEditor
@@ -172,6 +172,9 @@ export default {
         // maybe set assignmentId to store too? (yes)
         assignmentId,
       });
+
+      res = await axios.get(`group/${this.groupId}/code`);
+      this.code = res.data;
     } catch (error) {
       console.error(error);
     }
@@ -212,6 +215,12 @@ export default {
 
         console.log(wrappedMessage);
       }
+    },
+    save() {
+      this.$socket.emit("save", {
+        code: this.code,
+        groupId: this.groupId,
+      });
     },
   },
   computed: {
