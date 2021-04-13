@@ -1,29 +1,37 @@
 <template lang="pug">
   .join-group
     v-card.px-4
-      v-card-title Create or Join a Group
+      v-card-title Ways for New Group
       v-card-text
-        .alignment
-          .join
-            input.group-id-input(
-              placeholder="Group Id"
-              type="text"
-              v-model="groupIdInput"
-            )
-            .join-btn.btn(@click="join")
-              div
-                v-icon mdi-at
-                span Join
-          .create
-            .matchmake-btn(@click="matchmake")
-              div
-                v-icon mdi-nuxt
-                span Matchmake
-            .create-btn.btn(@click="create")
-              div
-                v-icon mdi-asterisk
-                span Create
-        .err-msg(v-if="errored") {{ errorMessage }}
+        .join.sec
+          .llabel Join a group
+          .dd Please provide a valid group ID to join.
+          input.group-id-input(
+            placeholder="Group Id"
+            type="text"
+            v-model="groupIdInput"
+          )
+          .join-btn.btn(@click="join")
+            div
+              v-icon mdi-at
+              span Join
+          .err-msg(v-if="errored") {{ errorMessage }}
+
+        .create.sec
+          .llabel Create a group
+          .dd You will be the leader for this group.
+          .create-btn.btn(@click="create")
+            div
+              v-icon mdi-account-multiple-plus
+              span Create
+
+        .matchmake.sec
+          .llabel Matchmake with others
+          .dd The system will arrange your group.
+          .matchmake-btn.btn(@click="matchmake")
+            div
+              v-icon mdi-account-multiple
+              span Matchmake
 </template>
 
 <script>
@@ -49,6 +57,10 @@ export default {
   methods: {
     async join() {
       // Removing try clause to get the response status
+      if (this.groupIdInput === "") {
+        this.errored = true;
+        return (this.errorMessage = "Group ID cannot be empty!");
+      }
 
       const res = await axios.post(
         "group/join",
@@ -133,53 +145,33 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-//
-.alignment
-  display: flex
-  justify-content: space-between
+.sec
   width: 100%
-.join
-  width: 47%
-  height: 130px
-  display: flex
-  flex-direction: column
-  justify-content: space-between
-.create
-  width: 47%
-  height: 130px
-  display: flex
-  flex-direction: column
-  justify-content: flex-end
-.btn
-  display: grid
-  place-items: center
-  width: 100%
-  border: 1px solid #eee
-  height: 80px
-  transition: background .4s
-  cursor: pointer
-  &:hover
-    background: #efe
-  span
-    margin-left: 4px
-.group-id-input
-  outline: none
-  width: 100%
-  padding: 8px 10px
-  border: 1px solid #eee
-  border-radius: 5px
-.err-msg
-  margin-top: 5px
-  color: crimson
-.matchmake-btn
-  width: 204.9px
-  height: 40px
-  display: grid
-  place-items: center
-  margin-bottom: 10px
-  border: 1px solid #eee
-  border-radius: 5px
-  cursor: pointer
-  &:hover
-    background: #efe
+  margin-bottom: 40px
+  .llabel
+    font-size: 18px
+    color: black
+  .dd
+    margin: 4px 0 16px
+  .group-id-input
+    outline: none
+    width: 100%
+    padding: 8px 10px
+    border: 1px solid #eee
+    border-radius: 5px
+  .btn
+    display: grid
+    place-items: center
+    width: 100%
+    border: 1px solid #eee
+    height: 80px
+    transition: background .4s
+    cursor: pointer
+    &:hover
+      background: #efe
+    span
+      margin-left: 4px
+  .err-msg
+    color: crimson
+    font-weight: 600
 </style>
