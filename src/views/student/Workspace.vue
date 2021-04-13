@@ -50,6 +50,10 @@
       <div class="file-structure">
         <div class="assign-title">{{ title }}</div>
         <!-- -->
+        <div class="note">
+          You need to click save in order to save the current code to the
+          server! Please remember to click it from time to time.
+        </div>
         <div class="save" @click="save">Save</div>
       </div>
       <div class="text-editor">
@@ -364,6 +368,18 @@ export default {
       text-transform: uppercase
       font-weight: 800
 
+    .save
+      padding: 10px 55px
+      background: $color3
+      color: $pcolor5
+      width: fit-content
+      margin: 20px auto
+      cursor: pointer
+
+    .note
+      color: $pcolor1
+      padding: 10px
+      background: $discord-se
   .text-editor
     flex-grow: 1
 
