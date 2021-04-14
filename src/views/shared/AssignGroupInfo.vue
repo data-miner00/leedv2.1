@@ -22,7 +22,7 @@
             router-link(:to="{ name: 'Uploads', params: { groupId } }" v-if="isGroupLeader")
               .action.upload
                 v-icon mdi-upload
-            a.action.download(v-if="assignmentDoc" :href="downloadLink" target="_blank")
+            a.action.download(v-if="assignmentDoc" :href="questionLink" target="_blank")
               v-icon mdi-download
             .action.not-avail(v-else)
               v-icon mdi-download-outline
@@ -296,7 +296,7 @@ export default {
         &.workspace
           @include tooptip("Workspace", -35px)
         &.plan
-          @include tooptip("Plans", -15px)
+          @include tooptip("Gantt Charts", -45px)
         &.discussion
           @include tooptip("Book discussion", -56px)
         &.upload
