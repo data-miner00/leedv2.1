@@ -150,7 +150,7 @@ export default {
       &.workspace
         @include tooptip("Workspace", -35px)
       &.infor
-        @include tooptip("Info")
+        @include tooptip("Information", -40px)
       &.download
         @include tooptip("Download question", -55px)
       &.no-download
