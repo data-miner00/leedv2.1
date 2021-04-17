@@ -58,10 +58,10 @@
       </div>
       <div class="text-editor">
         <MonacoEditor
+          v-if="language"
           :language="language"
           v-model="code"
           :editorOptions="options"
-          @mounted="onMounted"
           style="text-align: left;"
         />
       </div>
@@ -131,7 +131,7 @@ export default {
     ],
     leaderId: "",
     assignmentInfo: {},
-    language: "javascript",
+    language: "",
   }),
   sockets: {
     connect() {
@@ -200,9 +200,6 @@ export default {
   },
 
   methods: {
-    onMounted(editor) {
-      this.editor = editor;
-    },
     onCodeChange(editor) {
       console.log("called");
       this.$socket.emit("code", editor.getValue());
