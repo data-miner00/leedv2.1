@@ -5,8 +5,8 @@
       <div class="big">Welcome</div>
       <div class="small">
         Good to see you <strong>{{ name }}</strong
-        >, more is coming on the home page! exercitationem facere voluptate
-        harum quia ipsam quos quisquam. Here is what you can do.
+        >, more is coming on the home page! It is very exciting indeed, please
+        stay tuned for the awesome update. Here is what you can do.
         <span>Explore more</span>
       </div>
     </div>
