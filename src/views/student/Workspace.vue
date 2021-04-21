@@ -113,22 +113,7 @@ export default {
       selectOnLineNumbers: false,
     },
     chatboxValue: "",
-    chats: [
-      {
-        id: 1,
-        name: "Dango",
-        message:
-          "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facilis obcaecati eaque quisquam ad dicta rerum, odit iusto est fugit id ea nobis quod reprehenderit doloremque dolore et natus nam vero!",
-        avatarUri: "https://picsum.photos/200",
-      },
-      {
-        id: 2,
-        name: "Yui",
-        message:
-          "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facilis obcaecati eaque quisquam ad dicta rerum, odit iusto est fugit id ea nobis quod reprehenderit doloremque dolore et natus nam vero!",
-        avatarUri: "https://picsum.photos/200",
-      },
-    ],
+    chats: [],
     leaderId: "",
     assignmentInfo: {},
     language: "",
